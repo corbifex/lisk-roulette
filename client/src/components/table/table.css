@@ -1,0 +1,34 @@
+.Table-container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  background-color: #1C7022;
+  width: 80vw;
+  min-width: 1250px;
+  height: 50vh;
+  min-height: 500px;
+}
+
+.Table-wheel {
+  width: 20vw;
+  min-width: 350px;
+}
+
+.Table-fields {
+  width: 50vw;
+  min-width: 500px;
+}
+
+@media all and (min-width: 500px) {
+  .Table-fields {
+    flex: 2;
+  }
+
+  .Table-wheel {
+    order: 1;
+  }
+
+  .Table-fields {
+    order: 2;
+  }
+}

@@ -1,0 +1,23 @@
+.Account-container {
+  font-size: 22px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+
+.Saldo {
+  width: 200px;
+
+}
+
+.Current-bet {
+  width: 300px;
+  border-right: #282c34 solid 1px;
+  border-left: #282c34 solid 1px;
+}
+
+.Confirmed {
+  width: 200px;
+  cursor: pointer;
+}
