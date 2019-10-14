@@ -26,24 +26,26 @@ export class Roulette extends React.Component {
   reset() {
     setTimeout(() => {
       this.setState({reset: false});
-    }, 30);
+    }, 100);
   }
 
   roll() {
     this.reset();
     setTimeout(() => {
       this.setState({state: 1});
-    }, 28000);
+    }, 30000);
     setTimeout(() => {
+
       // Math.floor(Math.random() * Math.floor(36))
-      this.setState({rolledNumber: Math.floor(Math.random() * Math.floor(36)), rest: false, state: 1});
+      this.setState({rolledNumber: Math.floor(Math.random() * Math.floor(36)), rest: false, state: 1, reset: true});
+      this.reset();
       setTimeout(() => {
         this.setState({rest: true, state: 2});
         setTimeout(() => {
           this.roll()
-        }, 5000);
+        }, 5900);
       }, 2100)
-    }, 30000);
+    }, 32000);
     this.setState({rolledNumber: 'roll', reset: true, rest: false, state: 0});
   }
 

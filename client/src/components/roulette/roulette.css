@@ -293,21 +293,18 @@
   font-size: 30px;
   z-index: 5;
   border-radius: 0;
-  transform: rotateZ(4000deg);
+  transform: rotateZ(1deg);
 }
 
 .inner-roll:before {
-  -webkit-transform: rotateZ(-300deg);
-  transform: rotateZ(-300deg);
-  transition: -webkit-transform 40s;
-  transition: transform 40s;
-  transition: transform 40s, -webkit-transform 40s;
+  -webkit-animation: rotate reverse 2s infinite linear;
+  animation: rotate reverse 2s infinite linear;
   content: '\2022';
 }
 
 .inner-1:before {
-  -webkit-transform: rotateZ(-497deg);
-  transform: rotateZ(-497deg);
+  -webkit-transform: rotateZ(-137deg);
+  transform: rotateZ(-137deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -315,8 +312,8 @@
 }
 
 .inner-2:before {
-  -webkit-transform: rotateZ(-660deg);
-  transform: rotateZ(-660deg);
+  -webkit-transform: rotateZ(-300deg);
+  transform: rotateZ(-300deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -324,8 +321,8 @@
 }
 
 .inner-3:before {
-  -webkit-transform: rotateZ(-740deg);
-  transform: rotateZ(-740deg);
+  -webkit-transform: rotateZ(-20deg);
+  transform: rotateZ(-20deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -333,8 +330,8 @@
 }
 
 .inner-4:before {
-  -webkit-transform: rotateZ(-680deg);
-  transform: rotateZ(-680deg);
+  -webkit-transform: rotateZ(-320deg);
+  transform: rotateZ(-320deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -342,8 +339,8 @@
 }
 
 .inner-5:before {
-  -webkit-transform: rotateZ(-536deg);
-  transform: rotateZ(-536deg);
+  -webkit-transform: rotateZ(-176deg);
+  transform: rotateZ(-176deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -351,8 +348,8 @@
 }
 
 .inner-6:before {
-  -webkit-transform: rotateZ(-622deg);
-  transform: rotateZ(-622deg);
+  -webkit-transform: rotateZ(-262deg);
+  transform: rotateZ(-262deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -360,8 +357,8 @@
 }
 
 .inner-7:before {
-  -webkit-transform: rotateZ(-420deg);
-  transform: rotateZ(-420deg);
+  -webkit-transform: rotateZ(-60deg);
+  transform: rotateZ(-60deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -369,8 +366,8 @@
 }
 
 .inner-8:before {
-  -webkit-transform: rotateZ(-564deg);
-  transform: rotateZ(-564deg);
+  -webkit-transform: rotateZ(-204deg);
+  transform: rotateZ(-204deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -378,8 +375,8 @@
 }
 
 .inner-9:before {
-  -webkit-transform: rotateZ(-459deg);
-  transform: rotateZ(-459deg);
+  -webkit-transform: rotateZ(-99deg);
+  transform: rotateZ(-99deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -387,8 +384,8 @@
 }
 
 .inner-10:before {
-  -webkit-transform: rotateZ(-545deg);
-  transform: rotateZ(-545deg);
+  -webkit-transform: rotateZ(-185deg);
+  transform: rotateZ(-185deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -396,8 +393,8 @@
 }
 
 .inner-11:before {
-  -webkit-transform: rotateZ(-583deg);
-  transform: rotateZ(-583deg);
+  -webkit-transform: rotateZ(-223deg);
+  transform: rotateZ(-223deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -405,8 +402,8 @@
 }
 
 .inner-12:before {
-  -webkit-transform: rotateZ(-399deg);
-  transform: rotateZ(-399deg);
+  -webkit-transform: rotateZ(-39deg);
+  transform: rotateZ(-39deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -414,8 +411,8 @@
 }
 
 .inner-13:before {
-  -webkit-transform: rotateZ(-602deg);
-  transform: rotateZ(-602deg);
+  -webkit-transform: rotateZ(-242deg);
+  transform: rotateZ(-242deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -423,8 +420,8 @@
 }
 
 .inner-14:before {
-  -webkit-transform: rotateZ(-478deg);
-  transform: rotateZ(-478deg);
+  -webkit-transform: rotateZ(-118deg);
+  transform: rotateZ(-118deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -441,8 +438,8 @@
 }
 
 .inner-16:before {
-  -webkit-transform: rotateZ(-516deg);
-  transform: rotateZ(-516deg);
+  -webkit-transform: rotateZ(-156deg);
+  transform: rotateZ(-156deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -450,8 +447,8 @@
 }
 
 .inner-17:before {
-  -webkit-transform: rotateZ(-641deg);
-  transform: rotateZ(-641deg);
+  -webkit-transform: rotateZ(-281deg);
+  transform: rotateZ(-281deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -459,8 +456,8 @@
 }
 
 .inner-18:before {
-  -webkit-transform: rotateZ(-439deg);
-  transform: rotateZ(-439deg);
+  -webkit-transform: rotateZ(-79deg);
+  transform: rotateZ(-79deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -477,8 +474,8 @@
 }
 
 .inner-20:before {
-  -webkit-transform: rotateZ(-488deg);
-  transform: rotateZ(-488deg);
+  -webkit-transform: rotateZ(-128deg);
+  transform: rotateZ(-128deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -486,8 +483,8 @@
 }
 
 .inner-21:before {
-  -webkit-transform: rotateZ(-670deg);
-  transform: rotateZ(-670deg);
+  -webkit-transform: rotateZ(-310deg);
+  transform: rotateZ(-310deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -495,8 +492,8 @@
 }
 
 .inner-22:before {
-  -webkit-transform: rotateZ(-450deg);
-  transform: rotateZ(-450deg);
+  -webkit-transform: rotateZ(-90deg);
+  transform: rotateZ(-90deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -504,8 +501,8 @@
 }
 
 .inner-23:before {
-  -webkit-transform: rotateZ(-554deg);
-  transform: rotateZ(-554deg);
+  -webkit-transform: rotateZ(-194deg);
+  transform: rotateZ(-194deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -513,8 +510,8 @@
 }
 
 .inner-24:before {
-  -webkit-transform: rotateZ(-526deg);
-  transform: rotateZ(-526deg);
+  -webkit-transform: rotateZ(-166deg);
+  transform: rotateZ(-166deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -522,8 +519,8 @@
 }
 
 .inner-25:before {
-  -webkit-transform: rotateZ(-651deg);
-  transform: rotateZ(-651deg);
+  -webkit-transform: rotateZ(-291deg);
+  transform: rotateZ(-291deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -531,8 +528,8 @@
 }
 
 .inner-26:before {
-  -webkit-transform: rotateZ(-370deg);
-  transform: rotateZ(-370deg);
+  -webkit-transform: rotateZ(-10deg);
+  transform: rotateZ(-10deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -540,8 +537,8 @@
 }
 
 .inner-27:before {
-  -webkit-transform: rotateZ(-612deg);
-  transform: rotateZ(-612deg);
+  -webkit-transform: rotateZ(-252deg);
+  transform: rotateZ(-252deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -549,8 +546,8 @@
 }
 
 .inner-28:before {
-  -webkit-transform: rotateZ(-410deg);
-  transform: rotateZ(-410deg);
+  -webkit-transform: rotateZ(-50deg);
+  transform: rotateZ(-50deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -558,8 +555,8 @@
 }
 
 .inner-29:before {
-  -webkit-transform: rotateZ(-430deg);
-  transform: rotateZ(-430deg);
+  -webkit-transform: rotateZ(-70deg);
+  transform: rotateZ(-70deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -567,8 +564,8 @@
 }
 
 .inner-30:before {
-  -webkit-transform: rotateZ(-573deg);
-  transform: rotateZ(-573deg);
+  -webkit-transform: rotateZ(-213deg);
+  transform: rotateZ(-213deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -576,8 +573,8 @@
 }
 
 .inner-31:before {
-  -webkit-transform: rotateZ(-467deg);
-  transform: rotateZ(-467deg);
+  -webkit-transform: rotateZ(-107deg);
+  transform: rotateZ(-107deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -594,8 +591,8 @@
 }
 
 .inner-33:before {
-  -webkit-transform: rotateZ(-506deg);
-  transform: rotateZ(-506deg);
+  -webkit-transform: rotateZ(-146deg);
+  transform: rotateZ(-146deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -603,8 +600,8 @@
 }
 
 .inner-34:before {
-  -webkit-transform: rotateZ(-632deg);
-  transform: rotateZ(-632deg);
+  -webkit-transform: rotateZ(-272deg);
+  transform: rotateZ(-272deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -612,8 +609,8 @@
 }
 
 .inner-35:before {
-  -webkit-transform: rotateZ(-389deg);
-  transform: rotateZ(-389deg);
+  -webkit-transform: rotateZ(-29deg);
+  transform: rotateZ(-29deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -621,8 +618,8 @@
 }
 
 .inner-36:before {
-  -webkit-transform: rotateZ(-593deg);
-  transform: rotateZ(-593deg);
+  -webkit-transform: rotateZ(-233deg);
+  transform: rotateZ(-233deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
