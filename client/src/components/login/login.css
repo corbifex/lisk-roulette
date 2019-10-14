@@ -1,6 +1,20 @@
 .Login-container {
-  position: absolute;
-  top: 0.6vh;
-  left: 1vw;
+  
   font-size: calc(10px + 2vmin);
+  float: left;
+}
+.top-header {
+	position: absolute;
+	top:0;
+	display: block;
+	background-color: #1C7022;
+
+	box-shadow: 4px 3px 20px 0px #00000069;
+
+	width: 100%;
+}
+
+.MuiButton-containedPrimary {
+  background-color: #8f0000!important;
+  margin: 1rem!important;
 }

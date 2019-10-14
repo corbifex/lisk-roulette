@@ -4,6 +4,10 @@ import { Login } from './components/login';
 import { FaucetButton } from './components/faucetButton';
 import { Table } from './components/table';
 import { Transactions } from './components/transactions';
+
+  import Button from '@material-ui/core/Button';
+
+
 import './App.css';
 
 export class App extends React.Component {
@@ -30,12 +34,14 @@ export class App extends React.Component {
         {this.state.loaded &&
         <div className="Loaded-app">
           <Login/>
-          <FaucetButton/>
+          
           <Table/>
           <Transactions/>
         </div>
+
         }
       </div>
+
     );
   }
 }

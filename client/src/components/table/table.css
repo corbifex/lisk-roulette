@@ -7,6 +7,9 @@
   min-width: 1250px;
   height: 50vh;
   min-height: 500px;
+  padding: 2rem;
+  border-radius: 10px;
+  margin-top:10rem;
 }
 
 .Table-wheel {
