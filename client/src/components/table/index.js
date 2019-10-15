@@ -20,12 +20,10 @@ export class Table extends React.Component {
   }
 
   setAmount(amount) {
-    console.log(amount)
     this.setState({ amountSelected: amount });
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="Table-container">
         <div className="Table-wheel">
@@ -34,7 +32,7 @@ export class Table extends React.Component {
         <div className="Table-fields">
           <Account/>
           <Tokens setAmount={this.setAmount.bind(this)} />
-          <Field clickField={this.clickField.bind(this)} />
+          <Field userBets={this.state.unconfirmedBets} clickField={this.clickField.bind(this)} />
         </div>
       </div>
     );
