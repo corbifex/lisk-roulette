@@ -4,14 +4,24 @@
     flex-wrap: nowrap;
     align-items: flex-start;
     justify-content: space-evenly;
-    background-color: #ffffff21;
-    padding: 1rem;
-    border: 3px solid white;
+    background-color: #195d1e;
+    padding: 0rem;
   line-height: 4.5rem;
     font-weight: bold;
 
 
 }
+.MuiButton-root {
+    color: rgba(255, 255, 255, 0.87)!important;
+  }
+
+  
+      .active {
+        background-color: #8f0000!important;
+      }
+  
+
+
 
 .Saldo {
 
