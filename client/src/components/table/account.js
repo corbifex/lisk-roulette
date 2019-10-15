@@ -15,14 +15,14 @@ export class Account extends React.Component {
   render() {
     return (
       <div className="Account-container">
-        <div className="Saldo">Total:{"\n"} 
+        <div className="Saldo">Total:{"\n"}
           {this.state.saldo} Tokens</div>
         <div className="Current-bet">Current Bet:
-          {"\n"} {this.state.current} Tokens {this.state.confirmed}</div>
+          {"\n"} {this.props.currentBet} Tokens {this.state.confirmed}</div>
         <Button variant="contained" color="primary" onClick={this.confirm.bind(this)}>
            Confirm bet
         </Button>
-       
+
       </div>
     );
   }

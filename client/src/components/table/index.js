@@ -11,12 +11,17 @@ export class Table extends React.Component {
     this.state = {
       unconfirmedBets: [],
       amountSelected: 1,
+      totalBet: 0,
     };
   }
 
   clickField(field) {
     const updatedBets = [...this.state.unconfirmedBets, { field: field, amount: this.state.amountSelected}];
-    this.setState({ unconfirmedBets: updatedBets });
+    let totalBet = 0;
+    updatedBets.map(bet => {
+      totalBet += bet.amount;
+    });
+    this.setState({ unconfirmedBets: updatedBets, totalBet: totalBet });
   }
 
   setAmount(amount) {
@@ -30,7 +35,7 @@ export class Table extends React.Component {
           <Roulette/>
         </div>
         <div className="Table-fields">
-          <Account/>
+          <Account currentBet={this.state.totalBet} />
           <Tokens setAmount={this.setAmount.bind(this)} />
           <Field userBets={this.state.unconfirmedBets} clickField={this.clickField.bind(this)} />
         </div>
