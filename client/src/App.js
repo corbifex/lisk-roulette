@@ -1,14 +1,9 @@
 import React from 'react';
 import { Loading } from './components/loading';
 import { Login } from './components/login';
-import { FaucetButton } from './components/faucetButton';
 import { Table } from './components/table';
 import { Transactions } from './components/transactions';
 import { Lastnumbers } from './components/lastnumbers';
-
-  import Button from '@material-ui/core/Button';
-
-
 import './App.css';
 
 export class App extends React.Component {
@@ -18,32 +13,32 @@ export class App extends React.Component {
     this.state = {
       loaded: false
     };
-
     setTimeout(() => this.updateLoaded(), 100);
   }
 
+  subscribeToSever() {
+  }
+
   updateLoaded() {
-    this.setState({loaded: true});
+    if (!this.state.loaded) {
+      this.setState({loaded: true});
+    }
   }
 
   render() {
     return (
       <div className="App">
         {!this.state.loaded &&
-        <Loading/>
+          <Loading/>
         }
         {this.state.loaded &&
-        <div className="Loaded-app">
-          <Login/>
-
-          <Table/>
-           <Lastnumbers/>
-          <Transactions/>
-        </div>
-
-        }
+          <div className="Loaded-app">
+            <Login/>
+            <Table/>
+            <Lastnumbers/>
+            <Transactions/>
+          </div>}
       </div>
-
     );
   }
 }

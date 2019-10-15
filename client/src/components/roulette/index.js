@@ -1,7 +1,8 @@
 import React from 'react';
-
-  import Button from '@material-ui/core/Button';
+import Prando from "prando";
 import './roulette.css';
+import { subscribeToBlocks, subscribeToStatus } from "../../actions/subscribe";
+import { requestStatus } from "../../actions/request";
 
 export class Roulette extends React.Component {
   constructor(props) {
@@ -11,7 +12,33 @@ export class Roulette extends React.Component {
       rolledNumber: 'roll',
       rest: false,
       reset: true,
+    };
+    requestStatus((err, status) => this.updateStatus(status));
+    subscribeToStatus((err, status) => this.updateStatus(status));
+    subscribeToBlocks((err, blockSignature) => this.updateBlocks(blockSignature));
+  }
+
+  updateStatus(status) {
+    if (this.state.state !== status) {
+      if (status === 0) {
+        this.setState({ rest: false, rolledNumber: 'roll', state: 0 });
+      } else if (status === 1) {
+        this.setState({ state: 1 });
+      } else if (status === 2) {
+        this.setState({ rest: true, state: 2 });
+      } else if (status === 3) {
+        this.setState( { rest: true, state: 3 });
+      }
     }
+  }
+
+  updateBlocks(blockSignature) {
+    const rng = new Prando(blockSignature);
+    const draw = rng.nextInt(0, 36);
+    this.setState({ rolledNumber: draw, rest: false, reset: true });
+    setTimeout(() => {
+      this.setState({ reset: false });
+    }, 100);
   }
 
   getState() {
@@ -19,40 +46,19 @@ export class Roulette extends React.Component {
       case 1:
         return "No more bets";
       case 2:
-        return this.state.rolledNumber;
+        return `Nr. ${this.state.rolledNumber}`;
+      case 3:
+        return "Wait new game";
       default:
         return "Place your bet";
     }
   }
 
-  reset() {
-    setTimeout(() => {
-      this.setState({reset: false});
-    }, 100);
-  }
-
-  roll() {
-    this.reset();
-    setTimeout(() => {
-      this.setState({state: 1});
-    }, 30000);
-    setTimeout(() => {
-
-      // Math.floor(Math.random() * Math.floor(36))
-      this.setState({rolledNumber: Math.floor(Math.random() * Math.floor(36)), rest: false, state: 1, reset: true});
-      this.reset();
-      setTimeout(() => {
-        this.setState({rest: true, state: 2});
-        setTimeout(() => {
-          this.roll()
-        }, 5900);
-      }, 2100)
-    }, 32000);
-    this.setState({rolledNumber: 'roll', reset: true, rest: false, state: 0});
-  }
-
   componentDidMount() {
-    this.roll();
+    this.setState({rolledNumber: 'roll', reset: true, rest: false, state: 0});
+    setTimeout(() => {
+      this.setState({ reset: false });
+    }, 1);
   }
 
   render() {

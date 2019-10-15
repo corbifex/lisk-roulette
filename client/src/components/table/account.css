@@ -1,29 +1,25 @@
 .Account-container {
   font-size: 18px;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: flex-start;
-    justify-content: space-evenly;
-    background-color: #ffffff21;
-    padding: 1rem;
-    border: 3px solid white;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  background-color: #ffffff21;
+  padding: 1rem;
+  border: 3px solid white;
   line-height: 4.5rem;
-    font-weight: bold;
-
-
+  font-weight: bold;
 }
 
 .Saldo {
-
-
+  line-height:22px;
 }
 
 .Current-bet {
-
-
+  line-height:22px;
 }
 
 .Confirmed {
-
   cursor: pointer;
+  background-color: #8EB891;
 }

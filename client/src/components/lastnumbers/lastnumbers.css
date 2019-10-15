@@ -1,7 +1,7 @@
 .numberscontainer{
 	width: 84%;
 	height: 2rem;
-	
+
 	display: block;
 	position: relative;
 	margin-top: 0.5rem;
@@ -11,7 +11,7 @@
 	float: left;
 	font-size: 16px;
 	background-color: black;
-	
+
 	margin: 0.5rem;
 	width: 2rem;
 	height: 2rem;
@@ -19,6 +19,14 @@
 	line-height: 2rem;
 	border-radius: 5px;
 }
+
+.singlenumber:hover {
+	cursor: zoom-in;
+	-moz-box-shadow: inset 0 0 5px #FFF, inset 0 0 5px #FFF;
+	-webkit-box-shadow: inset 0 0 5px #FFF, inset 0 0 5px #FFF;
+	box-shadow: inset 0 0 5px #FFF, inset 0 0 5px #FFF;
+}
+
 .red {
 	background-color: red;
 }
