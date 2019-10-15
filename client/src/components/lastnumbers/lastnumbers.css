@@ -1,0 +1,30 @@
+.numberscontainer{
+	width: 84%;
+	height: 2rem;
+	
+	display: block;
+	position: relative;
+	margin-top: 0.5rem;
+}
+.singlenumber {
+
+	float: left;
+	font-size: 16px;
+	background-color: black;
+	
+	margin: 0.5rem;
+	width: 2rem;
+	height: 2rem;
+	text-align: center;
+	line-height: 2rem;
+	border-radius: 5px;
+}
+.red {
+	background-color: red;
+}
+.black {
+	background-color: black;
+}
+.green {
+	background-color: green;
+}

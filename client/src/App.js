@@ -4,6 +4,7 @@ import { Login } from './components/login';
 import { FaucetButton } from './components/faucetButton';
 import { Table } from './components/table';
 import { Transactions } from './components/transactions';
+import { Lastnumbers } from './components/lastnumbers';
 
   import Button from '@material-ui/core/Button';
 
@@ -36,6 +37,7 @@ export class App extends React.Component {
           <Login/>
 
           <Table/>
+           <Lastnumbers/>
           <Transactions/>
         </div>
 
