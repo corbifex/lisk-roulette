@@ -18,7 +18,7 @@ export class App extends React.Component {
       loaded: false
     };
 
-    setTimeout(() => this.updateLoaded(), 1000);
+    setTimeout(() => this.updateLoaded(), 100);
   }
 
   updateLoaded() {
@@ -34,7 +34,7 @@ export class App extends React.Component {
         {this.state.loaded &&
         <div className="Loaded-app">
           <Login/>
-          
+
           <Table/>
           <Transactions/>
         </div>

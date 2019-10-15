@@ -294,6 +294,7 @@
   z-index: 5;
   border-radius: 0;
   transform: rotateZ(1deg);
+  content: '\2022';
 }
 
 .inner-roll:before {

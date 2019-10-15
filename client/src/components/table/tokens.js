@@ -15,9 +15,11 @@ export class Tokens extends React.Component {
         25
       ]
     };
+    this.props.setAmount(this.state.tokens[this.state.selected]);
   }
 
   selectToken(token) {
+    this.props.setAmount(this.state.tokens[token]);
     this.setState({selected: token});
   }
 
