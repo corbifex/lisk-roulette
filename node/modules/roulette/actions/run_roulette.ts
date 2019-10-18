@@ -12,10 +12,10 @@ export default ({components, channel}, socket) => {
         }, 2100);
         setTimeout(() => {
             socket.emit('status', 0);
-        }, 28000);
+        }, 8000);
         setTimeout(() => {
             socket.emit('status', 1);
-        }, 38000);
+        }, 35000);
         // Get transactions ready for roulette result
         const lastTransactions = await components.storage.entities.Transaction.get(
             {blockId: event.data.id, type: 1001}, {extended: true});
