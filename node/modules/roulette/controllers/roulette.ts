@@ -95,13 +95,13 @@ export class RouletteController {
         if (this.won) {
             // commit profit to db
             const profit = this.calculateProfit();
-            const newBalance = (new BigNum(this.account[0].balance)).add(profit);
+            const newBalance = new BigNum(this.account[0].balance).add(profit).toString();
             this.storage.entities.Account.updateOne(
                 {address: this.account[0].address},
                 {
-                    balance: newBalance.toString(),
+                    balance: newBalance,
                 });
-            this.socket.emit(this.account[0].address, {...this.account[0], balance: newBalance.toString()});
+            this.socket.emit(this.account[0].address, {...this.account[0], balance: newBalance});
         } else {
             this.socket.emit(this.account[0].address, this.account[0]);
         }

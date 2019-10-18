@@ -12,7 +12,7 @@ export default ({components, channel}, socket) => {
         }, 2100);
         setTimeout(() => {
             socket.emit('status', 0);
-        }, 8000);
+        }, 28000);
         setTimeout(() => {
             socket.emit('status', 1);
         }, 38000);
