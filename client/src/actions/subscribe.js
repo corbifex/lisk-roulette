@@ -1,18 +1,19 @@
-import openSocket from 'socket.io-client';
-const  socket = openSocket('http://localhost:1111');
-
-export function subscribeToBlocks(cb) {
+export function subscribeToBlocks(socket, cb) {
   socket.on('blocks', hash => cb(null, hash));
 }
 
-export function subscribeToResults(cb) {
+export function subscribeToResults(socket, cb) {
   socket.on('results', results => cb(null, results));
 }
 
-export function subscribeToStatus(cb) {
+export function subscribeToStatus(socket, cb) {
   socket.on('status', status => cb(null, status));
 }
 
-export function subscribeToAddress(cb) {
+export function subscribeToPeerBets(socket, cb) {
+  socket.on('peerBets', bet => cb(null, bet));
+}
+
+export function subscribeToAddress(socket, cb) {
   socket.on('balance', balance => cb(null, balance));
 }

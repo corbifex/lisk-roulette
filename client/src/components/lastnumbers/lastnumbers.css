@@ -1,14 +1,13 @@
 .numberscontainer{
 	width: 84%;
 	height: 2rem;
-
-	display: block;
+	display: flex;
+	align-items: first;
 	position: relative;
 	margin-top: 0.5rem;
 }
-.singlenumber {
 
-	float: left;
+.singlenumber {
 	font-size: 16px;
 	background-color: black;
 
@@ -35,4 +34,14 @@
 }
 .green {
 	background-color: green;
+}
+.live {
+	color: black;
+	background-color: greenyellow;
+}
+.hoverLive {
+	cursor: zoom-in;
+	-moz-box-shadow: inset 0 0 5px #FFF, inset 0 0 5px #FFF;
+	-webkit-box-shadow: inset 0 0 5px #FFF, inset 0 0 5px #FFF;
+	box-shadow: inset 0 0 5px #FFF, inset 0 0 5px #FFF;
 }

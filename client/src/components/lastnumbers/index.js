@@ -1,16 +1,33 @@
 import React from 'react';
 import Prando from 'prando';
-import { subscribeToBlocks } from '../../actions/subscribe';
+import { subscribeToBlocks, subscribeToStatus } from '../../actions/subscribe';
 import { requestBlocks } from '../../actions/request';
 import './lastnumbers.css';
+import { SocketContext } from "../../actions/socket-context";
 
-export class Lastnumbers extends React.Component {
+export class LastNumbersComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { draws: [] };
-    requestBlocks((err, blockSignature) => this.updateBlocks(blockSignature))
-    subscribeToBlocks((err, blockSignature) => this.updateBlock(blockSignature));
+    this.state = { draws: [], state: 3 };
+    requestBlocks( props.socket,(err, blockSignature) => this.updateBlocks(blockSignature));
+    subscribeToBlocks( props.socket,(err, blockSignature) => this.updateBlock(blockSignature));
+    subscribeToStatus( props.socket, (err, status) => this.updateStatus(status));
+
+  }
+
+  updateStatus(status) {
+    if (this.state.state !== status) {
+      if (status === 0) {
+        this.setState({ state: 0 });
+      } else if (status === 1) {
+        this.setState({ state: 1 });
+      } else if (status === 2) {
+        this.setState({ state: 2 });
+      } else if (status === 3) {
+        this.setState( { state: 3 });
+      }
+    }
   }
 
   updateBlock(blockSignature) {
@@ -30,9 +47,9 @@ export class Lastnumbers extends React.Component {
     for (let i = 0; i < 10; i++) {
       const rng = new Prando(blocks[i]);
       const draw = rng.nextInt(0, 36);
-      draws = [draw, ...draws];
-      this.setState({draws: draws});
+      draws = [...draws, draw];
     }
+    this.setState({draws: draws});
   }
 
   renderBlocks() {
@@ -48,13 +65,16 @@ export class Lastnumbers extends React.Component {
         classname += 'black';
       }
       const key = `last-roll-${i}`;
-      numbers.push(<div key={key} className={classname}>{this.state.draws[i]}</div>)
+      numbers = [ ...numbers, (<div key={key} className={classname}>{this.state.draws[i]}</div>)];
+    }
+    if (this.state.state !== 2) {
+      numbers.pop();
+      numbers = [(<div key='last-roll-live' className="singlenumber live hoverLive">?</div>), ...numbers];
     }
     return numbers;
   }
 
   render() {
-    console.log(this.state.draws);
     return (
       <div className="numberscontainer">
         {this.state.draws.length > 0 &&
@@ -65,3 +85,9 @@ export class Lastnumbers extends React.Component {
     )
   }
 };
+
+export const LastNumbers = props => (
+  <SocketContext.Consumer>
+    {socket => <LastNumbersComponent {...props} socket={socket} />}
+  </SocketContext.Consumer>
+);

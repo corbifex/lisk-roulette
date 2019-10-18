@@ -288,7 +288,6 @@
   bottom: 14%;
   left: 16%;
   right: 16%;
-  content: '';
   color: #fff;
   font-size: 30px;
   z-index: 5;
@@ -750,7 +749,7 @@
   font-size: 24px;
   margin: auto;
   line-height: 1.4;
-  padding-top: 36px;
+  padding-top: 47px;
 }
 
 .data .result {

@@ -3,11 +3,15 @@
   display: flex;
   flex-wrap: nowrap;
   align-items: flex-start;
-  justify-content: space-evenly;
+  justify-content: space-between;
   background-color: #195d1e;
   padding: 0rem;
   line-height: 4.5rem;
   font-weight: bold;
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer */
+  -webkit-user-select: none; /* Chrome, Safari, and Opera */
+  -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
 }
 
 .MuiButton-root {
@@ -18,15 +22,28 @@
   background-color: #8f0000 !important;
 }
 
-.Saldo {
-  line-height: 22px;
+.Disabled {
+  background-color: #282c34 !important;
 }
 
-.Current-bet {
-  line-height: 22px;
+.Account {
+  margin-left: .7rem;
+  margin-top: .5rem;
+  line-height: 1.7rem;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.Inner-Account {
+  margin: 0 .9rem 0 0;
+  line-height: 1.7rem;
 }
 
 .Confirmed {
   cursor: pointer;
   background-color: #8EB891;
+}
+
+.Form-group {
+  margin: .7rem;
 }

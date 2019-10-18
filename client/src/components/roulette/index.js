@@ -3,8 +3,9 @@ import Prando from "prando";
 import './roulette.css';
 import { subscribeToBlocks, subscribeToStatus } from "../../actions/subscribe";
 import { requestStatus } from "../../actions/request";
+import { SocketContext } from "../../actions/socket-context";
 
-export class Roulette extends React.Component {
+export class RouletteComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,9 +14,9 @@ export class Roulette extends React.Component {
       rest: false,
       reset: true,
     };
-    requestStatus((err, status) => this.updateStatus(status));
-    subscribeToStatus((err, status) => this.updateStatus(status));
-    subscribeToBlocks((err, blockSignature) => this.updateBlocks(blockSignature));
+    requestStatus( props.socket,(err, status) => this.updateStatus(status));
+    subscribeToStatus( props.socket, (err, status) => this.updateStatus(status));
+    subscribeToBlocks( props.socket,(err, blockSignature) => this.updateBlock(blockSignature));
   }
 
   updateStatus(status) {
@@ -24,6 +25,7 @@ export class Roulette extends React.Component {
         this.setState({ rest: false, rolledNumber: 'roll', state: 0 });
       } else if (status === 1) {
         this.setState({ state: 1 });
+
       } else if (status === 2) {
         this.setState({ rest: true, state: 2 });
       } else if (status === 3) {
@@ -32,13 +34,13 @@ export class Roulette extends React.Component {
     }
   }
 
-  updateBlocks(blockSignature) {
+  updateBlock(blockSignature) {
     const rng = new Prando(blockSignature);
     const draw = rng.nextInt(0, 36);
     this.setState({ rolledNumber: draw, rest: false, reset: true });
     setTimeout(() => {
       this.setState({ reset: false });
-    }, 100);
+    }, 15);
   }
 
   getState() {
@@ -48,7 +50,7 @@ export class Roulette extends React.Component {
       case 2:
         return `Nr. ${this.state.rolledNumber}`;
       case 3:
-        return "Wait new game";
+        return "Wait for new game";
       default:
         return "Place your bet";
     }
@@ -165,3 +167,10 @@ export class Roulette extends React.Component {
     );
   }
 }
+
+export const Roulette = props => (
+  <SocketContext.Consumer>
+    {socket => <RouletteComponent {...props} socket={socket} />}
+  </SocketContext.Consumer>
+);
+
