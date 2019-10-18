@@ -11,8 +11,8 @@
         "MILESTONES": [
           "0"
         ],
-        "OFFSET": 0,
-        "DISTANCE": 0
+        "OFFSET": 1,
+        "DISTANCE": 1
       }
     }
   },
@@ -39,7 +39,9 @@
     "chain": {
       "forging": {
         "force": false,
-        "delegates": []
+        "delegates": [
+
+        ]
       }
     },
     "network": {
