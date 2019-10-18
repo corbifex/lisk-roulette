@@ -31,7 +31,7 @@ export function doRouletteBetTransaction(amount, field, address, publicKey, pass
 }
 
 const getTimestamp = () => {
-  const epoch = new Date(Date.UTC(2019, 10, 18, 0, 0, 0, 0)).toISOString();
+  const epoch = new Date(Date.UTC(2019, 9, 18, 0, 0, 0, 0)).toISOString();
   const timeAfterEpoch = Date.now() - Date.parse(epoch);
   return parseInt(timeAfterEpoch / 1000 );
 };
