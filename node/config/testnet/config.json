@@ -1,0 +1,55 @@
+{
+  "app": {
+    "label": "lisk-roulette",
+    "version": "0.1.0",
+    "minVersion": "0.1.0",
+    "protocolVersion": "1.1",
+    "genesisConfig": {
+      "BLOCK_TIME": 40,
+      "EPOCH_TIME": "2019-10-18T00:00:00.000Z",
+      "REWARDS": {
+        "MILESTONES": [
+          "0"
+        ],
+        "OFFSET": 0,
+        "DISTANCE": 0
+      }
+    }
+  },
+  "components": {
+    "logger": {
+      "consoleLogLevel": "info"
+    },
+    "storage": {
+      "port": 5432,
+      "user": "postgres",
+      "password": "",
+      "logFileName": "logs/db.log",
+      "database": "roulette_testnet",
+      "host": "localhost"
+    }
+  },
+  "modules": {
+    "http_api": {
+      "httpPort": 7777,
+      "access": {
+        "public": true
+      }
+    },
+    "chain": {
+      "forging": {
+        "force": false,
+        "delegates": []
+      }
+    },
+    "network": {
+      "wsPort": 7070,
+      "seedPeers": [
+        {
+          "ip": "127.0.0.1",
+          "wsPort": 7070
+        }
+      ]
+    }
+  }
+}

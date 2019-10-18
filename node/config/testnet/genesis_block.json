@@ -1,0 +1,129 @@
+{
+  "version": 0,
+  "totalFee": "0",
+  "reward": "0",
+  "timestamp": 0,
+  "numberOfTransactions": 7,
+  "payloadLength": 1186,
+  "previousBlock": null,
+  "payloadHash": "a26fa19d199f89fa9a5ea23ed382796c2a3a0cd99bd3e0afb013f0c7c0793e2c",
+  "totalAmount": "100000000000000",
+  "generatorPublicKey": "8de3f97dfee27008b1b2e010900984afd8ed9a4f4bcedde109cd1b3ba97ae72d",
+  "transactions": [
+    {
+      "id": "16797219221085845839",
+      "amount": "100000000000000",
+      "type": 0,
+      "timestamp": 0,
+      "senderPublicKey": "8de3f97dfee27008b1b2e010900984afd8ed9a4f4bcedde109cd1b3ba97ae72d",
+      "senderId": "14465170559939643929L",
+      "recipientId": "12319510765843493297L",
+      "fee": "0",
+      "signature": "e02aa398fb94e38afab2cafded870657999178af2a82b28a54edd79481d2e958c4c27b7fde6e962df60201eed97c7c8ccdb73833e8d2a242ad68614cd7a55a07",
+      "asset": {}
+    },
+    {
+      "id": "8980515720477202970",
+      "amount": "0",
+      "type": 2,
+      "timestamp": 0,
+      "senderPublicKey": "5969bb4103e44b4e3563905859192ad101c41d9c6bf8c315223bba2033585958",
+      "senderId": "1329448921415023056L",
+      "recipientId": null,
+      "fee": "0",
+      "signature": "0289aea733e7b17a80ef816a7dbd6229b8f8f11e35defe5613100eecd979874b1e66c3eb3184684194fde1e25f5875f738be1dde2019cc3d2655c9ad1d36480f",
+      "asset": {
+        "delegate": {
+          "username": "genesis_0"
+        }
+      }
+    },
+    {
+      "id": "5401573050246964949",
+      "amount": "0",
+      "type": 2,
+      "timestamp": 0,
+      "senderPublicKey": "08dcdc2f3d3df2a76748c197f263a8d269cc02475286fcfcabf43a5a28d9807f",
+      "senderId": "13608479158775498267L",
+      "recipientId": null,
+      "fee": "0",
+      "signature": "8e7b7845363f2a872165e50a1ad98d5fb1843b40d1fab03bc168cd701627a2aa80c8929ac2819a48fee80029cb638e2adaea3d472048cb19518a21f51670520a",
+      "asset": {
+        "delegate": {
+          "username": "genesis_1"
+        }
+      }
+    },
+    {
+      "id": "7382467243708625466",
+      "amount": "0",
+      "type": 2,
+      "timestamp": 0,
+      "senderPublicKey": "0d43eb83f838c37282df292fc3493dc151885ded9a640daaf7c3742316b3d213",
+      "senderId": "16977401850235660778L",
+      "recipientId": null,
+      "fee": "0",
+      "signature": "f769d3a0f4eb63684acd83765469a60e19f9035267ffa5b1553ca882f763327882232da52ae8903984c0f050088dbb07444e06fe401ba3e187bea2857fa1500a",
+      "asset": {
+        "delegate": {
+          "username": "genesis_2"
+        }
+      }
+    },
+    {
+      "id": "11391119764716222894",
+      "amount": "0",
+      "type": 2,
+      "timestamp": 0,
+      "senderPublicKey": "9a199ca1ad26623ec5a2a56f8500b36e7bf1f9d783c0fdb455c2b5f9e3c0a302",
+      "senderId": "14016137824048652599L",
+      "recipientId": null,
+      "fee": "0",
+      "signature": "4c4d66920490b2a125308c7a03f90d30962f5c22266397b16509249f94ff059f6895a7b77a16ecd0c7f34dd7d23b1359245c005d5ed5c2c98c7b82f3c81c890f",
+      "asset": {
+        "delegate": {
+          "username": "genesis_3"
+        }
+      }
+    },
+    {
+      "id": "12041746419630849356",
+      "amount": "0",
+      "type": 2,
+      "timestamp": 0,
+      "senderPublicKey": "7eb81a13384df95468c34351347b4712ea022081f74bd9379591de15875bc6ee",
+      "senderId": "12319510765843493297L",
+      "recipientId": null,
+      "fee": "0",
+      "signature": "1e877108cc99f1697e43e1cb2757cc3ca5039510541a97ed60d850b012533b3fcec5d0770465ff5d479bc6cbe19e20d69556ca58e92dd85fb2417331c3e51508",
+      "asset": {
+        "delegate": {
+          "username": "moosty"
+        }
+      }
+    },
+    {
+      "id": "3491555828181688657",
+      "amount": "0",
+      "type": 3,
+      "timestamp": 0,
+      "senderPublicKey": "7eb81a13384df95468c34351347b4712ea022081f74bd9379591de15875bc6ee",
+      "senderId": "12319510765843493297L",
+      "recipientId": "12319510765843493297L",
+      "fee": "0",
+      "signature": "ce443e04e1497c1f952a5838f523f7ca9f5c1fc842e8919dee5fd921089a8b1a4d988741e99bd2386e741e32059623f9fe624921d0764c5291f71a2bac2a4607",
+      "asset": {
+        "votes": [
+          "+7eb81a13384df95468c34351347b4712ea022081f74bd9379591de15875bc6ee",
+          "+0d43eb83f838c37282df292fc3493dc151885ded9a640daaf7c3742316b3d213",
+          "+9a199ca1ad26623ec5a2a56f8500b36e7bf1f9d783c0fdb455c2b5f9e3c0a302",
+          "+08dcdc2f3d3df2a76748c197f263a8d269cc02475286fcfcabf43a5a28d9807f",
+          "+5969bb4103e44b4e3563905859192ad101c41d9c6bf8c315223bba2033585958"
+        ]
+      }
+    }
+  ],
+  "height": 1,
+  "blockSignature": "19868af375587cd31d8b7b8040b4841e0386fa674be0134bdea704cc9c82a9b9bdc79e767257278a0369b06116507c5d0c3b7cdf1c8e8ff851122c94459ad004",
+  "id": "14716551944315105213"
+}
