@@ -1,14 +1,13 @@
 import { Application } from 'lisk-sdk';
 import { RouletteModule } from "./modules/roulette";
-import {FaucetTransaction} from "./transactions/101_faucet_transaction";
-import {RouletteBetTransaction} from "./transactions/1001_bet_roulette_transaction";
+import { BetRouletteTransaction, FaucetTransaction } from "./transactions";
 import { Config, GenesisBlock, CONSTANTS } from './config';
 
 try {
     const app = new Application(GenesisBlock, Config);
     app.registerModule(RouletteModule);
     app.registerTransaction(FaucetTransaction);
-    app.registerTransaction(RouletteBetTransaction);
+    app.registerTransaction(BetRouletteTransaction);
 
     app.constants = {
         ...app.constants,

@@ -25,7 +25,7 @@ export const rouletteAssetFormatSchema = {
     },
 };
 
-export class RouletteBetTransaction extends BaseTransaction {
+export class BetRouletteTransaction extends BaseTransaction {
     public readonly asset: RouletteAsset;
     public static TYPE = 1001;
     public static FEE = '0';
