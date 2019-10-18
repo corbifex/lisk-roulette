@@ -7,7 +7,7 @@ __MACOSX/
 ssl/
 tmp/
 
-node/config/*
+node/config
 # Build revision file generated while building a release
 REVISION
 npm-shrinkwrap.json
