@@ -1,10 +1,12 @@
 .Field-container {
-  margin: 0 40px;
+  margin: auto;
   padding: 40px;
   background: #1C7022;
   display: table;
   position: relative;
   width: 775px;
+  border-radius: 25px;
+    border: 4px solid #0d051f;
 }
 
 .Field-container table {
