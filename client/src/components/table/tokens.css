@@ -4,5 +4,14 @@
 }
 
 .Selected {
-  border: #A91607 solid 3px;
+  border: #A91607 solid 5px;
+
+    border-radius: 50%;
+}
+
+.Token-container {
+	width: 5rem;
+    float: right;
+    margin: auto;
+    display: block;
 }

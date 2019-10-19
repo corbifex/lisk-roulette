@@ -3,6 +3,7 @@ import openSocket from 'socket.io-client';
 import { SocketContext } from './actions/socket-context';
 import { Login } from './components/login';
 import { Table } from './components/table';
+import { Zoom } from './components/zoom';
 import { Transactions } from './components/transactions';
 import { LastNumbers } from './components/lastnumbers';
 import './App.css';
@@ -103,6 +104,7 @@ export class App extends React.Component {
                    account={this.state.account}/>
             <LastNumbers selected={this.state.currentView}/>
             <Transactions view={this.state.currentView}/>
+            <Zoom/>
           </div>}
         </div>
       </SocketContext.Provider>
