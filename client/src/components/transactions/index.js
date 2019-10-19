@@ -4,6 +4,13 @@ import DataTable from 'react-data-table-component';
 
 const data = [{ id: 1, Bet: 23, BetID: '12345689723454', Amount: '5000', Profit: 0, Result: 'Lost', Progress:'Confirmed' },
 { id: 2, Bet: 'black', BetID: '38991145', Amount: '1445', Profit: 0, Result: 'Lost', Progress: 'Confirmed' },
+{ id: 3, Bet: 'black', BetID: '38991145', Amount: '1445', Profit: 1200, Result: 'Lost', Progress: 'Confirmed' },
+{ id: 4, Bet: 'black', BetID: '38991145', Amount: '1445', Profit: 75888, Result: 'Lost', Progress: 'Confirmed' },
+{ id: 5, Bet: 'black', BetID: '38991145', Amount: '1445', Profit: 95, Result: 'Lost', Progress: 'Confirmed' },
+{ id: 6, Bet: 'black', BetID: '38991145', Amount: '1445', Profit: 2, Result: 'Lost', Progress: 'Confirmed' },
+{ id: 7, Bet: 'black', BetID: '38991145', Amount: '1445', Profit: 33, Result: 'Lost', Progress: 'Confirmed' },
+{ id: 8, Bet: 'black', BetID: '38991145', Amount: '1445', Profit: 0, Result: 'Lost', Progress: 'Confirmed' },
+
 ];
 const columns = [
   {

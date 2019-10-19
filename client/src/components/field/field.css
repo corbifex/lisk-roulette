@@ -7,6 +7,7 @@
   width: 775px;
   border-radius: 25px;
     border: 4px solid #0d051f;
+    box-shadow: #0000008f 0px 9px 20px 0px;
 }
 
 .Field-container table {
