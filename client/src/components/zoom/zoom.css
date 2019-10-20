@@ -1,0 +1,14 @@
+.zoom-container {
+	display: block;
+	height: 2rem;
+	width: auto;
+	
+	position: absolute;
+	top: 4rem;
+	left:1rem;
+}
+
+.zoombttn {
+	max-height: 1.5rem;
+	margin-right: 0.5rem;
+}

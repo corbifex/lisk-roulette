@@ -4,27 +4,28 @@
   float: left;
 }
 .top-header {
-	position: absolute;
-	top:0;
-	display: block;
-	background-color: #1C7022;
-
-	box-shadow: 4px 3px 20px 0px #00000069;
-
-	width: 100%;
+    position: fixed;
+    top: 0;
+    display: block;
+    /* background-color: #1C7022; */
+    box-shadow: 4px 3px 20px 0px #00000069;
+    width: 100%;
+    background: linear-gradient(to right, rgb(12, 4, 30), rgb(56, 25, 128));
+    z-index: 999;
 }
 
 .MuiButton-containedPrimary {
-  background-color: #8f0000!important;
-  margin: 1rem!important;
+    background-color: #ff6035!important;
+    margin: 1rem!important;
 }
 
 .Login-drawer {
 	height: 30vh;
-	background-color: #1C7022;
+	background: linear-gradient(rgb(56, 25, 128), rgb(12, 4, 30));
 	text-align: center;
 	padding-top: 3rem;
 	min-height: 230px;
+	color: white;
 }
 
 .Login-flex {
@@ -37,8 +38,30 @@
 
 .Login-address {
 	margin-top: 2rem;
+
+    line-height: 2rem;
+
 }
 
 .Login-field {
 	width: 40%;
+}
+
+.MuiInputBase-root {
+    color: rgba(255, 255, 255, 0.87)!important;
+    font-weight: bold;
+}
+.MuiFormLabel-root {
+    color: rgb(255, 96, 53)!important;
+    }
+
+    .MuiInput-underline:before {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: "\00a0";
+    position: absolute;
+    transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-bottom: 2px solid rgb(255, 96, 53)!important;
+    pointer-events: none;
 }

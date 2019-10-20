@@ -4,5 +4,15 @@
 }
 
 .Selected {
-  border: #A91607 solid 3px;
+  box-shadow: #0071df 0 0 20px 0px;
+
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.Token-container {
+	width: 5rem;
+    float: right;
+    margin: auto;
+    display: block;
 }

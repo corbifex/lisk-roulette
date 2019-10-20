@@ -27,9 +27,10 @@ export class AccountComponent extends React.Component {
     return (
       <div className="Account-container">
         <div className="Account">
-          <div className="Inner-Account">Total balance:<br/>{this.props.account.balance && this.props.account.balance.toString()}</div>
-          <div className="Inner-Account">Unconfirmed Bet:<br/>{this.props.currentBet}</div>
-          <div className="Inner-Account">Confirmed Bet:<br/>{this.props.confirmedBet}</div>
+          <div className="Inner-Account"><span className="Inner-Account-title">Total balance:</span><br/>{this.props.account.balance && this.props.account.balance.toString()}</div>
+          <div className="Inner-Account"><span className="Inner-Account-title">Unconfirmed Bet:</span><br/>{this.props.currentBet}</div>
+          <div className="Inner-Account"><span className="Inner-Account-title">Confirmed Bet:</span><br/>{this.props.confirmedBet}</div>
+           <div className="Inner-Account"><span className="Inner-Account-title">Win:</span><br/>{this.props.currentBet}</div>
         </div>
         <FormGroup row className="Form-group">
           {!this.props.auto && this.props.confirmedBet === 0 && <FormControlLabel

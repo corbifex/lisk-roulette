@@ -118,8 +118,8 @@ export class FieldComponent extends React.Component {
       for (let i = this.state.peerCount; i < nextProps.peerBets.length; i++) {
         const index = nextProps.peerBets[i].field;
         const rect = this.selector[index].current.getBoundingClientRect();
-        const x = this.selector[index].current.offsetLeft + 50 + rInt(-10, rect.width - 25 );
-        const y = this.selector[index].current.offsetTop + 50 + rInt(-10, rect.height - 25);
+        const x = this.selector[index].current.offsetLeft + 50 + rInt(-10, rect.width - 10);
+        const y = this.selector[index].current.offsetTop + 50 + rInt(-10, rect.height - 10);
         peerBets = [...peerBets, {
           field: nextProps.peerBets[i].field,
           x: x,
@@ -191,8 +191,8 @@ export class FieldComponent extends React.Component {
         top: `${this.state.userBets[i].y}px`,
         left: `${this.state.userBets[i].x}px`,
         zIndex: 100,
-        height: "15px",
-        width: "15px",
+        height: "25px",
+        width: "25px",
         cursor: "crosshair",
       }} src={this.state.tokens[this.state.userBets[i].amount]} alt="" key={key} onClick={this.props.clickField.bind(this, this.state.userBets[i].field)}/>)];
     }
@@ -211,8 +211,8 @@ export class FieldComponent extends React.Component {
         top: `${this.state.confirmedBets[i].y}px`,
         left: `${this.state.confirmedBets[i].x}px`,
         zIndex: 100,
-        height: "17px",
-        width: "17px",
+        height: "20px",
+        width: "20px",
         cursor: "crosshair",
         filter: "brightness(1.5) saturate(1) blur(0) contrast(5)",
               }} src={this.state.tokens[this.state.confirmedBets[i].amount]} alt="" key={key} onClick={this.props.clickField.bind(this, this.state.confirmedBets[i].field)}/>)];
@@ -236,6 +236,7 @@ export class FieldComponent extends React.Component {
         width: "15px",
         cursor: "crosshair",
         alpha: 0.5,
+        filter: "grayscale(0.9)"
       }} src={this.state.tokens[this.state.peerBets[i].amount]} alt="" key={key} onClick={this.props.clickField.bind(this, this.state.peerBets[i].field)}/>)];
     }
     return bets;

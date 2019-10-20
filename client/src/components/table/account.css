@@ -1,13 +1,17 @@
 .Account-container {
-  font-size: 18px;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  background-color: #195d1e;
-  padding: 0rem;
-  line-height: 4.5rem;
-  font-weight: bold;
+    z-index: 999999999;
+    font-size: 18px;
+    margin-left: -20rem;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    /* background-color: #195d1e; */
+    padding: 0rem;
+    line-height: 4.5rem;
+    position: fixed;
+    top: 0;
+    font-weight: bold;
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer */
   -webkit-user-select: none; /* Chrome, Safari, and Opera */
@@ -19,7 +23,7 @@
 }
 
 .active {
-  background-color: #8f0000 !important;
+  background-color: #ff6035 !important;
 }
 
 .Disabled {
@@ -29,6 +33,7 @@
 .Account {
   margin-left: .7rem;
   margin-top: .5rem;
+  margin-right: 15rem;
   line-height: 1.7rem;
   display: flex;
   flex-wrap: nowrap;
@@ -37,6 +42,11 @@
 .Inner-Account {
   margin: 0 .9rem 0 0;
   line-height: 1.7rem;
+  width: 10rem;
+}
+.Inner-Account-title {
+ color: #ff6035!important;
+    font-size: 12px;
 }
 
 .Confirmed {
