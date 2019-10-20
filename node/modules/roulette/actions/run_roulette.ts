@@ -48,14 +48,16 @@ export default ({components, channel}, socket) => {
     });
 
     channel.subscribe('chain:transactions:change', async event => {
-        if (event.data.type === 1001) {
-            socket.emit('peerBets', {
-                address: event.data.senderId,
-                id: event.data.id,
-                amount: event.data.amount,
-                field: event.data.asset.data,
-                timestamp: event.data.timestamp
-            });
+        if (socket !== null) {
+            if (event.data.type === 1001) {
+                socket.emit('peerBets', {
+                    address: event.data.senderId,
+                    id: event.data.id,
+                    amount: event.data.amount,
+                    field: event.data.asset.data,
+                    timestamp: event.data.timestamp
+                });
+            }
         }
     });
 
