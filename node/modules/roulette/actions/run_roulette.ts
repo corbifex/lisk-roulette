@@ -27,7 +27,7 @@ export default ({components, channel}, socket) => {
                 const draw = rng.nextInt(0, 36);
                 const roulette = new RouletteController(draw, {
                     amount: new BigNum(lastTransactions[i].amount),
-                    bet: parseInt(lastTransactions[i].asset.field)
+                    bet: parseInt(lastTransactions[i].asset.data)
                 }, lastTransactions[i].senderId, components.storage, socket);
                 await roulette.commit();
             }
@@ -50,7 +50,7 @@ export default ({components, channel}, socket) => {
                 address: event.data.senderId,
                 id: event.data.id,
                 amount: event.data.amount,
-                field: event.data.asset.field,
+                field: event.data.asset.data,
                 timestamp: event.data.timestamp
             });
         }
