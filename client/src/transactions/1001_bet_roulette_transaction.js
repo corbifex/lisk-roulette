@@ -29,6 +29,15 @@ export class RouletteBetTransaction extends BaseTransaction {
     return [];
   }
 
+  assetToBytes() {
+    const FIELD_LENGTH = 4;
+    const { field } = this.asset;
+    const fieldBuffer = Buffer.alloc(FIELD_LENGTH);
+    fieldBuffer.writeIntLE(field, 0, FIELD_LENGTH);
+
+    return fieldBuffer;
+  }
+
   validateAsset() {
     const errors = [];
     if (this.amount.lt(100000000)) {

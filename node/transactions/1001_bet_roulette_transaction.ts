@@ -49,6 +49,14 @@ export class BetRouletteTransaction extends BaseTransaction {
         return [];
     }
 
+    protected assetToBytes(): Buffer {
+        const FIELD_LENGTH = 4;
+        const { field } = this.asset;
+        const fieldBuffer = Buffer.alloc(FIELD_LENGTH);
+        fieldBuffer.writeIntLE(field, 0, FIELD_LENGTH);
+
+        return fieldBuffer;
+    }
 
     protected validateAsset(): ReadonlyArray<TransactionError> {
         utils.validator.validate(rouletteAssetFormatSchema, this.asset);
@@ -147,11 +155,11 @@ export class BetRouletteTransaction extends BaseTransaction {
     }
 
     protected assetFromSync(raw: any): object | undefined {
-        if (raw.tf_data) {
+        if (raw.tf_field) {
             // This line will throw if there is an error
-            const data = raw.tf_data.toString('utf8');
+            const field = raw.tf_field.toString('utf8');
 
-            return { data };
+            return { field };
         }
 
         return undefined;

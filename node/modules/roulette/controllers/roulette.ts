@@ -16,15 +16,15 @@ export class RouletteController {
     public readonly storage;
     public readonly draw: number;
     public readonly bet: BetInterface;
-    public readonly account;
+    public readonly senderId: string;
     public readonly table: TableInterface;
     public readonly socket;
     public won: boolean;
 
-    constructor(draw, bet, account, storage, socket) {
+    constructor(draw, bet, address, storage, socket) {
         this.draw = draw;
         this.bet = bet;
-        this.account = account;
+        this.senderId = address;
         this.storage = storage;
         this.won = false;
         this.socket = socket;
@@ -90,20 +90,23 @@ export class RouletteController {
         return new BigNum(this.bet.amount.toString()).add(profit).toString();
     }
 
-    commit() {
+    async commit() {
         this.result();
+        const gamblerAccount = await this.storage.entities.Account.get(
+            {address: this.senderId}, {extended: true, limit: 1});
         if (this.won) {
+
             // commit profit to db
             const profit = this.calculateProfit();
-            const newBalance = new BigNum(this.account[0].balance).add(profit).toString();
-            this.storage.entities.Account.updateOne(
-                {address: this.account[0].address},
+            const newBalance = new BigNum(gamblerAccount[0].balance).add(profit).toString();
+            await this.storage.entities.Account.updateOne(
+                {address: this.senderId},
                 {
                     balance: newBalance,
                 });
-            this.socket.emit(this.account[0].address, {...this.account[0], balance: newBalance});
+            this.socket.emit(gamblerAccount[0].address, {...gamblerAccount[0], balance: newBalance});
         } else {
-            this.socket.emit(this.account[0].address, this.account[0]);
+            this.socket.emit(this.senderId, gamblerAccount[0]);
         }
         return true;
     }

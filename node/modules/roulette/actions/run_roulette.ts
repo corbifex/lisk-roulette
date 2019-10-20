@@ -25,13 +25,11 @@ export default ({components, channel}, socket) => {
             for (let i = 0; i < lastTransactions.length; i++) {
                 const rng = new Prando(blockHash);
                 const draw = rng.nextInt(0, 36);
-                const gamblerAccount = await components.storage.entities.Account.get(
-                    {address: lastTransactions[i].senderId}, {extended: true, limit: 1});
                 const roulette = new RouletteController(draw, {
                     amount: new BigNum(lastTransactions[i].amount),
                     bet: parseInt(lastTransactions[i].asset.field)
-                }, gamblerAccount, components.storage, socket);
-                roulette.commit();
+                }, lastTransactions[i].senderId, components.storage, socket);
+                await roulette.commit();
             }
         }
     });
