@@ -1,4 +1,4 @@
-import { BigNum } from 'lisk-sdk';
+import {BigNum} from 'lisk-sdk';
 
 interface BetInterface {
     bet: number,
@@ -104,9 +104,13 @@ export class RouletteController {
                 {
                     balance: newBalance,
                 });
-            this.socket.emit(gamblerAccount[0].address, {...gamblerAccount[0], balance: newBalance});
+            if (this.socket !== null) {
+                this.socket.emit(gamblerAccount[0].address, {...gamblerAccount[0], balance: newBalance});
+            }
         } else {
-            this.socket.emit(this.senderId, gamblerAccount[0]);
+            if (this.socket !== null) {
+                this.socket.emit(this.senderId, gamblerAccount[0]);
+            }
         }
         return true;
     }

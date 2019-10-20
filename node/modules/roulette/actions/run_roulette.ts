@@ -4,18 +4,19 @@ import {RouletteController} from '../controllers/roulette';
 
 export default ({components, channel}, socket) => {
     channel.subscribe('chain:blocks:change', async event => {
-
         const blockHash = event.data.blockSignature;
-        socket.emit('blocks', event.data.blockSignature);
-        setTimeout(() => {
-            socket.emit('status', 2);
-        }, 2100);
-        setTimeout(() => {
-            socket.emit('status', 0);
-        }, 8000);
-        setTimeout(() => {
-            socket.emit('status', 1);
-        }, 35000);
+        if (socket !== null) {
+            socket.emit('blocks', event.data.blockSignature);
+            setTimeout(() => {
+                socket.emit('status', 2);
+            }, 2100);
+            setTimeout(() => {
+                socket.emit('status', 0);
+            }, 8000);
+            setTimeout(() => {
+                socket.emit('status', 1);
+            }, 35000);
+        }
         // Get transactions ready for roulette result
         const lastTransactions = await components.storage.entities.Transaction.get(
             {blockId: event.data.id, type: 1001}, {extended: true});
@@ -40,7 +41,9 @@ export default ({components, channel}, socket) => {
         for (let i = 0; i < lastFaucetActions.length; i++) {
             const faucetAccount = await components.storage.entities.Account.get(
                 {address: lastFaucetActions[i].senderId}, {extended: true, limit: 1});
-            socket.emit(lastFaucetActions[i].senderId, faucetAccount[0]);
+            if (socket !== null) {
+                socket.emit(lastFaucetActions[i].senderId, faucetAccount[0]);
+            }
         }
     });
 

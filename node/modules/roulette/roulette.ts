@@ -20,7 +20,6 @@ export class Roulette {
 
     async bootstrap(channel) {
         this.channel = channel;
-
         // Logger
         const loggerConfig = await this.channel.invoke(
             'app:getComponentConfig',
@@ -67,6 +66,9 @@ export class Roulette {
             channel: this.channel,
             applicationState,
         };
+
+        runRoulette(this.scope, null);
+
 
         io.on('connection', client => {
             subscribeRequests(this.scope, client);
