@@ -21,7 +21,7 @@ export function doFaucetTransaction(address, publicKey, passphrase) {
 }
 
 const getTimestamp = () => {
-  const epoch = new Date(Date.UTC(2019, 9, 18, 17, 10, 0, 0)).toISOString();
+  const epoch = new Date(Date.UTC(2019, 9, 18, 17, 0, 0, 0)).toISOString();
   const timeAfterEpoch = Date.now() - Date.parse(epoch);
   return parseInt(timeAfterEpoch / 1000 );
 };
