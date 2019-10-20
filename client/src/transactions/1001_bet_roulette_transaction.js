@@ -30,12 +30,9 @@ export class RouletteBetTransaction extends BaseTransaction {
   }
 
   assetToBytes() {
-    const FIELD_LENGTH = 4;
-    const { field } = this.asset;
-    const fieldBuffer = Buffer.alloc(FIELD_LENGTH);
-    fieldBuffer.writeIntLE(field, 0, FIELD_LENGTH);
+    const { data } = this.asset;
 
-    return fieldBuffer;
+    return data ? Buffer.from(data, 'utf8') : Buffer.alloc(0);
   }
 
   validateAsset() {

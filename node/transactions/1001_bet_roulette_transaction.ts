@@ -11,14 +11,14 @@ import {
 } from '@liskhq/lisk-transactions';
 
 export interface RouletteAsset {
-    readonly field: number;
+    readonly data: string;
 }
 
 export const rouletteAssetFormatSchema = {
     type: 'object',
     properties: {
-        field: {
-            type: 'number',
+        data: {
+            type: 'string',
             min: 0,
             max: 48
         },
@@ -50,12 +50,9 @@ export class BetRouletteTransaction extends BaseTransaction {
     }
 
     protected assetToBytes(): Buffer {
-        const FIELD_LENGTH = 4;
-        const { field } = this.asset;
-        const fieldBuffer = Buffer.alloc(FIELD_LENGTH);
-        fieldBuffer.writeIntLE(field, 0, FIELD_LENGTH);
+        const { data } = this.asset;
 
-        return fieldBuffer;
+        return data ? Buffer.from(data, 'utf8') : Buffer.alloc(0);
     }
 
     protected validateAsset(): ReadonlyArray<TransactionError> {
@@ -155,11 +152,11 @@ export class BetRouletteTransaction extends BaseTransaction {
     }
 
     protected assetFromSync(raw: any): object | undefined {
-        if (raw.tf_field) {
+        if (raw.tf_data) {
             // This line will throw if there is an error
-            const field = raw.tf_field.toString('utf8');
+            const data = raw.tf_data.toString('utf8');
 
-            return { field };
+            return { data };
         }
 
         return undefined;

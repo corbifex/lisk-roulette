@@ -17,7 +17,7 @@ export function doRouletteBetTransaction(amount, field, address, publicKey, pass
     fee: '0',
     type: 1001,
     asset: {
-      field: relativeField
+      data: relativeField.toString()
     },
     senderId: address,
     senderPublicKey: publicKey,
