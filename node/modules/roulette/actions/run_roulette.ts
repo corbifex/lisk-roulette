@@ -35,12 +35,15 @@ export default ({components, channel}, socket) => {
                 }
             }
 
-            _.map(profits, async (address, profit) => {
-                const gamblerAccount = await components.storage.entities.Account.get(
-                    {address: address}, {extended: true, limit: 1});
-                const newBalance = new BigNum(gamblerAccount[0].balance).add(profit).toString();
-                return await components.storage.entities.Account.updateOne({address: address}, {balance: newBalance});
+            const profitList = _.map(profits, (address, profit) => {
+                return {address: address, profit: profit};
             });
+            for (let i = 0; i < profitList.length; i++) {
+                const gamblerAccount = await components.storage.entities.Account.get(
+                    {address: profitList[i].address}, {extended: true, limit: 1});
+                const newBalance = new BigNum(gamblerAccount[0].balance).add(profitList[i].profit).toString();
+                await components.storage.entities.Account.updateOne({address: profitList[i].address}, {balance: newBalance});
+            }
         }
     });
 
