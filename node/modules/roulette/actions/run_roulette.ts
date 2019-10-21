@@ -1,53 +1,54 @@
 import {BigNum} from 'lisk-sdk';
 import _ from 'lodash';
 import {RouletteController} from '../controllers/roulette';
-let hashes: any = [];
+let signatureCache: any = [];
 export default ({components, channel}, socket) => {
     channel.subscribe('chain:blocks:change', async event => {
         const blockHash = event.data.blockSignature;
-        hashes.push(blockHash);
-        if (socket !== null) {
-            socket.emit('blocks', event.data.blockSignature);
-            setTimeout(() => {
-                socket.emit('status', 2);
-            }, 2100);
-            setTimeout(() => {
-                socket.emit('status', 0);
-            }, 8000);
-            setTimeout(() => {
-                socket.emit('status', 1);
-            }, 35000);
-        }
-        // Get transactions ready for roulette result
-        const lastTransactions = await components.storage.entities.Transaction.get(
-            {blockId: event.data.id, type: 1001}, {extended: true});
+        if (signatureCache.indexOf(blockHash) === -1) {
+            signatureCache.push(blockHash);
+            if (socket !== null) {
+                socket.emit('blocks', event.data.blockSignature);
+                setTimeout(() => {
+                    socket.emit('status', 2);
+                }, 2100);
+                setTimeout(() => {
+                    socket.emit('status', 0);
+                }, 8000);
+                setTimeout(() => {
+                    socket.emit('status', 1);
+                }, 35000);
+            }
+            // Get transactions ready for roulette result
+            const lastTransactions = await components.storage.entities.Transaction.get(
+                {blockId: event.data.id, type: 1001}, {extended: true});
 
-        if (lastTransactions.length > 0) {
-            // Loop through transactions
-            let profits = {};
-            for (let i = 0; i < lastTransactions.length; i++) {
-                const roulette = new RouletteController({
-                    amount: new BigNum(lastTransactions[i].amount),
-                    bet: parseInt(lastTransactions[i].asset.data)
-                }, blockHash);
-                if (new BigNum(roulette.profit()).gt(0)) {
-                    profits[lastTransactions[i].senderId] = profits[lastTransactions[i].senderId] ?
-                        new BigNum(profits[lastTransactions[i].senderId]).add(roulette.profit()) : new BigNum(roulette.profit());
+            if (lastTransactions.length > 0) {
+                // Loop through transactions
+                let profits = {};
+                for (let i = 0; i < lastTransactions.length; i++) {
+                    const roulette = new RouletteController({
+                        amount: new BigNum(lastTransactions[i].amount),
+                        bet: parseInt(lastTransactions[i].asset.data)
+                    }, blockHash);
+                    if (new BigNum(roulette.profit()).gt(0)) {
+                        profits[lastTransactions[i].senderId] = profits[lastTransactions[i].senderId] ?
+                            new BigNum(profits[lastTransactions[i].senderId]).add(roulette.profit()) : new BigNum(roulette.profit());
+                    }
+                }
+
+                const profitList = _.map(profits, (profit, address) => {
+                    return {address: address, profit: profit};
+                });
+                for (let i = 0; i < profitList.length; i++) {
+                    const gamblerAccount = await components.storage.entities.Account.get(
+                        {address: profitList[i].address}, {extended: true, limit: 1});
+                    const newBalance = new BigNum(gamblerAccount[0].balance).add(profitList[i].profit);
+                    console.log(profitList[i].address, profitList[i].profit.toString(), newBalance.toString())
+                    await components.storage.entities.Account.updateOne({address: profitList[i].address}, {balance: newBalance.toString()});
                 }
             }
-
-            const profitList = _.map(profits, (profit, address) => {
-                return {address: address, profit: profit};
-            });
-            for (let i = 0; i < profitList.length; i++) {
-                const gamblerAccount = await components.storage.entities.Account.get(
-                    {address: profitList[i].address}, {extended: true, limit: 1});
-                const newBalance = new BigNum(gamblerAccount[0].balance).add(profitList[i].profit);
-                console.log(profitList[i].address, profitList[i].profit.toString(), newBalance.toString())
-                await components.storage.entities.Account.updateOne({address: profitList[i].address}, {balance: newBalance.toString()});
-            }
         }
-        console.log(hashes);
     });
 
     channel.subscribe('chain:blocks:change', async event => {
