@@ -1,10 +1,11 @@
 import {BigNum} from 'lisk-sdk';
 import _ from 'lodash';
 import {RouletteController} from '../controllers/roulette';
-
+let hashes: any = [];
 export default ({components, channel}, socket) => {
     channel.subscribe('chain:blocks:change', async event => {
         const blockHash = event.data.blockSignature;
+        hashes.push(blockHash);
         if (socket !== null) {
             socket.emit('blocks', event.data.blockSignature);
             setTimeout(() => {
@@ -46,6 +47,7 @@ export default ({components, channel}, socket) => {
                 await components.storage.entities.Account.updateOne({address: profitList[i].address}, {balance: newBalance.toString()});
             }
         }
+        console.log(hashes);
     });
 
     channel.subscribe('chain:blocks:change', async event => {
