@@ -41,8 +41,9 @@ export default ({components, channel}, socket) => {
             for (let i = 0; i < profitList.length; i++) {
                 const gamblerAccount = await components.storage.entities.Account.get(
                     {address: profitList[i].address}, {extended: true, limit: 1});
-                const newBalance = new BigNum(gamblerAccount[0].balance).add(profitList[i].profit).toString();
-                await components.storage.entities.Account.updateOne({address: profitList[i].address}, {balance: newBalance});
+                const newBalance = new BigNum(gamblerAccount[0].balance).add(profitList[i].profit);
+                console.log(profitList[i].address, profitList[i].profit.toString(), newBalance.toString())
+                await components.storage.entities.Account.updateOne({address: profitList[i].address}, {balance: newBalance.toString()});
             }
         }
     });
