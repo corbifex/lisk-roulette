@@ -36,8 +36,10 @@ export default ({components, channel}, socket) => {
             bet: parseInt(transactions[i].asset.data)
         }, transactions[i].senderId, components.storage, socket);
         console.log("commit1");
-        if (await roulette.commit() && transactions[i+1]) {
-            await syncingProcess(transactions, (i + 1), blockHash);
+        const commit = await roulette.commit();
+        console.log('result', commit)
+        if (commit && transactions[i+1]) {
+            syncingProcess(transactions, (i + 1), blockHash);
         }
     }
 
