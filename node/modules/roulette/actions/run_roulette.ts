@@ -35,7 +35,7 @@ export default ({components, channel}, socket) => {
                 }
             }
 
-            const profitList = _.map(profits, (address, profit) => {
+            const profitList = _.map(profits, (profit, address) => {
                 return {address: address, profit: profit};
             });
             for (let i = 0; i < profitList.length; i++) {
