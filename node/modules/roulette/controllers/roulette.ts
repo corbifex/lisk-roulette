@@ -99,19 +99,29 @@ export class RouletteController {
             // commit profit to db
             const profit = this.calculateProfit();
             const newBalance = new BigNum(gamblerAccount[0].balance).add(profit).toString();
+
+            await this.storage.entities.Account.updateOne(
+                {address: this.senderId},
+                {
+                    balance: newBalance,
+                });
+
+            if (this.socket !== null) {
+                this.socket.emit(gamblerAccount[0].address, {...gamblerAccount[0], balance: newBalance});
+            }
+            return true;
+        } else {
+            const newBalance = new BigNum(gamblerAccount[0].balance).sub(this.bet.amount).toString();
+
             await this.storage.entities.Account.updateOne(
                 {address: this.senderId},
                 {
                     balance: newBalance,
                 });
             if (this.socket !== null) {
-                this.socket.emit(gamblerAccount[0].address, {...gamblerAccount[0], balance: newBalance});
-            }
-        } else {
-            if (this.socket !== null) {
                 this.socket.emit(this.senderId, gamblerAccount[0]);
             }
+            return true;
         }
-        return true;
     }
 }

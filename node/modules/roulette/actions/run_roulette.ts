@@ -4,35 +4,35 @@ import {RouletteController} from '../controllers/roulette';
 
 export default ({components, channel}, socket) => {
     channel.subscribe('chain:blocks:change', async event => {
-        const blockHash = event.data.blockSignature;
-        if (socket !== null) {
-            socket.emit('blocks', event.data.blockSignature);
-            setTimeout(() => {
-                socket.emit('status', 2);
-            }, 2100);
-            setTimeout(() => {
-                socket.emit('status', 0);
-            }, 8000);
-            setTimeout(() => {
-                socket.emit('status', 1);
-            }, 35000);
-        }
-        // Get transactions ready for roulette result
-        const lastTransactions = await components.storage.entities.Transaction.get(
-            {blockId: event.data.id, type: 1001}, {extended: true});
-
-        if (lastTransactions.length > 0) {
-            // Loop through transactions
-            for (let i = 0; i < lastTransactions.length; i++) {
-                const rng = new Prando(blockHash);
-                const draw = rng.nextInt(0, 36);
-                const roulette = new RouletteController(draw, {
-                    amount: new BigNum(lastTransactions[i].amount),
-                    bet: parseInt(lastTransactions[i].asset.data)
-                }, lastTransactions[i].senderId, components.storage, socket);
-                await roulette.commit();
+            const blockHash = event.data.blockSignature;
+            if (socket !== null) {
+                socket.emit('blocks', event.data.blockSignature);
+                setTimeout(() => {
+                    socket.emit('status', 2);
+                }, 2100);
+                setTimeout(() => {
+                    socket.emit('status', 0);
+                }, 8000);
+                setTimeout(() => {
+                    socket.emit('status', 1);
+                }, 35000);
             }
-        }
+            // Get transactions ready for roulette result
+            const lastTransactions = await components.storage.entities.Transaction.get(
+                {blockId: event.data.id, type: 1001}, {extended: true});
+
+            if (lastTransactions.length > 0) {
+                // Loop through transactions
+                for (let i = 0; i < lastTransactions.length; i++) {
+                    const rng = new Prando(blockHash);
+                    const draw = rng.nextInt(0, 36);
+                    const roulette = new RouletteController(draw, {
+                        amount: new BigNum(lastTransactions[i].amount),
+                        bet: parseInt(lastTransactions[i].asset.data)
+                    }, lastTransactions[i].senderId, components.storage, socket);
+                    await roulette.commit();
+                }
+            }
     });
 
     channel.subscribe('chain:blocks:change', async event => {
@@ -46,7 +46,6 @@ export default ({components, channel}, socket) => {
             }
         }
     });
-
     channel.subscribe('chain:transactions:change', async event => {
         if (socket !== null) {
             if (event.data.type === 1001) {

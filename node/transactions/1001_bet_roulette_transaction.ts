@@ -130,10 +130,10 @@ export class BetRouletteTransaction extends BaseTransaction {
                 ),
             );
         }
-        store.account.set(this.senderId, {
-            ...sender,
-            balance: balance.sub(this.amount).toString(),
-        });
+        // store.account.set(this.senderId, {
+        //     ...sender,
+        //     balance: balance.sub(this.amount).toString(),
+        // });
 
         return errors;
     }
@@ -145,7 +145,7 @@ export class BetRouletteTransaction extends BaseTransaction {
 
         store.account.set(this.senderId, {
             ...sender,
-            balance: balance.add(this.amount).toString(),
+            balance: balance.toString(),
         });
 
         return errors;
