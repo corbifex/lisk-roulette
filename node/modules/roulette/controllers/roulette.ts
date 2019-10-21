@@ -1,4 +1,5 @@
 import {BigNum} from 'lisk-sdk';
+import Prando from "prando";
 
 interface BetInterface {
     bet: number,
@@ -14,20 +15,16 @@ interface TableInterface {
 export class RouletteController {
 
     public readonly storage;
-    public readonly draw: number;
     public readonly bet: BetInterface;
-    public readonly senderId: string;
     public readonly table: TableInterface;
+    public readonly seed: string;
     public readonly socket;
-    public won: boolean;
+    private readonly min = 0;
+    private readonly max = 36;
 
-    constructor(draw, bet, address, storage, socket) {
-        this.draw = draw;
+    constructor(bet, seed) {
+        this.seed = seed;
         this.bet = bet;
-        this.senderId = address;
-        this.storage = storage;
-        this.won = false;
-        this.socket = socket;
         this.table = {
             fields: [
                 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
@@ -65,15 +62,22 @@ export class RouletteController {
         };
     }
 
+    getDraw() {
+        const rng = new Prando(this.seed);
+        return rng.nextInt(this.min, this.max);
+    }
+
     result() {
         // check won/lost
-        if (this.bet.bet <= 36 && this.bet.bet === this.draw) {
-            this.won = true;
+        const draw = this.getDraw();
+        if (this.bet.bet <= 36 && this.bet.bet === draw) {
+            return true;
         } else if (this.bet.bet > 36 &&
             this.bet.bet < 49 &&
-            this.table.selectors[this.table.fields[this.bet.bet]].indexOf(this.draw) > -1) {
-            this.won = true;
+            this.table.selectors[this.table.fields[this.bet.bet]].indexOf(draw) > -1) {
+            return true;
         }
+        return false;
     }
 
     multiplier() {
@@ -85,46 +89,11 @@ export class RouletteController {
         }
     }
 
-    calculateProfit() {
-       return new BigNum(this.bet.amount.toString()).mul(this.multiplier()).toString();
-    }
-
-    async commit(i: number) {
-        this.result();
-        console.log("commit 1.1", this.won)
-        const gamblerAccount = await this.storage.entities.Account.get(
-            {address: this.senderId}, {extended: true, limit: 1});
-        if (this.won) {
-
-            // commit profit to db
-            const profit = this.calculateProfit();
-            const newBalance = new BigNum(gamblerAccount[0].balance).add(profit).toString();
-            console.log("commit 2.0.0")
-            const updated = await this.storage.entities.Account.updateOne(
-                {address: this.senderId},
-                {
-                    balance: newBalance,
-                });
-            console.log("commit 2.0.1")
-            if (this.socket !== null) {
-                this.socket.emit(gamblerAccount[0].address, {...gamblerAccount[0], balance: newBalance});
-            }
-            updated.push(i);
-            return updated;
+    profit() {
+        if (this.result()) {
+            return new BigNum(this.bet.amount).mul(this.multiplier()).toString();
         } else {
-            const newBalance = new BigNum(gamblerAccount[0].balance).sub(this.bet.amount).toString();
-            console.log("commit 2.1.0")
-            const updated = await this.storage.entities.Account.updateOne(
-                {address: this.senderId},
-                {
-                    balance: newBalance,
-                });
-            console.log("commit 2.1.1")
-            if (this.socket !== null) {
-                this.socket.emit(gamblerAccount[0].address, {...gamblerAccount[0], balance: newBalance});
-            }
-            updated.push(i);
-            return updated;
+            return 0;
         }
     }
 }
