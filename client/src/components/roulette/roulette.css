@@ -745,11 +745,15 @@
 }
 
 .data .mask {
-  color: #fff;
-  font-size: 24px;
-  margin: auto;
-  line-height: 1.4;
-  padding-top: 47px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 24px;
+    margin: auto;
+    line-height: 1.4;
+    padding-top: 47px;
+    background-color: #100627;
+    cursor: pointer;
+    border: 4px dashed white;
 }
 
 .data .result {
@@ -842,4 +846,12 @@
     -webkit-transform: rotateX(0deg);
     transform: rotateX(0deg);
   }
+}
+
+.spinbttn {
+      height: 100%!important;
+    width: 100%!important;
+    margin: 0px!important;
+    position: initial!important;
+    border-radius: 50%!important;
 }

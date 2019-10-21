@@ -4,6 +4,7 @@ import './roulette.css';
 import { subscribeToBlocks, subscribeToStatus } from "../../actions/subscribe";
 import { requestStatus } from "../../actions/request";
 import { SocketContext } from "../../actions/socket-context";
+import Button from '@material-ui/core/Button';
 
 export class RouletteComponent extends React.Component {
   constructor(props) {
@@ -52,7 +53,7 @@ export class RouletteComponent extends React.Component {
       case 3:
         return "Wait for new game";
       default:
-        return "Place your bet";
+        return "Spin";
     }
   }
 
@@ -155,7 +156,9 @@ export class RouletteComponent extends React.Component {
           </ul>
           <div className="data">
             <div className="data-inner">
+              <Button className="spinbttn" variant="contained" color="primary">
               <div className="mask">{this.getState()}</div>
+              </Button>
               <div className="result">
                 <div className="result-number">00</div>
                 <div className="result-color">red</div>
