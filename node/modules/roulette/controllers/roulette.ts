@@ -86,8 +86,7 @@ export class RouletteController {
     }
 
     calculateProfit() {
-        const profit = new BigNum(this.bet.amount.toString()).mul(this.multiplier());
-        return new BigNum(this.bet.amount.toString()).add(profit).toString();
+       return new BigNum(this.bet.amount.toString()).mul(this.multiplier()).toString();
     }
 
     async commit() {

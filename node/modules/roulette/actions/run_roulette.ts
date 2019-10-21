@@ -39,9 +39,9 @@ export default ({components, channel}, socket) => {
         const lastFaucetActions = await components.storage.entities.Transaction.get(
             {blockId: event.data.id, type: 101}, {extended: true});
         for (let i = 0; i < lastFaucetActions.length; i++) {
-            const faucetAccount = await components.storage.entities.Account.get(
-                {address: lastFaucetActions[i].senderId}, {extended: true, limit: 1});
             if (socket !== null) {
+                const faucetAccount = await components.storage.entities.Account.get(
+                {address: lastFaucetActions[i].senderId}, {extended: true, limit: 1});
                 socket.emit(lastFaucetActions[i].senderId, faucetAccount[0]);
             }
         }
