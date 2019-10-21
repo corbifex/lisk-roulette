@@ -89,7 +89,7 @@ export class RouletteController {
        return new BigNum(this.bet.amount.toString()).mul(this.multiplier()).toString();
     }
 
-    async commit() {
+    async commit(i: number) {
         this.result();
         console.log("commit 1.1", this.won)
         const gamblerAccount = await this.storage.entities.Account.get(
@@ -109,6 +109,7 @@ export class RouletteController {
             if (this.socket !== null) {
                 this.socket.emit(gamblerAccount[0].address, {...gamblerAccount[0], balance: newBalance});
             }
+            updated.push(i);
             return updated;
         } else {
             const newBalance = new BigNum(gamblerAccount[0].balance).sub(this.bet.amount).toString();
@@ -122,6 +123,7 @@ export class RouletteController {
             if (this.socket !== null) {
                 this.socket.emit(gamblerAccount[0].address, {...gamblerAccount[0], balance: newBalance});
             }
+            updated.push(i);
             return updated;
         }
     }

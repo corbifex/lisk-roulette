@@ -23,25 +23,21 @@ export default ({components, channel}, socket) => {
 
             if (lastTransactions.length > 0) {
                 // Loop through transactions
-                await syncingProcess(lastTransactions, 0, blockHash);
+                let result: any = [];
+                for (let i = 0; i < lastTransactions.length; i++) {
+                    const rng = new Prando(blockHash);
+                    const draw = rng.nextInt(0, 36);
+                    const roulette = new RouletteController(draw, {
+                        amount: new BigNum(lastTransactions[i].amount),
+                        bet: parseInt(lastTransactions[i].asset.data)
+                    }, lastTransactions[i].senderId, components.storage, socket);
+                    console.log("commit1");
+                    result.push(await roulette.commit(i));
+                }
 
+                console.log(result)
             }
     });
-
-    async function syncingProcess(transactions, i, blockHash) {
-        const rng = new Prando(blockHash);
-        const draw = rng.nextInt(0, 36);
-        const roulette = new RouletteController(draw, {
-            amount: new BigNum(transactions[i].amount),
-            bet: parseInt(transactions[i].asset.data)
-        }, transactions[i].senderId, components.storage, socket);
-        console.log("commit1");
-        const commit = await roulette.commit();
-        console.log('result', commit)
-        if (commit && transactions[i+1]) {
-            syncingProcess(transactions, (i + 1), blockHash);
-        }
-    }
 
     channel.subscribe('chain:blocks:change', async event => {
         const lastFaucetActions = await components.storage.entities.Transaction.get(
