@@ -91,6 +91,7 @@ export class RouletteController {
 
     async commit() {
         this.result();
+        console.log("commit 1.1", this.won)
         const gamblerAccount = await this.storage.entities.Account.get(
             {address: this.senderId}, {extended: true, limit: 1});
         if (this.won) {
@@ -98,27 +99,28 @@ export class RouletteController {
             // commit profit to db
             const profit = this.calculateProfit();
             const newBalance = new BigNum(gamblerAccount[0].balance).add(profit).toString();
-
+            console.log("commit 2.0.0")
             await this.storage.entities.Account.updateOne(
                 {address: this.senderId},
                 {
                     balance: newBalance,
                 });
-
+            console.log("commit 2.0.1")
             if (this.socket !== null) {
                 this.socket.emit(gamblerAccount[0].address, {...gamblerAccount[0], balance: newBalance});
             }
             return true;
         } else {
             const newBalance = new BigNum(gamblerAccount[0].balance).sub(this.bet.amount).toString();
-
+            console.log("commit 2.1.0")
             await this.storage.entities.Account.updateOne(
                 {address: this.senderId},
                 {
                     balance: newBalance,
                 });
+            console.log("commit 2.1.1")
             if (this.socket !== null) {
-                this.socket.emit(this.senderId, gamblerAccount[0]);
+                this.socket.emit(gamblerAccount[0].address, {...gamblerAccount[0], balance: newBalance});
             }
             return true;
         }

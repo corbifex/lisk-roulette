@@ -30,6 +30,7 @@ export default ({components, channel}, socket) => {
                         amount: new BigNum(lastTransactions[i].amount),
                         bet: parseInt(lastTransactions[i].asset.data)
                     }, lastTransactions[i].senderId, components.storage, socket);
+                    console.log("commit1");
                     await roulette.commit();
                 }
             }
