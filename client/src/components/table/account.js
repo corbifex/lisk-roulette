@@ -6,6 +6,7 @@ import Switch from '@material-ui/core/Switch';
 import FormGroup from '@material-ui/core/FormGroup';
 import { SocketContext } from "../../actions/socket-context";
 
+
 export class AccountComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -26,6 +27,7 @@ export class AccountComponent extends React.Component {
     let clearClass = "Disabled";
     return (
       <div className="Account-container">
+         
         <div className="Account">
           <div className="Inner-Account"><span className="Inner-Account-title">Total balance:</span><br/>{this.props.account.balance && this.props.account.balance.toString()}</div>
           <div className="Inner-Account"><span className="Inner-Account-title">Unconfirmed Bet:</span><br/>{this.props.currentBet}</div>

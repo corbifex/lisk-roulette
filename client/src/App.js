@@ -11,6 +11,7 @@ import { getAddressAndPublicKeyFromPassphrase } from "@liskhq/lisk-cryptography"
 import { doFaucetTransaction } from './transactions/101_faucet';
 import { TransmitTransactions } from './actions/transmit-transactions';
 import { requestAddress } from "./actions/request";
+import logo from './assets/images/logo.png';
 
 const BigNum = require('bignumber.js');
 
@@ -105,6 +106,7 @@ export class App extends React.Component {
             <LastNumbers selected={this.state.currentView}/>
             <Transactions view={this.state.currentView}/>
             <Zoom/>
+             <img className="logo" src={logo} alt="logo"/>
           </div>}
         </div>
       </SocketContext.Provider>

@@ -31,3 +31,11 @@
   color: #09d3ac;
 }
 
+.logo {
+      display: block;
+    height: 4.8rem;
+    width: auto;
+    position: absolute;
+    right: 0;
+    bottom: 2rem;
+}
