@@ -190,7 +190,7 @@ export class TableComponent extends React.Component {
         // reset animation
         setTimeout(() => {
           this.setState({reset: false});
-        }, 10);
+        }, 17);
 
         // start real roll
         setTimeout(() => {
@@ -207,7 +207,6 @@ export class TableComponent extends React.Component {
   }
 
   calculateLastWin() {
-    console.log(this.state, this.props)
   }
 
   repeat() {
