@@ -2,13 +2,21 @@
 	display: block;
 	height: 2rem;
 	width: auto;
-	
-	position: absolute;
-	top: 4rem;
-	left:1rem;
+	padding: 1rem;
+	margin-bottom: 2rem;
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer */
+	-khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+	-webkit-user-select: none; /* Chrome, Safari, and Opera */
+	-webkit-touch-callout: none; /* Disable Android and iOS callouts*/
 }
 
 .zoombttn {
 	max-height: 1.5rem;
 	margin-right: 0.5rem;
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer */
+	-khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+	-webkit-user-select: none; /* Chrome, Safari, and Opera */
+	-webkit-touch-callout: none; /* Disable Android and iOS callouts*/
 }

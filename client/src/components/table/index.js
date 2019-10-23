@@ -4,6 +4,7 @@ import { SocketContext } from '../../actions/socket-context';
 import { Roulette } from '../roulette';
 import { Field } from '../field';
 import { Account } from "./account";
+import { Zoom } from "../zoom";
 import { Tokens } from "./tokens";
 import { subscribeToBlocks, subscribeToPeerBets } from "../../actions/subscribe";
 import { doRouletteBetTransaction } from '../../transactions/1001_bet_roulette';
@@ -32,6 +33,7 @@ export class TableComponent extends React.Component {
       state: -2,
       showPeers: false,
       watch: false,
+      zoom: 100,
     };
     subscribeToBlocks(props.socket, (err, blockSignature) => this.updateBlock(blockSignature));
     subscribeToPeerBets(props.socket, (err, bet) => this.addPeerBets(bet));
@@ -195,6 +197,11 @@ export class TableComponent extends React.Component {
     });
   }
 
+  zoom(zoomIn) {
+    let zoom = zoomIn ? 10 : -10;
+    this.setState({ zoom: this.state.zoom + zoom});
+  }
+
   render() {
     return (
       <div className="table-section">
@@ -202,7 +209,8 @@ export class TableComponent extends React.Component {
         <div className="Table-wheel">
           <Roulette repeat={this.repeat.bind(this)} lastBets={this.state.lastBets} loggedIn={this.props.loggedIn} login={this.props.login.bind(this)} spin={this.confirm.bind(this)} state={this.state}/>
         </div>
-        <div className="Table-fields">
+        <div className="Table-fields" style={{zoom: `${this.state.zoom}%`}}>
+          <Zoom zoom={this.zoom.bind(this)}/>
           {this.props.loggedIn &&
           <Account confirmedBet={this.state.totalBetConfirmed} currentBet={this.state.totalBet}
                    clear={this.clear.bind(this)} repeat={this.state.repeat}

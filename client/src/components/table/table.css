@@ -37,7 +37,6 @@
 .Table-fields {
   width: 50vw;
   min-width: 500px;
-  zoom: 90%;
 }
 
 @media all and (min-width: 500px) {
