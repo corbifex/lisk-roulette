@@ -106,7 +106,13 @@ export class TransactionTableComponent extends React.Component {
       case 'payout':
         return (<div className="TT-column right">{this.getPayout(column)}</div>);
       case 'luckyNumber':
-        return (<div className="TT-column center">{column}</div>);
+        let classColor = "green-label";
+        if (selectors.red.indexOf(column) > -1) {
+          classColor = "red-label";
+        } else if (selectors.black.indexOf(column) > -1) {
+          classColor = "black-label";
+        }
+        return (<div className="TT-column center"><label className={classColor}>{column}</label></div>);
       default:
         return (<div className="TT-column right">-</div>);
 

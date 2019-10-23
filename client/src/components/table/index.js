@@ -89,6 +89,7 @@ export class TableComponent extends React.Component {
   clickField(field) {
     if (!this.state.watch && this.props.loggedIn && this.props.account.balance.gte(this.state.totalBet + this.state.amountSelected) && this.state.totalBetConfirmed === 0) {
       const updatedBets = [...this.state.unconfirmedBets, {field: field, amount: this.state.amountSelected}];
+
       let totalBet = 0;
       updatedBets.map(bet => {
         totalBet += bet.amount;

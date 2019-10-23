@@ -26,6 +26,21 @@
   display: table-row-group;
 }
 
+.red-label {
+  padding: 9px;
+  border-radius: 40%;
+  background-color: red;
+}
+.black-label {
+  padding: 9px;
+  border-radius: 40%;
+  background-color: black;
+}
+.green-label {
+  padding: 9px;
+  border-radius: 40%;
+  background-color: green;
+}
 
 .TTH-column:first-child, .TTH-column:last-child, .TT-column:first-child, .TT-column:last-child {
   padding: 10px 25px;
