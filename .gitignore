@@ -7,6 +7,7 @@ __MACOSX/
 ssl/
 tmp/
 
+client/src/assets/audio
 node/config
 # Build revision file generated while building a release
 REVISION
