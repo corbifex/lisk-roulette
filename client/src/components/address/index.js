@@ -33,6 +33,9 @@ export class Address extends React.Component {
   }
 
   render() {
+    if (this.props.textOnly) {
+      return this.getName(this.props.address);
+    }
     return (
       <div>Name: {this.getName(this.props.address)}</div>
     );

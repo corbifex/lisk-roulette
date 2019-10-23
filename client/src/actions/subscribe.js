@@ -14,6 +14,3 @@ export function subscribeToPeerBets(socket, cb) {
   socket.on('peerBets', bet => cb(null, bet));
 }
 
-export function subscribeToAddress(socket, cb) {
-  socket.on('balance', balance => cb(null, balance));
-}

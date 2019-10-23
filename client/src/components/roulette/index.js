@@ -1,79 +1,47 @@
 import React from 'react';
-import Prando from "prando";
 import './roulette.css';
-import { subscribeToBlocks, subscribeToStatus } from "../../actions/subscribe";
-import { requestStatus } from "../../actions/request";
 import { SocketContext } from "../../actions/socket-context";
 import Button from '@material-ui/core/Button';
 
 export class RouletteComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      state: 0,
-      rolledNumber: 'roll',
-      rest: false,
-      reset: true,
-    };
-    requestStatus( props.socket,(err, status) => this.updateStatus(status));
-    subscribeToStatus( props.socket, (err, status) => this.updateStatus(status));
-    subscribeToBlocks( props.socket,(err, blockSignature) => this.updateBlock(blockSignature));
-  }
-
-  updateStatus(status) {
-    if (this.state.state !== status) {
-      if (status === 0) {
-        this.setState({ rest: false, rolledNumber: 'roll', state: 0 });
-      } else if (status === 1) {
-        this.setState({ state: 1 });
-
-      } else if (status === 2) {
-        this.setState({ rest: true, state: 2 });
-      } else if (status === 3) {
-        this.setState( { rest: true, state: 3 });
-      }
-    }
-  }
-
-  updateBlock(blockSignature) {
-    const rng = new Prando(blockSignature);
-    const draw = rng.nextInt(0, 36);
-    this.setState({ rolledNumber: draw, rest: false, reset: true });
-    setTimeout(() => {
-      this.setState({ reset: false });
-    }, 15);
-  }
 
   getState() {
-    switch (this.state.state) {
+    switch (this.props.state.state) {
+      case -2:
+        return (
+          <div className="mask" />
+        );
+      case 0:
+        return <div className="mask">No more bets</div>;
       case 1:
-        return "No more bets";
+        return <div className="mask">No more bets</div>;
       case 2:
-        return `Nr. ${this.state.rolledNumber}`;
-      case 3:
-        return "Wait for new game";
+        return <div className="mask">{`Nr. ${this.props.state.rolledNumber}`}</div>;
       default:
-        return "Spin";
+        return (<Button onClick={this.spin.bind(this)} className="spinbttn" variant="contained" color="primary">
+          <div className="mask">Spin</div>
+        </Button>);
     }
   }
 
-  componentDidMount() {
-    this.setState({rolledNumber: 'roll', reset: true, rest: false, state: 0});
-    setTimeout(() => {
-      this.setState({ reset: false });
-    }, 1);
+  spin() {
+    this.props.spin();
   }
 
   render() {
-    let ballClass = `inner inner-${this.state.rolledNumber}`;
-    if (this.state.rolledNumber !== 'roll') {
-      ballClass = `inner inner-${this.state.rolledNumber} `;
+    let ballClass = `inner inner-roll`;
+    if (this.props.state.rolledNumber !== 'roll' && this.props.state.state >= 1) {
+      ballClass = `inner inner-${this.props.state.rolledNumber} `;
     }
-    if (this.state.rest) {
+    if (this.props.state.rest) {
       ballClass += 'rest';
     }
-    if (this.state.reset) {
+    if (this.props.state.reset) {
       ballClass = "inner";
+    }
+
+    if (this.props.state.state < 0) {
+      ballClass = " hide-ball ";
     }
     return (
       <div className="main">
@@ -156,13 +124,7 @@ export class RouletteComponent extends React.Component {
           </ul>
           <div className="data">
             <div className="data-inner">
-              <Button className="spinbttn" variant="contained" color="primary">
-              <div className="mask">{this.getState()}</div>
-              </Button>
-              <div className="result">
-                <div className="result-number">00</div>
-                <div className="result-color">red</div>
-              </div>
+              {this.getState()}
             </div>
           </div>
         </div>
@@ -173,7 +135,7 @@ export class RouletteComponent extends React.Component {
 
 export const Roulette = props => (
   <SocketContext.Consumer>
-    {socket => <RouletteComponent {...props} socket={socket} />}
+    {socket => <RouletteComponent {...props} socket={socket}/>}
   </SocketContext.Consumer>
 );
 

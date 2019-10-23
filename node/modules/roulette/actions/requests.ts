@@ -8,8 +8,13 @@ export default ({components}, socket) => {
         socket.emit('rb', lastBlock[0].id);
     });
 
+    socket.on('results', async () => {
+        const lastBlocks = await components.storage.entities.Block.get({numberOfTransactions_gt: 0}, {sort: 'height:desc', limit: 30, extended: true});
+        socket.emit('results', lastBlocks);
+    });
+
     socket.on('rblocks', async () => {
-        const lastBlocks = await components.storage.entities.Block.get({}, {sort: 'height:desc', limit: 10});
+        const lastBlocks = await components.storage.entities.Block.get({}, {sort: 'height:desc', limit: 30});
         let blocks: any = [];
         for (let i = 0; i < lastBlocks.length; i++) {
             blocks.push(lastBlocks[i].blockSignature);
@@ -18,7 +23,7 @@ export default ({components}, socket) => {
     });
 
     socket.on('request:full:blocks', async () => {
-        const lastBlocks = await components.storage.entities.Block.get({}, {sort: 'height:desc', limit: 10});
+        const lastBlocks = await components.storage.entities.Block.get({}, {sort: 'height:desc', limit: 30});
         socket.emit('request:full:blocks', lastBlocks);
     });
 

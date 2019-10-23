@@ -28,7 +28,7 @@ export class RouletteModule extends BaseModule {
     }
 
     static get alias() {
-        return 'Roulette';
+        return 'roulette';
     }
 
     static get info() {
@@ -44,7 +44,9 @@ export class RouletteModule extends BaseModule {
     }
 
     get events() {
-        return [];
+        return [
+            'update:balance'
+        ];
     }
 
     get actions() {

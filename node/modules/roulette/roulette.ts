@@ -3,6 +3,7 @@ import { createStorageComponent } from 'lisk-framework/src/components/storage';
 import { Account } from 'lisk-framework/src/modules/chain/components/storage/entities';
 import runRoulette from './actions/run_roulette';
 import subscribeRequests from './actions/requests';
+import subscribeEvents from './actions/events';
 const io = require('socket.io')();
 
 export class Roulette {
@@ -66,13 +67,11 @@ export class Roulette {
             channel: this.channel,
             applicationState,
         };
-
-        runRoulette(this.scope, null);
-
+        runRoulette(this.scope);
 
         io.on('connection', client => {
             subscribeRequests(this.scope, client);
-            runRoulette(this.scope, client);
+            subscribeEvents(this.scope, client);
         });
 
         io.listen(7171 );

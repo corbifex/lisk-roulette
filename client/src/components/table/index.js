@@ -5,9 +5,10 @@ import { Roulette } from '../roulette';
 import { Field } from '../field';
 import { Account } from "./account";
 import { Tokens } from "./tokens";
-import { subscribeToStatus, subscribeToPeerBets } from "../../actions/subscribe";
+import { subscribeToBlocks, subscribeToPeerBets } from "../../actions/subscribe";
 import { doRouletteBetTransaction } from '../../transactions/1001_bet_roulette';
 import './table.css';
+import Prando from "prando";
 
 const BigNum = require('bignumber.js');
 
@@ -15,29 +16,46 @@ export class TableComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      rest: false,
+      reset: true,
+      rolledNumber: 'roll',
       unconfirmedBets: [],
       confirmedBets: [],
+      lastBets: [],
       peerBets: [],
       amountSelected: 1,
       totalBet: 0,
       totalBetConfirmed: 0,
       repeat: false,
       auto: false,
-      state: 3,
-      showPeers: true,
+      state: -2,
+      showPeers: false,
+      watch: false,
     };
-    subscribeToStatus(props.socket, (err, status) => this.updateStatus(status));
+    subscribeToBlocks(props.socket, (err, blockSignature) => this.updateBlock(blockSignature));
     subscribeToPeerBets(props.socket, (err, bet) => this.addPeerBets(bet));
   }
 
+  updateBlock(blockSignature) {
+    const rng = new Prando(blockSignature);
+    const draw = rng.nextInt(0, 36);
+    if (this.state.rolledNumber === 'roll') {
+      this.setState({rolledNumber: draw});
+    }
+  }
+
   addPeerBets(bet) {
-    if (bet.address !== this.props.account.address) {
-      const bets = this.splitToTokens(new BigNum(bet.amount).div(100000000).toNumber(), [25, 5, 1]);
+    if (this.state.state > -1) {
       let peerBets = [];
-      for (let i = 0; i < bets.length; i++) {
-        peerBets.push({field: bet.field, amount: bets[i]});
-      }
-      this.setState({peerBets: [...this.state.peerBets, ...peerBets]});
+      const betParsed = JSON.parse(bet.bet);
+      const list = betParsed.map(b => {
+        const bets = this.splitToTokens(b.amount, [25, 5, 1]);
+        for (let i = 0; i < bets.length; i++) {
+          peerBets.push({field: b.field, amount: bets[i]});
+        }
+        return true;
+      });
+      this.setState({peerBets: [...this.state.peerBets, ...peerBets], list: list});
     }
   }
 
@@ -55,51 +73,27 @@ export class TableComponent extends React.Component {
     }
   }
 
-  updateStatus(status) {
-    if (this.state.state !== status) {
-      if (status === 0) {
-        if (!this.state.repeat) {
-          this.clear();
-        } else {
-          if (this.state.totalBetConfirmed > 0) {
-            this.setState({
-              peerBets: [],
-              state: 0,
-              totalBetConfirmed: 0,
-              totalBet: this.state.totalBetConfirmed,
-              unconfirmedBets: this.state.confirmedBets,
-              confirmedBets: []
-            });
-          } else {
-            this.setState({
-              peerBets: [],
-              state: 0,
-              totalBetConfirmed: 0,
-              confirmedBets: []
-            });
-          }
-        }
-      } else if (status === 1) {
-        if (this.state.auto) {
-          this.confirm();
-        }
-        this.setState({state: 1});
-      } else if (status === 2) {
-        this.setState({state: 2});
-      } else if (status === 3) {
-        this.setState({state: 3});
-      }
+  updateWatch(watch) {
+    if (watch !== this.state.watch) {
+      this.setState({watch: watch});
+    }
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    if (this.props.loggedIn === false && nextProps.loggedIn === true) {
+      this.setState({state: -1})
     }
   }
 
   clickField(field) {
-    if (this.state.state === 0 && this.props.loggedIn && this.props.account.balance.gte(this.state.totalBet + this.state.amountSelected) && this.state.totalBetConfirmed === 0) {
+    if (!this.state.watch && this.props.loggedIn && this.props.account.balance.gte(this.state.totalBet + this.state.amountSelected) && this.state.totalBetConfirmed === 0) {
       const updatedBets = [...this.state.unconfirmedBets, {field: field, amount: this.state.amountSelected}];
       let totalBet = 0;
       updatedBets.map(bet => {
         totalBet += bet.amount;
+        return true;
       });
-      this.setState({unconfirmedBets: updatedBets, totalBet: totalBet});
+      this.setState({unconfirmedBets: updatedBets, totalBet: totalBet, state: -1});
 
     }
   }
@@ -126,35 +120,74 @@ export class TableComponent extends React.Component {
     } else {
       const bets = this.state.unconfirmedBets;
       let fields = {};
+      let amount = 0;
       for (let bet = 0; bet < bets.length; bet++) {
         if (!fields[bets[bet].field]) {
           fields[bets[bet].field] = bets[bet].amount;
         } else {
           fields[bets[bet].field] += bets[bet].amount;
         }
+        amount += bets[bet].amount;
       }
-      _.map(fields, (amount, field) => {
-        this.props.doBet(doRouletteBetTransaction(amount, field, this.props.account.address, this.props.account.publicKey, this.props.account.passphrase));
+      const bet = _.map(fields, (amount, field) => {
+        return {field: field, amount: amount};
       });
+      this.props.doBet(doRouletteBetTransaction(
+        amount,
+        bet,
+        this.props.account.address,
+        this.props.account.publicKey,
+        this.props.account.passphrase));
+
       this.props.lowerBalance(this.state.totalBet);
       this.setState({
+        rest: false,
+        reset: true,
+        rolledNumber: 'roll',
+        state: 0,
         totalBet: 0,
         totalBetConfirmed: this.state.totalBet,
         confirmedBets: this.state.unconfirmedBets,
-        unconfirmedBets: []
+        unconfirmedBets: [],
+        watch: true,
       });
+
+      setTimeout(() => {
+        this.setState({reset: false});
+      }, 15);
+      setTimeout(() => {
+        this.setState({rest: false, state: 1, reset: true});
+        setTimeout(() => {
+          this.setState({reset: false});
+        }, 15);
+        setTimeout(() => {
+          this.setState({rest: true, state: 2});
+          setTimeout(() => {
+            this.updateWatch(false);
+            this.clear();
+          }, 7000);
+        }, 2000);
+      }, 6000);
     }
   }
 
   clear() {
-    this.setState({state: 0, confirmedBets: [], unconfirmedBets: [], totalBet: 0, totalBetConfirmed: 0, peerBets: []});
+    this.setState({
+      state: -2,
+      lastBets: this.state.confirmedBets,
+      confirmedBets: [],
+      unconfirmedBets: [],
+      totalBet: 0,
+      totalBetConfirmed: 0,
+      peerBets: []
+    });
   }
 
   render() {
     return (
       <div className="Table-container">
         <div className="Table-wheel">
-          <Roulette/>
+          <Roulette spin={this.confirm.bind(this)} state={this.state}/>
         </div>
         <div className="Table-fields">
           {this.props.loggedIn &&
@@ -167,9 +200,11 @@ export class TableComponent extends React.Component {
           {this.props.loggedIn &&
           <Tokens setAmount={this.setAmount.bind(this)}
           />}
-          <Field loggedIn={this.props.loggedIn} userBets={this.state.unconfirmedBets}
+          <Field rolledNumber={this.state.rolledNumber} state={this.state.state} watch={this.state.watch}
+                 loggedIn={this.props.loggedIn} userBets={this.state.unconfirmedBets}
                  confirmedBets={this.state.confirmedBets}
-                 clickField={this.clickField.bind(this)} peerBets={this.state.peerBets} showPeers={this.state.showPeers}/>
+                 clickField={this.clickField.bind(this)} peerBets={this.state.peerBets}
+                 showPeers={this.state.showPeers}/>
         </div>
       </div>
     );

@@ -1,43 +1,11 @@
-.kJdJTV {
-    position: relative;
-    width: 100%;
-    overflow-x: auto;
-    background-color: white;
-    margin-top: 2rem;
-    min-height: 20rem;
+.Transactions-container {
+  margin-top: 4rem;
+  width: 80vw;
 }
 
-.bTnnmE {
-	width: 85%!important;
-	margin: auto;
-}
-
-.gXlqCi {
-    position: relative;
-    color: white!important;
-    background: linear-gradient(to right, rgb(12, 4, 30), rgb(56, 25, 128));
-    }
-
-    .ksKbuS {
- flex: none!important;
-    color: white!Important;
-    font-size: 22px;
-    font-weight: 600;
-    /* width: 85%; */
-    /* float: left; */
-    margin-left: 9rem;
-}
-
-.bIxPIp tr:nth-child {
-	background-color: green!important
-;
-}
-
-.gXdTHx {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    text-align: left;
-    background-color: #0d052008;
+.Tab-container {
+  min-height: 50vh;
+  overflow-y: scroll !important;
+  height: 80vh;
+  margin: 3rem;
 }

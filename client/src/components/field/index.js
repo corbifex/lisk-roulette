@@ -4,8 +4,6 @@ import token5 from '../../assets/images/5.png';
 import token25 from '../../assets/images/25.png';
 import './field.css';
 import { SocketContext } from "../../actions/socket-context";
-import { subscribeToBlocks, subscribeToStatus } from "../../actions/subscribe";
-import Prando from "prando";
 
 export class FieldComponent extends React.Component {
   constructor(props) {
@@ -39,14 +37,12 @@ export class FieldComponent extends React.Component {
         5: token5,
         25: token25,
       },
-      state: 3,
+      state: 0,
     };
     this.selector = new Array(50);
     for (let i = 0; i <= 50; i++) {
       this.selector[i] = React.createRef();
     }
-    subscribeToStatus( props.socket, (err, status) => this.updateStatus(status));
-    subscribeToBlocks( props.socket,(err, blockSignature) => this.updateBlock(blockSignature));
   }
 
   updateStatus(status) {
@@ -64,12 +60,6 @@ export class FieldComponent extends React.Component {
     }
   }
 
-  updateBlock(blockSignature) {
-    const rng = new Prando(blockSignature);
-    const draw = rng.nextInt(0, 36);
-    this.setState({ rolledNumber: draw });
-  }
-
   componentWillReceiveProps(nextProps, nextContext) {
     let state = {betCount: this.state.betCount, userBets: this.state.userBets};
     let stateConfirmed = {confirmedCount: this.state.confirmedCount, confirmedBets: this.state.confirmedBets};
@@ -79,8 +69,8 @@ export class FieldComponent extends React.Component {
       for (let i = this.state.betCount; i < nextProps.userBets.length; i++) {
         const index = this.state.fields.indexOf(nextProps.userBets[i].field);
         const rect = this.selector[index].current.getBoundingClientRect();
-        const x = this.selector[index].current.offsetLeft + 50 + rInt(-10, rect.width - 25 );
-        const y = this.selector[index].current.offsetTop + 50 + rInt(-10, rect.height - 25);
+        const x = this.selector[index].current.offsetLeft + 50 + rInt(-10, rect.width - 35 );
+        const y = this.selector[index].current.offsetTop + 50 + rInt(-10, rect.height - 35);
         userBets = [...userBets, {
           field: nextProps.userBets[i].field,
           x: x,
@@ -98,8 +88,8 @@ export class FieldComponent extends React.Component {
       for (let i = this.state.confirmedCount; i < nextProps.confirmedBets.length; i++) {
         const index = this.state.fields.indexOf(nextProps.confirmedBets[i].field);
         const rect = this.selector[index].current.getBoundingClientRect();
-        const x = this.selector[index].current.offsetLeft + 50 + rInt(-10, rect.width - 25 );
-        const y = this.selector[index].current.offsetTop + 50 + rInt(-10, rect.height - 25);
+        const x = this.selector[index].current.offsetLeft + 50 + rInt(-10, rect.width - 35 );
+        const y = this.selector[index].current.offsetTop + 50 + rInt(-10, rect.height - 35);
         confirmedBets = [...confirmedBets, {
           field: nextProps.confirmedBets[i].field,
           x: x,
@@ -118,8 +108,8 @@ export class FieldComponent extends React.Component {
       for (let i = this.state.peerCount; i < nextProps.peerBets.length; i++) {
         const index = nextProps.peerBets[i].field;
         const rect = this.selector[index].current.getBoundingClientRect();
-        const x = this.selector[index].current.offsetLeft + 50 + rInt(-10, rect.width - 10);
-        const y = this.selector[index].current.offsetTop + 50 + rInt(-10, rect.height - 10);
+        const x = this.selector[index].current.offsetLeft + 50 + rInt(-10, rect.width - 35);
+        const y = this.selector[index].current.offsetTop + 50 + rInt(-10, rect.height - 35);
         peerBets = [...peerBets, {
           field: nextProps.peerBets[i].field,
           x: x,
@@ -167,11 +157,11 @@ export class FieldComponent extends React.Component {
       }
     }
 
-    if (this.state.state === 2) {
-      if (typeof field === "number" && this.state.rolledNumber === field) {
+    if (this.props.state === 2) {
+      if (typeof field === "number" && this.props.rolledNumber === field) {
         classname += "hover ";
       }
-      if (typeof field === "string" && this.state.selectors[field].indexOf(this.state.rolledNumber) > -1) {
+      if (typeof field === "string" && this.state.selectors[field].indexOf(this.props.rolledNumber) > -1) {
         classname += "hover ";
       }
     }

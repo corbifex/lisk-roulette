@@ -52,13 +52,15 @@ export class Login extends React.Component {
     return (
       <div className="top-header">
         <div className="Login-container">
-          {!this.props.loggedIn && <Button variant="contained" color="primary" onClick={this.toggleDrawer.bind(this, 'login', true)}>
+          {!this.props.loggedIn &&
+          <Button variant="contained" color="primary" onClick={this.toggleDrawer.bind(this, 'login', true)}>
             Login
           </Button>}
           {this.props.loggedIn && <Button variant="contained" color="primary" onClick={this.props.logout.bind(this)}>
             Logout
           </Button>}
-          {this.props.loggedIn && this.props.account.balance.lt(10) && !this.props.account.balance.eq(-1)  && <Button variant="contained" color="primary" onClick={this.props.requestTokens.bind(this)}>
+          {this.props.loggedIn && this.props.account.balance.lt(10) && !this.props.account.balance.eq(-1) &&
+          <Button variant="contained" color="primary" onClick={this.props.requestTokens.bind(this)}>
             Get Tokens
           </Button>}
           {/*<Button variant="contained" color="primary">*/}
@@ -84,7 +86,7 @@ export class Login extends React.Component {
                 margin="normal"
                 onChange={(input) => this.updatePassphrase(input.target.value)}
               />
-              <CopyToClipboard text={this.state.passphrase} >
+              <CopyToClipboard text={this.state.passphrase}>
                 <Button variant="contained" color="primary">
                   Copy passphrase
                 </Button>

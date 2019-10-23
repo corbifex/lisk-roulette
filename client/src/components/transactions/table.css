@@ -1,0 +1,52 @@
+.Transactions-table {
+  display: table;
+  margin: 0 auto;
+}
+
+.TT-row {
+  display: table-row;
+  line-height: 3em;
+}
+
+.TT-head {
+  display: table-header-group;
+  font-size: 22px;
+  font-weight: bolder;
+}
+
+.TTH-column, .TT-column {
+  display: table-cell;
+  text-align: left;
+  width: 230px;
+  padding: 10px 10px;
+  border-bottom: #000000 solid 1px;
+}
+
+.TT-body {
+  display: table-row-group;
+}
+
+
+.TTH-column:first-child, .TTH-column:last-child, .TT-column:first-child, .TT-column:last-child {
+  padding: 10px 25px;
+}
+
+.TT-body .TT-row:nth-child(even) {
+  background-color: rgba(0,0,0,.5);
+}
+
+.TT-row:nth-child(odd) {
+  background-color: rgba(100,100,100,.5);
+}
+
+.head {
+  background-color: rgba(0,0,0,.5) !important;
+}
+
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
+}

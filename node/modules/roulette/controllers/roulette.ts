@@ -1,13 +1,15 @@
 import {BigNum} from 'lisk-sdk';
 import Prando from "prando";
 
-interface BetInterface {
-    bet: number,
+export interface BetsInterface extends Array<Bet> {}
+
+interface Bet {
+    field: number,
     amount: string,
 }
 
 interface TableInterface {
-    fields: object;
+    fields: Array<string|number>;
     selectors: object;
     multiplier: object;
 }
@@ -15,15 +17,15 @@ interface TableInterface {
 export class RouletteController {
 
     public readonly storage;
-    public readonly bet: BetInterface;
+    public readonly bet: BetsInterface;
     public readonly table: TableInterface;
-    public readonly seed: string;
+    public readonly draw: number;
     public readonly socket;
     private readonly min = 0;
     private readonly max = 36;
 
-    constructor(bet, seed) {
-        this.seed = seed;
+    constructor(bet: BetsInterface, seed) {
+        this.draw = this.getDraw(seed);
         this.bet = bet;
         this.table = {
             fields: [
@@ -62,38 +64,40 @@ export class RouletteController {
         };
     }
 
-    getDraw() {
-        const rng = new Prando(this.seed);
+    getDraw(seed: string): number {
+        const rng = new Prando(seed);
         return rng.nextInt(this.min, this.max);
     }
 
-    result() {
+    result(field) {
         // check won/lost
-        const draw = this.getDraw();
-        if (this.bet.bet <= 36 && this.bet.bet === draw) {
+        if (field <= 36 && field === this.draw) {
             return true;
-        } else if (this.bet.bet > 36 &&
-            this.bet.bet < 49 &&
-            this.table.selectors[this.table.fields[this.bet.bet]].indexOf(draw) > -1) {
+        } else if (field > 36 &&
+            field < 49 &&
+            this.table.selectors[this.table.fields[field]].indexOf(this.draw) > -1) {
             return true;
         }
         return false;
     }
 
-    multiplier() {
-        if (this.bet.bet <= 36) {
+    multiplier(field) {
+        if (field <= 36) {
             return 35;
-        } else if (this.bet.bet > 36) {
-            let betType = this.table.fields[this.bet.bet];
-            return this.table.multiplier[betType];
+        } else if (field > 36) {
+            return this.table.multiplier[this.table.fields[field]];
         }
     }
 
     profit() {
-        if (this.result()) {
-            return new BigNum(this.bet.amount).mul(this.multiplier()).toString();
-        } else {
-            return 0;
-        }
+        let profit = new BigNum(0);
+        this.bet.map(bet => {
+            if (this.result(bet.field)) {
+                const amount = new BigNum(bet.amount).mul(10 ** 8);
+                const subProfit = new BigNum(amount).mul(this.multiplier(bet.field)).add(amount);
+                profit = profit.add(subProfit);
+            }
+        });
+        return profit.toString();
     }
 }

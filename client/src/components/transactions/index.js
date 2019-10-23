@@ -1,64 +1,83 @@
 import React from 'react';
+import SwipeableViews from 'react-swipeable-views';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import { TransactionTable } from './table';
 import './transactions.css';
-import DataTable from 'react-data-table-component';
-
-const data = [{ id: 1, Bet: 23, BetID: '12345689723454', Amount: '5000', Profit: 0, Result: 'Lost', Progress:'Confirmed' },
-{ id: 2, Bet: 'black', BetID: '38991145', Amount: '1445', Profit: 0, Result: 'Lost', Progress: 'Confirmed' },
-{ id: 3, Bet: 'black', BetID: '38991145', Amount: '1445', Profit: 1200, Result: 'Lost', Progress: 'Confirmed' },
-{ id: 4, Bet: 'black', BetID: '38991145', Amount: '1445', Profit: 75888, Result: 'Lost', Progress: 'Confirmed' },
-{ id: 5, Bet: 'black', BetID: '38991145', Amount: '1445', Profit: 95, Result: 'Lost', Progress: 'Confirmed' },
-{ id: 6, Bet: 'black', BetID: '38991145', Amount: '1445', Profit: 2, Result: 'Lost', Progress: 'Confirmed' },
-{ id: 7, Bet: 'black', BetID: '38991145', Amount: '1445', Profit: 33, Result: 'Lost', Progress: 'Confirmed' },
-{ id: 8, Bet: 'black', BetID: '38991145', Amount: '1445', Profit: 0, Result: 'Lost', Progress: 'Confirmed' },
-
-];
-const columns = [
-  {
-    name: 'BetID',
-    selector: 'BetID',
-    sortable: true,
-  },
-
-  {
-    name: 'Bet',
-    selector: 'Bet',
-    sortable: true,
-    right: true,
-  },
-  {
-    name: 'Amount',
-    selector: 'Amount',
-    sortable: true,
-    right: true,
-  },
-  {
-    name: 'Profit',
-    selector: 'Profit',
-    sortable: true,
-    right: true,
-  },
-  {
-    name: 'Result',
-    selector: 'Result',
-    sortable: true,
-    right: true,
-  },
-  {
-    name: 'Progress',
-    selector: 'Progress',
-    sortable: true,
-    right: true,
-  },
-];
 
 export class Transactions extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 0
+    }
+  }
+
+
+  static a11yProps(index) {
+    return {
+      id: `full-width-tab-${index}`,
+      'aria-controls': `full-width-tabpanel-${index}`,
+    };
+  }
+
+  TabPanel(props) {
+    const {children, value, index, ...other} = props;
+
+    return (
+      <Typography
+        component="div"
+        role="tabpanel"
+        hidden={value !== index}
+        id={`full-width-tabpanel-${index}`}
+        aria-labelledby={`full-width-tab-${index}`}
+        {...other}
+      >
+        <Box p={2}>{children}</Box>
+      </Typography>
+    );
+  }
+
+  handleChange(ctx, index) {
+    this.setState({value: index});
+  }
+
   render() {
     return (
-      <DataTable
-        title="Roulette Bets - Result: 12, Block Sign: 4e0c6f39b3, DateTime: 20.01 01-05-2019"
-        columns={columns}
-        data={data}
-      />
+      <div className="Transactions-container">
+        <AppBar position="static" color="default">
+          <Tabs
+            value={this.state.value}
+            onChange={this.handleChange.bind(this)}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="fullWidth"
+            aria-label="full width tabs example"
+          >
+            <Tab label="All bets" {...Transactions.a11yProps(0)} />
+            {this.props.login && <Tab label="My bets" {...Transactions.a11yProps(1)} />}
+          </Tabs>
+        </AppBar>
+        <div className="Tab-container">
+          <SwipeableViews
+            axis={'x'}
+            index={this.state.value}
+            onChangeIndex={this.handleChange.bind(this)}
+          >
+            <this.TabPanel value={this.state.value} index={0}>
+              <TransactionTable/>
+            </this.TabPanel>
+            {this.props.login && <this.TabPanel value={this.state.value} index={1}>
+              <TransactionTable login={this.props.login} private={this.props.account.address}/>
+            </this.TabPanel>}
+          </SwipeableViews>
+        </div>
+      </div>
+
     )
   }
 };

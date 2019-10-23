@@ -302,6 +302,10 @@
   content: '\2022';
 }
 
+.hide-ball:before {
+  content: '';
+}
+
 .inner-1:before {
   -webkit-transform: rotateZ(-137deg);
   transform: rotateZ(-137deg);
@@ -321,8 +325,8 @@
 }
 
 .inner-3:before {
-  -webkit-transform: rotateZ(-20deg);
-  transform: rotateZ(-20deg);
+  -webkit-transform: rotateZ(-380deg);
+  transform: rotateZ(-380deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -402,8 +406,8 @@
 }
 
 .inner-12:before {
-  -webkit-transform: rotateZ(-39deg);
-  transform: rotateZ(-39deg);
+  -webkit-transform: rotateZ(-399deg);
+  transform: rotateZ(-399deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -528,8 +532,8 @@
 }
 
 .inner-26:before {
-  -webkit-transform: rotateZ(-10deg);
-  transform: rotateZ(-10deg);
+  -webkit-transform: rotateZ(-370deg);
+  transform: rotateZ(-370deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -546,8 +550,8 @@
 }
 
 .inner-28:before {
-  -webkit-transform: rotateZ(-50deg);
-  transform: rotateZ(-50deg);
+  -webkit-transform: rotateZ(-410deg);
+  transform: rotateZ(-410deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -609,8 +613,8 @@
 }
 
 .inner-35:before {
-  -webkit-transform: rotateZ(-29deg);
-  transform: rotateZ(-29deg);
+  -webkit-transform: rotateZ(-389deg);
+  transform: rotateZ(-389deg);
   transition: -webkit-transform 2s ease-out;
   transition: transform 2s ease-out;
   transition: transform 2s ease-out, -webkit-transform 2s ease-out;
@@ -702,10 +706,10 @@
 .data {
   display: block;
   position: absolute;
-  top: 30%;
-  right: 30%;
-  bottom: 30%;
-  left: 30%;
+  top: 25%;
+  right: 25%;
+  bottom: 25%;
+  left: 25%;
   border-radius: 50%;
   animation: rotate 24s reverse linear infinite;
   -webkit-perspective: 2000px;
@@ -745,15 +749,15 @@
 }
 
 .data .mask {
-    color: #fff;
-    font-weight: bold;
-    font-size: 24px;
-    margin: auto;
-    line-height: 1.4;
-    padding-top: 47px;
-    background-color: #100627;
-    cursor: pointer;
-    border: 4px dashed white;
+  color: #fff;
+  font-weight: bold;
+  font-size: 24px;
+  margin: auto;
+  line-height: 1.4;
+  padding-top: 38%;
+  background-color: #100627;
+  cursor: pointer;
+  border: 4px dashed white;
 }
 
 .data .result {
@@ -849,9 +853,9 @@
 }
 
 .spinbttn {
-      height: 100%!important;
-    width: 100%!important;
-    margin: 0px!important;
-    position: initial!important;
-    border-radius: 50%!important;
+  height: 100% !important;
+  width: 100% !important;
+  margin: 0px !important;
+  position: initial !important;
+  border-radius: 50% !important;
 }

@@ -3,8 +3,8 @@ export function requestBlocks(socket, cb) {
   socket.emit('rblocks');
 }
 
-export function requestResult(block, socket, cb) {
-  socket.on('result', res => cb(null, res));
+export function requestResult(socket) {
+  socket.emit('results');
 }
 
 export function requestStatus(socket, cb) {
