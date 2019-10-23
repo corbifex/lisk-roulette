@@ -6,11 +6,17 @@ import Button from '@material-ui/core/Button';
 export class RouletteComponent extends React.Component {
 
   getState() {
+    if (!this.props.loggedIn) {
+      return (<Button onClick={this.props.login.bind(this)} className="spinbttn" variant="contained" color="primary">
+        <div className="mask">LOGIN</div>
+      </Button>);
+    }
     switch (this.props.state.state) {
       case -2:
         return (
-          <div className="mask" />
-        );
+          <Button onClick={this.repeat.bind(this)} className="spinbttn" variant="contained" color="primary">
+        <div className="mask">{this.props.lastBets.length > 0 && `Repeat`}</div>
+      </Button>);
       case 0:
         return <div className="mask">No more bets</div>;
       case 1:
@@ -22,6 +28,10 @@ export class RouletteComponent extends React.Component {
           <div className="mask">Spin</div>
         </Button>);
     }
+  }
+
+  repeat() {
+    this.props.repeat();
   }
 
   spin() {

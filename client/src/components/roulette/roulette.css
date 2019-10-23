@@ -328,8 +328,8 @@
   -webkit-transform: rotateZ(-380deg);
   transform: rotateZ(-380deg);
   transition: -webkit-transform 2s ease-out;
-  transition: transform 2s ease-out;
-  transition: transform 2s ease-out, -webkit-transform 2s ease-out;
+  transition: transform 2.3s ease-out;
+  transition: transform 2.3s ease-out, -webkit-transform 2.3s ease-out;
   content: '\2022';
 }
 
@@ -409,8 +409,8 @@
   -webkit-transform: rotateZ(-399deg);
   transform: rotateZ(-399deg);
   transition: -webkit-transform 2s ease-out;
-  transition: transform 2s ease-out;
-  transition: transform 2s ease-out, -webkit-transform 2s ease-out;
+  transition: transform 2.5s ease-out;
+  transition: transform 2.5s ease-out, -webkit-transform 2.5s ease-out;
   content: '\2022';
 }
 
@@ -535,8 +535,8 @@
   -webkit-transform: rotateZ(-370deg);
   transform: rotateZ(-370deg);
   transition: -webkit-transform 2s ease-out;
-  transition: transform 2s ease-out;
-  transition: transform 2s ease-out, -webkit-transform 2s ease-out;
+  transition: transform 2.2s ease-out;
+  transition: transform 2.2s ease-out, -webkit-transform 2.2s ease-out;
   content: '\2022';
 }
 
@@ -553,8 +553,8 @@
   -webkit-transform: rotateZ(-410deg);
   transform: rotateZ(-410deg);
   transition: -webkit-transform 2s ease-out;
-  transition: transform 2s ease-out;
-  transition: transform 2s ease-out, -webkit-transform 2s ease-out;
+  transition: transform 2.6s ease-out;
+  transition: transform 2.6s ease-out, -webkit-transform 2.6s ease-out;
   content: '\2022';
 }
 
@@ -616,8 +616,8 @@
   -webkit-transform: rotateZ(-389deg);
   transform: rotateZ(-389deg);
   transition: -webkit-transform 2s ease-out;
-  transition: transform 2s ease-out;
-  transition: transform 2s ease-out, -webkit-transform 2s ease-out;
+  transition: transform 2.2s ease-out;
+  transition: transform 2.2s ease-out, -webkit-transform 2.2s ease-out;
   content: '\2022';
 }
 

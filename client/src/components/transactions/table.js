@@ -32,7 +32,9 @@ export class TransactionTableComponent extends React.Component {
         this.addBlock(block[i]);
       }
     } else {
-      this.addBlock(block);
+      setTimeout(() => {
+        this.addBlock(block);
+      }, 8000);
     }
   }
 
@@ -81,8 +83,8 @@ export class TransactionTableComponent extends React.Component {
   profit(bet, luckyNumber) {
     let profit = 0;
     bet.map(bet => {
-      if (this.result(bet.field, luckyNumber)) {
-        profit += (bet.amount * this.multiplier(bet.field)) + bet.amount;
+      if (this.result(parseInt(bet.field), luckyNumber)) {
+        profit += (bet.amount * this.multiplier(parseInt(bet.field))) + bet.amount;
       }
       return true;
     });

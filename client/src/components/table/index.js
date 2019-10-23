@@ -166,9 +166,19 @@ export class TableComponent extends React.Component {
             this.updateWatch(false);
             this.clear();
           }, 7000);
-        }, 2000);
+        }, 2500);
       }, 6000);
     }
+  }
+
+  repeat() {
+    const updatedBets = [...this.state.lastBets];
+    let totalBet = 0;
+    updatedBets.map(bet => {
+      totalBet += bet.amount;
+      return true;
+    });
+    this.setState({unconfirmedBets: updatedBets, totalBet: totalBet, state: -1});
   }
 
   clear() {
@@ -187,7 +197,7 @@ export class TableComponent extends React.Component {
     return (
       <div className="Table-container">
         <div className="Table-wheel">
-          <Roulette spin={this.confirm.bind(this)} state={this.state}/>
+          <Roulette repeat={this.repeat.bind(this)} lastBets={this.state.lastBets} loggedIn={this.props.loggedIn} login={this.props.login.bind(this)} spin={this.confirm.bind(this)} state={this.state}/>
         </div>
         <div className="Table-fields">
           {this.props.loggedIn &&

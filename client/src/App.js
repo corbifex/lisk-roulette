@@ -4,7 +4,6 @@ import { SocketContext } from './actions/socket-context';
 import { Login } from './components/login';
 import { Table } from './components/table';
 import { Transactions } from './components/transactions';
-import { LastNumbers } from './components/lastnumbers';
 import './App.css';
 import { getAddressAndPublicKeyFromPassphrase } from "@liskhq/lisk-cryptography";
 import { doFaucetTransaction } from './transactions/101_faucet';
@@ -29,6 +28,7 @@ export class App extends React.Component {
         address: "",
         balance: new BigNum(-1),
       },
+      loginRef: React.createRef(),
       TransmitTransactions: new TransmitTransactions(),
     };
   }
@@ -86,16 +86,20 @@ export class App extends React.Component {
     })
   }
 
+  toggleLogin() {
+    this.state.loginRef.current.toggleDrawer('login', true)
+  }
+
   render() {
     return (
       <SocketContext.Provider value={socket}>
         <div className="App">
           <div className="Loaded-app">
-            <Login requestTokens={this.requestTokens.bind(this)} account={this.state.account}
+            <Login ref={this.state.loginRef} requestTokens={this.requestTokens.bind(this)} account={this.state.account}
                    login={this.login.bind(this)} loggedIn={this.state.login} logout={this.logout.bind(this)}/>
             <Table lowerBalance={this.lowerBalance.bind(this)} doBet={this.doBet.bind(this)} loggedIn={this.state.login}
-                   account={this.state.account}/>
-            <LastNumbers selected={this.state.currentView}/>
+                   account={this.state.account} login={this.toggleLogin.bind(this)} />
+            {/*<LastNumbers selected={this.state.currentView}/>*/}
             <Transactions login={this.state.login} account={this.state.account} view={this.state.currentView}/>
             <img className="logo" src={logo} alt="logo"/>
           </div>
