@@ -7,6 +7,7 @@ import './login.css';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Address } from "../address";
+import countingChips from '../../assets/audio/countingchips.wav';
 
 
 export class Login extends React.Component {
@@ -20,6 +21,18 @@ export class Login extends React.Component {
       address: address.address,
       passphrase: passphrase,
       tokenText: "Get Tokens",
+      countingChips: new Audio(countingChips),
+    };
+    this.state.countingChips.volume = 0.4;
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.loggedIn && this.props.account.balance.eq(-1)) {
+      this.countingChips();
+    }
+
+    if (this.props.account.balance.gte(10)) {
+      this.state.countingChips.pause();
     }
   }
 
@@ -51,6 +64,7 @@ export class Login extends React.Component {
 
   getTokens() {
     this.props.requestTokens();
+    this.countingChips();
     if (this.state.tokenText === "Get Tokens") {
       this.setState({tokenText: "Counting your bucks!"});
     } else {
@@ -59,6 +73,12 @@ export class Login extends React.Component {
     setTimeout(() => {
       this.setState({tokenText: "Get Tokens"});
     }, 10000);
+  }
+
+  countingChips() {
+    this.state.countingChips.pause();
+    this.state.countingChips.currentTime = 0;
+    this.state.countingChips.play();
   }
 
   render() {

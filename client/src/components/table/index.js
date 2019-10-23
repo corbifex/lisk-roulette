@@ -10,8 +10,8 @@ import { subscribeToBlocks, subscribeToPeerBets } from "../../actions/subscribe"
 import { doRouletteBetTransaction } from '../../transactions/1001_bet_roulette';
 import './table.css';
 import Prando from "prando";
-
-
+import betChipSound from '../../assets/audio/betchips.wav';
+import wheelSound from '../../assets/audio/wheelroll.wav';
 const BigNum = require('bignumber.js');
 
 export class TableComponent extends React.Component {
@@ -34,7 +34,11 @@ export class TableComponent extends React.Component {
       showPeers: false,
       watch: false,
       zoom: 100,
+      betChipSound: new Audio(betChipSound),
+      wheelSound: new Audio(wheelSound),
     };
+    this.state.betChipSound.volume = 0.4;
+    this.state.wheelSound.volume = 0.4;
     subscribeToBlocks(props.socket, (err, blockSignature) => this.updateBlock(blockSignature));
     subscribeToPeerBets(props.socket, (err, bet) => this.addPeerBets(bet));
   }
@@ -90,6 +94,7 @@ export class TableComponent extends React.Component {
 
   clickField(field) {
     if (!this.state.watch && this.props.loggedIn && this.props.account.balance.gte(this.state.totalBet + this.state.amountSelected) && this.state.totalBetConfirmed === 0) {
+      this.betChip();
       const updatedBets = [...this.state.unconfirmedBets, {field: field, amount: this.state.amountSelected}];
 
       let totalBet = 0;
@@ -100,6 +105,18 @@ export class TableComponent extends React.Component {
       this.setState({unconfirmedBets: updatedBets, totalBet: totalBet, state: -1});
 
     }
+  }
+
+  betChip() {
+    this.state.betChipSound.pause();
+    this.state.betChipSound.currentTime = 0;
+    this.state.betChipSound.play();
+  }
+
+  wheelRoll() {
+    this.state.wheelSound.pause();
+    this.state.wheelSound.currentTime = 0;
+    this.state.wheelSound.play();
   }
 
   setAmount(amount) {
@@ -156,16 +173,30 @@ export class TableComponent extends React.Component {
         watch: true,
       });
 
+      // reset animation
       setTimeout(() => {
         this.setState({reset: false});
       }, 15);
+
+      // start sound
+      setTimeout(() => {
+        this.wheelRoll();
+      }, 400);
+
+      // start wait roll
       setTimeout(() => {
         this.setState({rest: false, state: 1, reset: true});
+
+        // reset animation
         setTimeout(() => {
           this.setState({reset: false});
-        }, 15);
+        }, 10);
+
+        // start real roll
         setTimeout(() => {
+          this.calculateLastWin();
           this.setState({rest: true, state: 2});
+          // show result
           setTimeout(() => {
             this.updateWatch(false);
             this.clear();
@@ -173,6 +204,10 @@ export class TableComponent extends React.Component {
         }, 2500);
       }, 6000);
     }
+  }
+
+  calculateLastWin() {
+
   }
 
   repeat() {

@@ -1,18 +1,17 @@
 .Account-container {
-    z-index: 999999999;
-    
-    font-size: 18px;
-    margin-left: -20rem;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: flex-start;
-    justify-content: space-between;
-    /* background-color: #195d1e; */
-    padding: 0rem;
-    line-height: 4.5rem;
-    position: fixed;
-    top: 0;
-    font-weight: bold;
+  z-index: 999999999;
+  font-size: 18px;
+  margin-left: 1rem;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  /* background-color: #195d1e; */
+  padding: 0rem;
+  line-height: 4.5rem;
+  position: fixed;
+  top: 0;
+  font-weight: bold;
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer */
   -webkit-user-select: none; /* Chrome, Safari, and Opera */
