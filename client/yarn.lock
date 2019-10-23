@@ -9132,6 +9132,11 @@ thunky@^1.0.2:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/thunky/-/thunky-1.1.0.tgz#5abaf714a9405db0504732bbccd2cedd9ef9537d"
 
+timeago.js@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/timeago.js/-/timeago.js-4.0.0.tgz#2c9a47cbae7a893288ecaf81b44d09cd24d4f790"
+  integrity sha512-/0glwk8XNsTwOtYJPm0Au1ySLakU8yH8aNuV2EAN84qDjdvyTByX/GFq4qFr6Js4lO5HAIx5vCYvijghX/jj9A==
+
 timers-browserify@^2.0.4:
   version "2.0.11"
   resolved "https://registry.yarnpkg.com/timers-browserify/-/timers-browserify-2.0.11.tgz#800b1f3eee272e5bc53ee465a04d0e804c31211f"

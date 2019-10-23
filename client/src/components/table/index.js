@@ -207,7 +207,7 @@ export class TableComponent extends React.Component {
   }
 
   calculateLastWin() {
-
+    console.log(this.state, this.props)
   }
 
   repeat() {

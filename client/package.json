@@ -22,7 +22,8 @@
     "react-scripts": "3.2.0",
     "react-swipeable-views": "^0.13.3",
     "socket.io-client": "^2.3.0",
-    "styled-components": "^4.4.0"
+    "styled-components": "^4.4.0",
+    "timeago.js": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,9 +1,12 @@
 import React from 'react';
 import Prando from 'prando';
+import * as timeago from 'timeago.js';
 import { fields, multiplier, selectors } from '../../transactions/1001_bet_roulette';
 import { subscribeToResults } from '../../actions/subscribe';
 import { requestResult } from '../../actions/request';
 import { Address } from "../address";
+import { getTimeWithOffset,EPOCH_TIME_MILLISECONDS } from '../../transactions/time';
+
 import './table.css';
 import { SocketContext } from "../../actions/socket-context";
 const BigNum = require('bignumber.js');
@@ -97,6 +100,8 @@ export class TransactionTableComponent extends React.Component {
 
   getColumn(column, type) {
     switch (type) {
+      case 'time':
+        return (<div className="TT-column">{timeago.format(new Date(EPOCH_TIME_MILLISECONDS + (column*1000)))}</div>);
       case 'id':
         return (<div className="TT-column">{column}</div>);
       case 'address':
@@ -121,6 +126,7 @@ export class TransactionTableComponent extends React.Component {
 
   getRow(row) {
     return (<div className="TT-row" key={row.id}>
+      {this.getColumn(row.timestamp, 'time')}
       {this.getColumn(row.id, 'id')}
       {this.getColumn(row.senderId, 'address')}
       {this.getColumn(row.luckyNumber, 'luckyNumber')}
@@ -139,6 +145,7 @@ export class TransactionTableComponent extends React.Component {
       <div className="Transactions-table">
         <div className="TT-head">
           <div className="TT-row head">
+            <div className="TTH-column">Time</div>
             <div className="TTH-column">ID</div>
             <div className="TTH-column">Player</div>
             <div className="TTH-column center">Lucky number</div>
