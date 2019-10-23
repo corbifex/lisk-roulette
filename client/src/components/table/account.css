@@ -29,13 +29,13 @@
 }
 
 .Disabled {
-  background-color: #282c34 !important;
+  background-color: rgb(12, 4, 30)!important;
 }
 
 .Account {
-  margin-left: .7rem;
+  margin-left: 7rem;
   margin-top: .5rem;
-  margin-right: 8rem;
+  
   line-height: 1.7rem;
   display: flex;
   flex-wrap: nowrap;
@@ -57,5 +57,5 @@
 }
 
 .Form-group {
-  margin: .7rem;
+  /*margin: .7rem;*/
 }

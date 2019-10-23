@@ -1,7 +1,7 @@
 .Login-container {
 
   font-size: calc(10px + 2vmin);
-  float: left;
+  float: right;
 }
 .top-header {
     position: fixed;
