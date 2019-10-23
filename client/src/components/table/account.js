@@ -28,7 +28,7 @@ export class AccountComponent extends React.Component {
           {/*/>}*/}
           <FormControlLabel
             control={
-              <Button className={clearClass} disabled={this.props.currentBet === 0}
+              <Button variant="contained" color="primary" className={clearClass} disabled={this.props.currentBet === 0}
                       onClick={this.props.clear.bind(this)}>Clear</Button>
             }
             label=""
