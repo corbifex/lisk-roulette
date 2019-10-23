@@ -100,10 +100,12 @@ export class App extends React.Component {
             <Table lowerBalance={this.lowerBalance.bind(this)} doBet={this.doBet.bind(this)} loggedIn={this.state.login}
                    account={this.state.account} login={this.toggleLogin.bind(this)} />
             {/*<LastNumbers selected={this.state.currentView}/>*/}
+            
             <Transactions login={this.state.login} account={this.state.account} view={this.state.currentView}/>
+            </div>
             <img className="logo" src={logo} alt="logo"/>
           </div>
-        </div>
+        
       </SocketContext.Provider>
     );
   }

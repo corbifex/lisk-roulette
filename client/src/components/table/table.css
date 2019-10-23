@@ -11,8 +11,21 @@
   padding: 2rem;
   border-radius: 10px;
   margin-top:10rem;
+  margin: auto;
 }
 
+.table-section{
+  margin-top: 8vh;
+  width: 100vw;
+    height: 80vh;
+    background: url("../../assets/images/BGCASINO.jpg");
+    background-color: #300;
+    /* background-size: 100px 100px; */
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    padding-top: 10rem;
+}
 .Table-wheel {
     width: 20vw;
     min-width: 350px;

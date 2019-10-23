@@ -12,6 +12,7 @@
     width: 100%;
     background: linear-gradient(to right, rgb(12, 4, 30), rgb(56, 25, 128));
     z-index: 999;
+    height: 8vh;
 }
 
 .MuiButton-containedPrimary {

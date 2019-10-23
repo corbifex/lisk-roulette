@@ -10,6 +10,7 @@ import { doRouletteBetTransaction } from '../../transactions/1001_bet_roulette';
 import './table.css';
 import Prando from "prando";
 
+
 const BigNum = require('bignumber.js');
 
 export class TableComponent extends React.Component {
@@ -195,6 +196,7 @@ export class TableComponent extends React.Component {
 
   render() {
     return (
+      <div className="table-section">
       <div className="Table-container">
         <div className="Table-wheel">
           <Roulette repeat={this.repeat.bind(this)} lastBets={this.state.lastBets} loggedIn={this.props.loggedIn} login={this.props.login.bind(this)} spin={this.confirm.bind(this)} state={this.state}/>
@@ -216,6 +218,7 @@ export class TableComponent extends React.Component {
                  clickField={this.clickField.bind(this)} peerBets={this.state.peerBets}
                  showPeers={this.state.showPeers}/>
         </div>
+      </div>
       </div>
     );
   }
