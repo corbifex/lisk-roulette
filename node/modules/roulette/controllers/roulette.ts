@@ -92,7 +92,7 @@ export class RouletteController {
     profit() {
         let profit = new BigNum(0);
         this.bet.map(bet => {
-            const fieldInt = new BigNum(bet.field).toInt();
+            const fieldInt = new BigNum(bet.field).toNumber();
             if (this.result(fieldInt)) {
                 const amount = new BigNum(bet.amount).mul(10 ** 8);
                 const subProfit = new BigNum(amount).mul(this.multiplier(fieldInt)).add(amount);
