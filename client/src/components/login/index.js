@@ -19,6 +19,7 @@ export class Login extends React.Component {
       publicKey: address.publicKey,
       address: address.address,
       passphrase: passphrase,
+      tokenText: "Get Tokens",
     }
   }
 
@@ -46,7 +47,19 @@ export class Login extends React.Component {
       this.getNewPassphrase();
       this.setState({login: open});
     }
-  };
+  }
+
+  getTokens() {
+    this.props.requestTokens();
+    if (this.state.tokenText === "Get Tokens") {
+      this.setState({tokenText: "Counting your bucks!"});
+    } else {
+      this.setState({tokenText: "I'm counting chill!!"});
+    }
+    setTimeout(() => {
+      this.setState({tokenText: "Get Tokens"});
+    }, 10000);
+  }
 
   render() {
     return (
@@ -60,8 +73,8 @@ export class Login extends React.Component {
             Logout
           </Button>}
           {this.props.loggedIn && this.props.account.balance.lt(10) && !this.props.account.balance.eq(-1) &&
-          <Button variant="contained" color="primary" onClick={this.props.requestTokens.bind(this)}>
-            Get Tokens
+          <Button variant="contained" color="primary" onClick={this.getTokens.bind(this)}>
+            {this.state.tokenText}
           </Button>}
           {/*<Button variant="contained" color="primary">*/}
           {/*  See Transactions*/}

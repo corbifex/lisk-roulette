@@ -205,7 +205,7 @@ export class TableComponent extends React.Component {
                    clear={this.clear.bind(this)} repeat={this.state.repeat}
                    confirm={this.confirm.bind(this)} state={this.state.state}
                    switchRepeat={this.switchRepeat.bind(this)} auto={this.state.auto}
-                   switchAuto={this.switchAuto.bind(this)} account={this.props.account}
+                   switchAuto={this.switchAuto.bind(this)} account={this.props.account} lastWin={this.props.lastWin}
                    showPeers={this.state.showPeers} switchPeers={this.switchPeers.bind(this)}/>}
           {this.props.loggedIn &&
           <Tokens setAmount={this.setAmount.bind(this)}
