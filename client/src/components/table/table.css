@@ -10,8 +10,8 @@
   min-height: 500px;
   padding: 2rem;
   border-radius: 10px;
-  margin-top:10rem;
   margin: auto;
+
 }
 
 .table-section{
@@ -24,19 +24,20 @@
     background-repeat: no-repeat;
     background-size: cover;
     display: block;
-    padding-top: 10rem;
+    padding-top: 1rem;
 }
 .Table-wheel {
     width: 20vw;
     min-width: 350px;
     margin: auto;
     display: block;
-    padding: 4rem;
+    padding: 1rem;
 }
 
 .Table-fields {
   width: 50vw;
   min-width: 500px;
+  zoom: 80%;
 }
 
 @media all and (min-width: 500px) {
