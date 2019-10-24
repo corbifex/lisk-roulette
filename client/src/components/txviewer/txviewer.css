@@ -1,0 +1,343 @@
+.MuiDialog-paperWidthSm {
+  width: 50vw !important;
+  max-width: 60vw !important;
+}
+
+.Field-container-tx {
+  margin: auto;
+  padding: 40px;
+  background: #1C7022;
+  display: table;
+  position: relative;
+  border-radius: 25px;
+  border: 4px solid #0d051f;
+  box-shadow: #0000008f 0px 9px 20px 0px;
+  width: 40vw;
+}
+
+.Field-container-tx table {
+  float: left;
+}
+
+.Field-container-tx table,
+tr {
+  border-collapse: collapse;
+  /*border-spacing: 0;*/
+}
+
+.Field-container-tx td {
+  border-spacing: 0;
+  border-collapse: collapse;
+  border: 2px solid white;
+  width: 50px;
+  height: 46px;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+  white-space: nowrap;
+}
+
+/* elements */
+.Field-container-tx .sector {
+  background: #1C7022;
+  color: #8EB891;
+  cursor: crosshair;
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer */
+  -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+  -webkit-user-select: none; /* Chrome, Safari, and Opera */
+  -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
+}
+
+.Field-container-tx .sector .vt {
+  font-size: 15px;
+}
+
+.Field-container-tx .num {
+  font-size: 22px;
+  cursor: crosshair;
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer */
+  -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+  -webkit-user-select: none; /* Chrome, Safari, and Opera */
+  -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
+}
+
+.Field-container-tx .num span {
+  display: block;
+  transform: rotate(270deg);
+}
+
+.Field-container-tx .zero {
+  width: 70px;
+  font-size: 56px;
+}
+
+.Field-container-tx .empty {
+  border: none;
+}
+
+/* colors */
+.Field-container-tx .green {
+  background: #1C7022;
+  color: #8EB891;
+}
+
+.Field-container-tx .red {
+  background: #A91607;
+  color: #8EB891;
+}
+
+.Field-container-tx .black {
+  background: #0E3811;
+  color: #8EB891;
+}
+
+/* cells hovers */
+.Field-container-tx .sector.hover,
+.Field-container-tx .num.hover {
+  font-size: 26px;
+  -moz-box-shadow: inset 0 0 5px #FFF, inset 0 0 5px #FFF;
+  -webkit-box-shadow: inset 0 0 5px #FFF, inset 0 0 5px #FFF;
+  box-shadow: inset 0 0 5px #FFF, inset 0 0 5px #FFF;
+}
+
+.Field-container-tx .sector.hover .vt {
+  font-size: 17px;
+}
+
+.Field-container-tx .sector.hover {
+  font-size: 22px;
+  background: #1C9022 !important;
+  color: #FBEC0F !important;
+}
+
+.Field-container-tx .green.hover {
+  font-size: 68px;
+  background: #3CC042 !important;
+  color: #FBEC0F !important;
+}
+
+.Field-container-tx .red.hover {
+  background: #C00 !important;
+  color: #FBEC0F !important;
+}
+
+.Field-container-tx .black.hover {
+  background: #000 !important;
+  color: #FBEC0F !important;
+}
+
+/* orientation */
+.Field-container-tx .vt {
+  display: block;
+  transform: rotate(270deg);
+  white-space: nowrap;
+}
+
+/* controlls */
+.Field-container-tx .controlls {
+  position: relative;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.Field-container-tx .controlls .btn {
+  /*opacity: 0.5;*/
+  position: absolute;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* zero */
+.Field-container-tx .controlls .btn-zero {
+  width: 75px;
+  height: 152px;
+  z-index: 0;
+}
+
+/* positions */
+.Field-container-tx .controlls .h {
+  width: 37px;
+  height: 15px;
+}
+
+.Field-container-tx .controlls .v {
+  width: 17px;
+  height: 35px;
+}
+
+.Field-container-tx .controlls .c {
+  width: 17px;
+  height: 15px;
+}
+
+.Field-container-tx .controlls .m {
+  width: 54px;
+  height: 50px;
+  margin-top: -7px;
+  margin-left: -10px;
+  z-index: 0;
+}
+
+.Field-container-tx .controlls .ms4 {
+  width: 216px;
+  height: 50px;
+  margin-top: -7px;
+  margin-left: -10px;
+  z-index: 0;
+}
+
+.Field-container-tx .controlls .ms2 {
+  width: 108px;
+  height: 50px;
+  margin-top: -7px;
+  margin-left: -10px;
+  z-index: 0;
+}
+
+/* rows */
+.Field-container-tx .controlls .row1 .rh {
+  top: -7px;
+}
+
+.Field-container-tx .controlls .row1 .rm {
+  top: 8px;
+}
+
+.Field-container-tx .controlls .row2 .rh {
+  top: 43px;
+}
+
+.Field-container-tx .controlls .row2 .rm {
+  top: 58px;
+}
+
+.Field-container-tx .controlls .row3 .rh {
+  top: 93px;
+}
+
+.Field-container-tx .controlls .row3 .rm {
+  top: 108px;
+}
+
+.Field-container-tx .controlls .row3 .rb {
+  top: 143px;
+}
+
+.Field-container-tx .controlls .row4 .rm {
+  top: 158px;
+}
+
+.Field-container-tx .controlls .row5 .rm {
+  top: 208px;
+}
+
+/* cols */
+.Field-container-tx .controlls .col1 .cv {
+  left: 68px;
+}
+
+.Field-container-tx .controlls .col1 .cm {
+  left: 85px;
+}
+
+.Field-container-tx .controlls .col2 .cv {
+  left: 122px;
+}
+
+.Field-container-tx .controlls .col2 .cm {
+  left: 139px;
+}
+
+.Field-container-tx .controlls .col3 .cv {
+  left: 176px;
+}
+
+.Field-container-tx .controlls .col3 .cm {
+  left: 193px;
+}
+
+.Field-container-tx .controlls .col4 .cv {
+  left: 230px;
+}
+
+.Field-container-tx .controlls .col4 .cm {
+  left: 247px;
+}
+
+.Field-container-tx .controlls .col5 .cv {
+  left: 284px;
+}
+
+.Field-container-tx .controlls .col5 .cm {
+  left: 301px;
+}
+
+.Field-container-tx .controlls .col6 .cv {
+  left: 338px;
+}
+
+.Field-container-tx .controlls .col6 .cm {
+  left: 355px;
+}
+
+.Field-container-tx .controlls .col7 .cv {
+  left: 392px;
+}
+
+.Field-container-tx .controlls .col7 .cm {
+  left: 409px;
+}
+
+.Field-container-tx .controlls .col8 .cv {
+  left: 446px;
+}
+
+.Field-container-tx .controlls .col8 .cm {
+  left: 463px;
+}
+
+.Field-container-tx .controlls .col9 .cv {
+  left: 500px;
+}
+
+.Field-container-tx .controlls .col9 .cm {
+  left: 517px;
+}
+
+.Field-container-tx .controlls .col10 .cv {
+  left: 554px;
+}
+
+.Field-container-tx .controlls .col10 .cm {
+  left: 571px;
+}
+
+.Field-container-tx .controlls .col11 .cv {
+  left: 608px;
+}
+
+.Field-container-tx .controlls .col11 .cm {
+  left: 625px;
+}
+
+.Field-container-tx .controlls .col12 .cv {
+  left: 662px;
+}
+
+.Field-container-tx .controlls .col12 .cm {
+  left: 679px;
+}
+
+.Field-container-tx .controlls .col13 .cm {
+  left: 733px;
+}
+
+/* others */
+.hidden {
+  display: none;
+}

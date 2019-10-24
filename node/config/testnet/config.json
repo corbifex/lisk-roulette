@@ -5,7 +5,8 @@
     "minVersion": "0.1.0",
     "protocolVersion": "1.1",
     "genesisConfig": {
-      "BLOCK_TIME": 40,
+      "BLOCK_TIME": 5,
+      "MAX_TRANSACTIONS_PER_BLOCK": 150,
       "EPOCH_TIME": "2019-10-18T00:00:00.000Z",
       "REWARDS": {
         "MILESTONES": [
@@ -21,11 +22,11 @@
       "consoleLogLevel": "info"
     },
     "storage": {
-      "port": 5432,
+      "port": 4421,
       "user": "postgres",
       "password": "",
       "logFileName": "logs/db.log",
-      "database": "roulette_testnet",
+      "database": "postgres",
       "host": "localhost"
     }
   },
@@ -38,10 +39,38 @@
     },
     "chain": {
       "forging": {
-        "force": false,
+        "force": true,
         "delegates": [
-
-        ]
+          {
+            "encryptedPassphrase": "iterations=1000000&cipherText=eb80822bd2964d7e869b52effa2375ab6577fec9d29bc0a70b782a9ed1921f898751a6cfc25e7c66ceccef9869e25dce5f237f9040955a31f1b27871f596b99e38da93bff0a9e0dcd8893158&iv=b4fe542f85e85409b67bb7b2&salt=fb32271c24a742185a0b551ba930c5a6&tag=12c13dda5cf8a06205a4aabe80a5d05b&version=1",
+            "publicKey": "5969bb4103e44b4e3563905859192ad101c41d9c6bf8c315223bba2033585958"
+          },
+          {
+            "encryptedPassphrase": "iterations=1000000&cipherText=88eb3bc465071a7464af4c823f663dabd67562cb53e3fcea445cca549fa84184ba5c47268d7b51036267adce2e0bdde2206c7eccc535889f8daf2d24c5aa7e9ebca9fe7bcc342c&iv=d93363be43b63a8b72acd6f4&salt=1856cbd8588fb5b5c838b1f8d557781a&tag=3b4f3a962f95f583ad520a0416b64424&version=1",
+            "publicKey": "08dcdc2f3d3df2a76748c197f263a8d269cc02475286fcfcabf43a5a28d9807f"
+          },
+          {
+            "encryptedPassphrase": "iterations=1000000&cipherText=afc2e8e6f104bc746f686203818f73e87610cdcbe0f61bb71768da5ba4b231f63538a8b17981dc966f259fedd49f936ea36dd23ae61c11b46af74195731846e57a2b6b2842088bfc2ca89f11073c1b5a&iv=cb568a0d5e82de48a0e9f664&salt=beb88d6d8927b166836758bab7462db6&tag=fd75895904df5fad1555fedef92b04b5&version=1",
+            "publicKey": "0d43eb83f838c37282df292fc3493dc151885ded9a640daaf7c3742316b3d213"
+          },
+          {
+            "encryptedPassphrase": "iterations=1000000&cipherText=75c5e214cd7e86cfe9e984e8452efae0c4e5914e7409b569a22bc3f6a3cd37c9a5fa83712461492f28e4f5b92f611aeeee1ba358002d38ac48092143e1bcc8d74b9fb4676189fbe3b2088c25d2ffe70ea0&iv=c415ab3adef01d77a3660fa8&salt=e72a79a25414ed27f54255400ffac2b1&tag=5fec749fcaa0c12eda3ca1fb566aee3e&version=1",
+            "publicKey": "9a199ca1ad26623ec5a2a56f8500b36e7bf1f9d783c0fdb455c2b5f9e3c0a302"
+          },
+          {
+            "encryptedPassphrase": "iterations=1000000&cipherText=f9088dfd23201da2d932fa52926d8444e1f924ef36853123c09aad5e4d40a6a59e7167ee1c96e0f31dff5c960e68317982c917f36ff0aa22470f90352ded4013112946720e582facf48b92&iv=072bdbe4daca221aa1a3ab9e&salt=e23aea86a750e72e67f7a1874599901c&tag=ffd6469cdf2db96de8358d0b8d6d3b73&version=1",
+            "publicKey": "c29964e3e8c86bca876008abc9f760165bf31cef00f35241114db6ee622ace76"
+          },
+          {
+            "encryptedPassphrase": "iterations=1000000&cipherText=29d20d1f2200ed00751141c0bb3f2a86f5ad076eb3d1667ab40514a41d3c63f668c4f5854db3d4f81d6edd09a9cb1e6350e04ca81f79a3dfa8523dfb0f99f2fb743b5cafa8aceaa5db176e54d16473&iv=5ffac804016588a9914c1804&salt=6cff7bde002f5513ae043c89570fbfbb&tag=ccc398cc898b0b7dfc6abb8aa91a5bce&version=1",
+            "publicKey": "958492292a3c238942f844ceeff5c4bd39269878fd4e0324b0a72f2d53d24f36"
+          },
+          {
+            "encryptedPassphrase": "iterations=1000000&cipherText=bd1719ea539381d77314b2eeeb6cce4a3e0743ab367c25776d0d9065690730f7c71013ce0edd17d5b25665992a4ebdf68cfa6d159d3b6257fb9788d1ce7d63fa5f76a407c0098297b0f744&iv=22921bf1e121f60e91232387&salt=58a0e393849073142b163e75e20c6f7c&tag=4759509bbc5685b1d490e873890602f2&version=1",
+            "publicKey": "7eb81a13384df95468c34351347b4712ea022081f74bd9379591de15875bc6ee"
+          }
+        ],
+        "password": "congress lava card below congress"
       }
     },
     "network": {

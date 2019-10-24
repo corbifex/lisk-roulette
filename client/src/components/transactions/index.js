@@ -46,6 +46,17 @@ export class Transactions extends React.Component {
     this.setState({value: index});
   }
 
+  getTabs() {
+    if (this.props.login) {
+
+    }
+    return (<Tab label="All bets" {...Transactions.a11yProps(0)} />);
+  }
+
+  getViews() {
+
+  }
+
   render() {
     return (
       <div className="Transactions-container">
@@ -58,8 +69,7 @@ export class Transactions extends React.Component {
             variant="fullWidth"
             aria-label="full width tabs example"
           >
-            <Tab label="All bets" {...Transactions.a11yProps(0)} />
-            {this.props.login && <Tab label="My bets" {...Transactions.a11yProps(1)} />}
+
           </Tabs>
         </AppBar>
         <div className="Tab-container">
@@ -69,10 +79,10 @@ export class Transactions extends React.Component {
             onChangeIndex={this.handleChange.bind(this)}
           >
             <this.TabPanel value={this.state.value} index={0}>
-              <TransactionTable/>
+              <TransactionTable view={this.props.view.bind(this)}/>
             </this.TabPanel>
             {this.props.login && <this.TabPanel value={this.state.value} index={1}>
-              <TransactionTable login={this.props.login} private={this.props.account.address}/>
+              <TransactionTable view={this.props.view.bind(this)} login={this.props.login} private={this.props.account.address}/>
             </this.TabPanel>}
           </SwipeableViews>
         </div>

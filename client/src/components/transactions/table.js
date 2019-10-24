@@ -5,6 +5,7 @@ import { fields, multiplier, selectors } from '../../transactions/1001_bet_roule
 import { subscribeToResults } from '../../actions/subscribe';
 import { requestResult } from '../../actions/request';
 import { Address } from "../address";
+import { TxViewer } from "../txviewer";
 import { EPOCH_TIME_MILLISECONDS } from '../../transactions/time';
 import win1 from '../../assets/audio/win1.wav';
 import win2 from '../../assets/audio/win2.mp3';
@@ -28,6 +29,7 @@ export class TransactionTableComponent extends React.Component {
       win4: new Audio(win4),
       lose1: new Audio(lose4),
       loaded: false,
+      view: 0,
     };
     subscribeToResults(props.socket, (err, block) => this.updateBlock(block));
     requestResult(props.socket);
@@ -149,7 +151,7 @@ export class TransactionTableComponent extends React.Component {
         }
         return (<div className="TT-column center"><label className={classColor}>{column}</label></div>);
       default:
-        return (<div className="TT-column right">-</div>);
+        return (<div className="TT-column right"><a className="View-button" onClick={this.props.view.bind(this, column.id)}>view</a> </div>);
 
     }
   }
@@ -162,7 +164,7 @@ export class TransactionTableComponent extends React.Component {
       {this.getColumn(row.luckyNumber, 'luckyNumber')}
       {this.getColumn(new BigNum(row.amount).div(10 ** 8).toString(), 'amount')}
       {this.getColumn(row, 'payout')}
-      {this.getColumn('', 'view')}
+      {this.getColumn(row, 'view')}
     </div>);
   }
 

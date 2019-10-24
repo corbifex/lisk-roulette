@@ -16,3 +16,8 @@ export function requestAddress(address, socket, cb) {
   socket.on(address, account => cb(null, account));
   socket.emit('address', address);
 }
+
+export function requestTx(id, socket, cb) {
+  socket.on(id, tx => cb(null, tx));
+  socket.emit('tx', id);
+}
