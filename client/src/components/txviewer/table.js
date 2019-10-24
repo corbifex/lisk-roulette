@@ -121,7 +121,7 @@ export class TxViewerTable extends React.Component {
   render() {
     return (
       <div ref={this.selector[50]} className="Field-container-tx">
-        {this.props.state.bet && this.renderUserBets()}
+        <div>{this.props.state.bet && this.renderUserBets()}</div>
         <table>
           <tbody>
           <tr className="nums">

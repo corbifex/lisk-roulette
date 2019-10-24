@@ -19,7 +19,7 @@ export class TxViewerComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {open: true};
+    this.state = {open: true, profit: 0};
     requestTx(props.id, props.socket, (err, tx) => this.setTx(tx));
   }
 
@@ -90,7 +90,7 @@ export class TxViewerComponent extends React.Component {
         <DialogTitle id="alert-dialog-slide-title">Transaction {this.props.id}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            <div>Payout: {this.state.profit}</div>
+            <p>Payout: {this.state.profit}</p>
             <TxViewerTable luckyNumber={this.state.luckyNumber} state={this.state} />
           </DialogContentText>
         </DialogContent>
