@@ -14,7 +14,7 @@ import { TxViewer } from "./components/txviewer";
 
 const BigNum = require('bignumber.js');
 
-const socket = openSocket('http://localhost:7171');
+const socket = openSocket('http://185.27.32.30:7171');
 
 export class App extends React.Component {
 
