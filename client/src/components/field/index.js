@@ -4,6 +4,8 @@ import token5 from '../../assets/images/5.png';
 import token25 from '../../assets/images/25.png';
 import './field.css';
 import { SocketContext } from "../../actions/socket-context";
+import { Zoom } from "../zoom";
+import { Tokens } from "../table/tokens";
 
 export class FieldComponent extends React.Component {
   constructor(props) {
@@ -477,6 +479,10 @@ export class FieldComponent extends React.Component {
           </tr>
           </tbody>
         </table>
+        {this.props.loggedIn &&
+        <Tokens setAmount={this.props.setAmount.bind(this)}
+        />}
+        <Zoom zoom={this.props.zoom.bind(this)}/>
       </div>
     );
   }

@@ -11,6 +11,7 @@
   line-height: 4.5rem;
   position: fixed;
   top: 0;
+  left: 7rem;
   font-weight: bold;
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer */
@@ -34,7 +35,7 @@
 .Account {
   margin-left: 7rem;
   margin-top: .5rem;
-  
+
   line-height: 1.7rem;
   display: flex;
   flex-wrap: nowrap;

@@ -2,8 +2,8 @@
 	display: block;
 	height: 2rem;
 	width: auto;
-	padding: 1rem;
-	margin-bottom: 2rem;
+	/*padding: 1rem;*/
+	margin-right: -.7em;
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* Internet Explorer */
 	-khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */

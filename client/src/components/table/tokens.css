@@ -1,18 +1,18 @@
 .Token {
   max-height: 50px;
-  margin: 20px 20px 0 0;
+  margin: 10px 20px 0 0;
 }
 
 .Selected {
   box-shadow: #0071df 0 0 20px 0px;
-
-    border-radius: 50%;
-    transition: all 0.2s;
+  border-radius: 50%;
+  transition: all 0.2s;
 }
 
 .Token-container {
 	width: 5rem;
-    float: right;
-    margin: auto;
-    display: block;
+  float: right;
+  margin: auto;
+  display: block;
+  margin-left: 1em;
 }

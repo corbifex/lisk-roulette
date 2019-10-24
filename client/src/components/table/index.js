@@ -244,7 +244,6 @@ export class TableComponent extends React.Component {
           <Roulette repeat={this.repeat.bind(this)} lastBets={this.state.lastBets} loggedIn={this.props.loggedIn} login={this.props.login.bind(this)} spin={this.confirm.bind(this)} state={this.state}/>
         </div>
         <div className="Table-fields" style={{zoom: `${this.state.zoom}%`}}>
-          <Zoom zoom={this.zoom.bind(this)}/>
           {this.props.loggedIn &&
           <Account confirmedBet={this.state.totalBetConfirmed} currentBet={this.state.totalBet}
                    clear={this.clear.bind(this)} repeat={this.state.repeat}
@@ -252,14 +251,12 @@ export class TableComponent extends React.Component {
                    switchRepeat={this.switchRepeat.bind(this)} auto={this.state.auto}
                    switchAuto={this.switchAuto.bind(this)} account={this.props.account} lastWin={this.props.lastWin}
                    showPeers={this.state.showPeers} switchPeers={this.switchPeers.bind(this)}/>}
-          {this.props.loggedIn &&
-          <Tokens setAmount={this.setAmount.bind(this)}
-          />}
-          <Field rolledNumber={this.state.rolledNumber} state={this.state.state} watch={this.state.watch}
+
+          <Field zoom={this.zoom.bind(this)} rolledNumber={this.state.rolledNumber} state={this.state.state} watch={this.state.watch}
                  loggedIn={this.props.loggedIn} userBets={this.state.unconfirmedBets}
                  confirmedBets={this.state.confirmedBets}
                  clickField={this.clickField.bind(this)} peerBets={this.state.peerBets}
-                 showPeers={this.state.showPeers}/>
+                 showPeers={this.state.showPeers} setAmount={this.setAmount.bind(this)}/>
         </div>
       </div>
       </div>
