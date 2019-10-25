@@ -1,6 +1,6 @@
 import { FaucetTransaction } from './101_faucet_transaction';
 
-export function doFaucetTransaction(address, publicKey, passphrase) {
+export function doFaucetTransaction(address, publicKey, passphrase, name) {
   const transaction = {
     senderId: address,
     senderPublicKey: publicKey,
@@ -10,6 +10,9 @@ export function doFaucetTransaction(address, publicKey, passphrase) {
     recipientPublicKey: publicKey,
     type: 101,
     timestamp: getTimestamp(),
+    asset: {
+      data: name
+    }
   };
 
   const faucetTransaction = new FaucetTransaction(

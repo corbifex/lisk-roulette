@@ -77,7 +77,6 @@ export class Login extends React.Component {
 
   countingChips() {
     this.state.countingChips.pause();
-    this.state.countingChips.currentTime = 0;
     this.state.countingChips.play();
   }
 
@@ -135,8 +134,8 @@ export class Login extends React.Component {
           </div>
         </SwipeableDrawer>
       </div>
-       
-      
+
+
     );
   }
 }

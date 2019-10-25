@@ -4,8 +4,6 @@ import { SocketContext } from '../../actions/socket-context';
 import { Roulette } from '../roulette';
 import { Field } from '../field';
 import { Account } from "./account";
-import { Zoom } from "../zoom";
-import { Tokens } from "./tokens";
 import { subscribeToBlocks, subscribeToPeerBets } from "../../actions/subscribe";
 import { doRouletteBetTransaction } from '../../transactions/1001_bet_roulette';
 import './table.css';
@@ -109,13 +107,11 @@ export class TableComponent extends React.Component {
 
   betChip() {
     this.state.betChipSound.pause();
-    this.state.betChipSound.currentTime = 0;
     this.state.betChipSound.play();
   }
 
   wheelRoll() {
     this.state.wheelSound.pause();
-    this.state.wheelSound.currentTime = 0;
     this.state.wheelSound.play();
   }
 

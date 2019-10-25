@@ -1,7 +1,6 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import { SocketContext } from "../../actions/socket-context";
@@ -21,6 +20,10 @@ export class TxViewerComponent extends React.Component {
     super(props);
     this.state = {open: true, profit: 0};
     requestTx(props.id, props.socket, (err, tx) => this.setTx(tx));
+  }
+
+  componentWillUnmount() {
+    this.props.socket.removeListener(this.props.id);
   }
 
   getLuckyNumber(hash) {
@@ -69,11 +72,6 @@ export class TxViewerComponent extends React.Component {
 
   handleClose() {
     this.props.view(0);
-    this.setState({open: false});
-  }
-
-  handleClickOpen() {
-    this.setState({open: true});
   }
 
   render() {
@@ -88,11 +86,9 @@ export class TxViewerComponent extends React.Component {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle id="alert-dialog-slide-title">Transaction {this.props.id}</DialogTitle>
+        <DialogTitle>Payout: {this.state.profit}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            <p>Payout: {this.state.profit}</p>
             <TxViewerTable luckyNumber={this.state.luckyNumber} state={this.state} />
-          </DialogContentText>
         </DialogContent>
       </Dialog>
 

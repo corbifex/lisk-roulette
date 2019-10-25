@@ -1,11 +1,12 @@
 import React from 'react';
 import Prando from 'prando';
 import * as timeago from 'timeago.js';
+import IconButton from '@material-ui/core/IconButton';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import { fields, multiplier, selectors } from '../../transactions/1001_bet_roulette';
 import { subscribeToResults } from '../../actions/subscribe';
 import { requestResult } from '../../actions/request';
 import { Address } from "../address";
-import { TxViewer } from "../txviewer";
 import { EPOCH_TIME_MILLISECONDS } from '../../transactions/time';
 import win1 from '../../assets/audio/win1.wav';
 import win2 from '../../assets/audio/win2.mp3';
@@ -14,6 +15,7 @@ import win4 from '../../assets/audio/win4.mp3';
 import lose4 from '../../assets/audio/lose4.wav';
 import './table.css';
 import { SocketContext } from "../../actions/socket-context";
+
 const BigNum = require('bignumber.js');
 
 export class TransactionTableComponent extends React.Component {
@@ -133,7 +135,7 @@ export class TransactionTableComponent extends React.Component {
   getColumn(column, type) {
     switch (type) {
       case 'time':
-        return (<div className="TT-column">{timeago.format(new Date(EPOCH_TIME_MILLISECONDS + (column*1000)))}</div>);
+        return (<div className="TT-column">{timeago.format(new Date(EPOCH_TIME_MILLISECONDS + (column * 1000)))}</div>);
       case 'id':
         return (<div className="TT-column">{column}</div>);
       case 'address':
@@ -151,7 +153,11 @@ export class TransactionTableComponent extends React.Component {
         }
         return (<div className="TT-column center"><label className={classColor}>{column}</label></div>);
       default:
-        return (<div className="TT-column right"><a className="View-button" onClick={this.props.view.bind(this, column.id)}>view</a> </div>);
+        return (<div className="TT-column right">
+          <IconButton onClick={this.props.view.bind(this, column.id)} aria-label="view" className="View-icon" style={{color: 'white'}}>
+            <VisibilityIcon />
+          </IconButton>
+        </div>);
 
     }
   }

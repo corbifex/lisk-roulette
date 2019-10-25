@@ -92,19 +92,15 @@ export class TxViewerTable extends React.Component {
 
   renderUserBets() {
     let bets = [];
-    let j = 0;
     for (let i = 0; i < this.props.state.bet.length; i++) {
       const index = this.props.state.bet[i].field;
       const rect = this.selector[index].current.getBoundingClientRect();
-
       const bet = this.splitToTokens(parseInt(this.props.state.bet[i].amount), [25,5,1]);
       bet.map(tk => {
-        console.log(tk)
-        j++;
         const x = this.selector[index].current.offsetLeft + 50 + rInt(-10, rect.width - 35 );
         const y = this.selector[index].current.offsetTop + 50 + rInt(-10, rect.height - 35);
-        const key = `token-field-${i}-${j}`;
-        bets = [...bets, (<img style={{
+        const key = `token-field-${i}-${x}-${y}`;
+        bets.push(<img style={{
           position: 'absolute',
           top: `${y}px`,
           left: `${x}px`,
@@ -112,8 +108,9 @@ export class TxViewerTable extends React.Component {
           height: "25px",
           width: "25px",
           cursor: "crosshair",
-        }} src={this.state.tokens[tk.toString()]} alt="" key={key}/>)];
-      })
+        }} src={this.state.tokens[tk.toString()]} alt="" key={key}/>);
+        return true;
+      });
     }
     return bets;
   }
@@ -121,7 +118,6 @@ export class TxViewerTable extends React.Component {
   render() {
     return (
       <div ref={this.selector[50]} className="Field-container-tx">
-        <div>{this.props.state.bet && this.renderUserBets()}</div>
         <table>
           <tbody>
           <tr className="nums">
@@ -286,6 +282,8 @@ export class TxViewerTable extends React.Component {
           </tr>
           </tbody>
         </table>
+        {this.props.state.bet && this.renderUserBets()}
+
       </div>
 
     )
