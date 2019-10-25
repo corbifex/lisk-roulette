@@ -25,11 +25,12 @@ export default ({components, channel}, socket) => {
         const lastBlock = await components.storage.entities.Block.get(
             {id: event.data.id}, {extended: true, limit: 1});
         if (lastBlock[0].numberOfTransactions > 0) {
-            const transactions = lastBlock[0].transactions.map(tx => {
+            let transactions: any = [];
+            for (let i = 0; i < lastBlock[0].numberOfTransactions; i++) {
                 const user = await components.storage.entities.Account.get(
-                    {address: tx.senderId}, {extended: true});
-                return {...tx, username: user.username};
-            });
+                    {address: lastBlock[0].transactions[i].senderId}, {extended: true});
+                transactions = [...transactions, {...lastBlock[0].transactions[i], username: user.username}];
+            }
             socket.emit('results', {...lastBlock[0], transactions: transactions});
         }
     });
