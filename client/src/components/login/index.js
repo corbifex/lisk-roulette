@@ -1,15 +1,15 @@
 import React from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Mnemonic } from '@liskhq/lisk-passphrase';
 import { getAddressAndPublicKeyFromPassphrase } from '@liskhq/lisk-cryptography';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import './login.css';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Address } from "../address";
 import countingChips from '../../assets/audio/countingchips.wav';
 import { hasUsername, requestAddress } from '../../actions/request';
 import { SocketContext } from "../../actions/socket-context";
+import './login.css';
 
 export class LoginComponent extends React.Component {
   constructor(props) {
@@ -120,9 +120,6 @@ export class LoginComponent extends React.Component {
           <Button variant="contained" color="primary" onClick={this.getTokens.bind(this)}>
             {this.state.tokenText}
           </Button>}
-          {/*<Button variant="contained" color="primary">*/}
-          {/*  See Transactions*/}
-          {/*</Button>*/}
         </div>
         <SwipeableDrawer
           anchor="top"

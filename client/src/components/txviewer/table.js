@@ -1,8 +1,8 @@
 import React from 'react';
-import './txviewer.css';
 import token1 from "../../assets/images/1.png";
 import token5 from "../../assets/images/5.png";
 import token25 from "../../assets/images/25.png";
+import './txviewer.css';
 
 export class TxViewerTable extends React.Component {
 
@@ -283,9 +283,7 @@ export class TxViewerTable extends React.Component {
           </tbody>
         </table>
         {this.props.state.bet && this.renderUserBets()}
-
       </div>
-
     )
   }
 }

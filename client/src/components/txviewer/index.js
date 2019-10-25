@@ -6,9 +6,9 @@ import Slide from '@material-ui/core/Slide';
 import { SocketContext } from "../../actions/socket-context";
 import { requestTx } from '../../actions/request';
 import { TxViewerTable } from './table';
-import './txviewer.css';
 import Prando from "prando";
 import { fields, multiplier, selectors } from "../../transactions/1001_bet_roulette";
+import './txviewer.css';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -94,7 +94,7 @@ export class TxViewerComponent extends React.Component {
 
     )
   }
-};
+}
 
 export const TxViewer = props => (
   <SocketContext.Consumer>

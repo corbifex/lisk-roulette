@@ -8,8 +8,8 @@ import { subscribeToResults } from '../../actions/subscribe';
 import { requestResult, requestMyBets } from '../../actions/request';
 import { Address } from "../address";
 import { EPOCH_TIME_MILLISECONDS } from '../../transactions/time';
-import './table.css';
 import { SocketContext } from "../../actions/socket-context";
+import './table.css';
 
 const BigNum = require('bignumber.js');
 
@@ -68,7 +68,6 @@ export class TransactionTableComponent extends React.Component {
   }
 
   updateTxs(txs) {
-    //
     if (txs.length > 0) {
       for (let i = 0; i < txs.length; i++) {
         txs[i].luckyNumber = this.getLuckyNumber(txs[i].seed);
@@ -186,7 +185,6 @@ export class TransactionTableComponent extends React.Component {
     );
   }
 }
-
 
 export const TransactionTable = props => (
   <SocketContext.Consumer>

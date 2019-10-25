@@ -17,7 +17,6 @@ export class Transactions extends React.Component {
     }
   }
 
-
   static a11yProps(index) {
     return {
       id: `full-width-tab-${index}`,
@@ -99,7 +98,6 @@ export class Transactions extends React.Component {
           </SwipeableViews>
         </div>
       </div>
-
     )
   }
 }

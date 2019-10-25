@@ -37,7 +37,6 @@ export class TableComponent extends React.Component {
     };
     this.state.betChipSound.volume = 0.4;
     this.state.wheelSound.volume = 0.4;
-    // subscribeToBlocks(props.socket, (err, blockSignature) => this.updateBlock(blockSignature));
     subscribeToPeerBets(props.socket, (err, bet) => this.addPeerBets(bet));
   }
 
@@ -205,9 +204,6 @@ export class TableComponent extends React.Component {
         }, 2500);
       }, 6000);
     }
-  }
-
-  calculateLastWin() {
   }
 
   repeat() {

@@ -1,14 +1,15 @@
 import React from 'react';
-import token1 from '../../assets/images/1.png';
-import token5 from '../../assets/images/5.png';
-import token25 from '../../assets/images/25.png';
-import './field.css';
-import { SocketContext } from "../../actions/socket-context";
-import { Zoom } from "../zoom";
-import { Tokens } from "../table/tokens";
 import ReplayIcon from '@material-ui/icons/Replay';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import IconButton from "@material-ui/core/IconButton";
+import token1 from '../../assets/images/1.png';
+import token5 from '../../assets/images/5.png';
+import token25 from '../../assets/images/25.png';
+import { SocketContext } from "../../actions/socket-context";
+import { Zoom } from "../zoom";
+import { Tokens } from "../table/tokens";
+
+import './field.css';
 
 export class FieldComponent extends React.Component {
   constructor(props) {

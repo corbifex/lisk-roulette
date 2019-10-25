@@ -1,22 +1,22 @@
 import React from 'react';
+import Prando from "prando";
 import openSocket from 'socket.io-client';
+import { getAddressAndPublicKeyFromPassphrase } from "@liskhq/lisk-cryptography";
 import { SocketContext } from './actions/socket-context';
 import { Login } from './components/login';
 import { Table } from './components/table';
 import { Transactions } from './components/transactions';
-import './App.css';
-import { getAddressAndPublicKeyFromPassphrase } from "@liskhq/lisk-cryptography";
 import { doFaucetTransaction } from './transactions/101_faucet';
 import { TransmitTransactions } from './actions/transmit-transactions';
 import { requestAddress } from "./actions/request";
 import logo from './assets/images/logo.png';
 import { TxViewer } from "./components/txviewer";
-import Prando from "prando";
 import { fields, multiplier, selectors } from "./transactions/1001_bet_roulette";
 import win2 from "./assets/audio/win2.mp3";
 import win3 from "./assets/audio/win3.wav";
 import win4 from "./assets/audio/win4.mp3";
 import lose4 from "./assets/audio/lose4.wav";
+import './App.css';
 
 const BigNum = require('bignumber.js');
 
