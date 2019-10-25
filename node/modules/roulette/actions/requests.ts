@@ -10,6 +10,19 @@ export default ({components}, socket) => {
 
     socket.on('results', async () => {
         const lastBlocks = await components.storage.entities.Block.get({numberOfTransactions_gt: 0}, {sort: 'height:desc', limit: 30, extended: true});
+        if (lastBlocks.length > 0) {
+            for (let b = 0; b < lastBlocks.length; b++) {
+                if (lastBlocks[b].numberOfTransactions > 0) {
+                    let transactions: any = [];
+                    for (let i = 0; i < lastBlocks[b].numberOfTransactions; i++) {
+                        const user = await components.storage.entities.Account.get(
+                            {address: lastBlocks[b].transactions[i].senderId}, {extended: true});
+                        transactions = [...transactions, {...lastBlocks[b].transactions[i], username: user.username}];
+                    }
+                    lastBlocks[b].transactions = transactions;
+                }
+            }
+        }
         socket.emit('results', lastBlocks);
     });
 
