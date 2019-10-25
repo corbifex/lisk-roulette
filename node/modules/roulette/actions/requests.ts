@@ -27,8 +27,15 @@ export default ({components}, socket) => {
     });
 
     socket.on('my_results', async (address) => {
+        const account = await components.storage.entities.Account.get({address: address}, {limit: 1, extended: true});
         const myTransactions = await components.storage.entities.Transaction.get({senderId: address, type: 1001}, {sort: 'timestamp:desc', limit: 1000, extended: true});
-
+        if (myTransactions.length > 0) {
+            for (let i = 0; i < myTransactions.length; i++) {
+                const block = await components.storage.entities.Block.get({id: myTransactions[i].blockId}, {sort: 'height:desc', limit: 1});
+                myTransactions[i].seed = block[0].blockSignature;
+                myTransactions[i].username = account[0].username;
+            }
+        }
         socket.emit(`my_results_${address}`, myTransactions);
     });
 
