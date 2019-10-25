@@ -26,6 +26,12 @@ export default ({components}, socket) => {
         socket.emit('results', lastBlocks);
     });
 
+    socket.on('my_results', async (address) => {
+        const myTransactions = await components.storage.entities.Transaction.get({senderId: address, type: 1001}, {sort: 'timestamp:desc', limit: 1000, extended: true});
+
+        socket.emit(`my_results_${address}`, myTransactions);
+    });
+
     socket.on('rblocks', async () => {
         const lastBlocks = await components.storage.entities.Block.get({}, {sort: 'height:desc', limit: 30});
         let blocks: any = [];
