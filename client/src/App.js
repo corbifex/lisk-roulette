@@ -20,7 +20,7 @@ import './App.css';
 
 const BigNum = require('bignumber.js');
 
-const socket = openSocket('http://185.27.32.30:7171');
+const socket = openSocket('http://ws.roulette.delegate.moosty.com/');
 
 export class App extends React.Component {
 
