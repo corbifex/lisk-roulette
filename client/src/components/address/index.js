@@ -36,7 +36,7 @@ export class Address extends React.Component {
       lastname += lastSection[lastN][rng.nextInt(0, lastSection[lastN].length)];
     }
 
-    return `${firstName}${lastname}`;
+    return `${firstName.toLowerCase()}${lastname.toLowerCase()}`;
   }
 
   render() {

@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Address } from "../address";
 import countingChips from '../../assets/audio/countingchips.wav';
-import { hasUsername } from '../../actions/request';
+import { hasUsername, requestAddress } from '../../actions/request';
 import { SocketContext } from "../../actions/socket-context";
 
 export class LoginComponent extends React.Component {
@@ -55,19 +55,28 @@ export class LoginComponent extends React.Component {
 
   updatePassphrase(passphrase) {
     const address = getAddressAndPublicKeyFromPassphrase(passphrase);
+    requestAddress(address.address, this.props.socket, (err, res) => this.checkUser(res, address.address));
+
     this.setState({
       passphrase: passphrase,
       publicKey: address.publicKey,
       address: address.address,
-      username: new Address({ Readonly: true, address: address.address }).state.username.substr(0, 20),
     });
+  }
+
+  checkUser(account, address) {
+    if (account === null) {
+      this.updateUsername( new Address({ Readonly: true, address: address }).state.username.substr(0, 20))
+    } else {
+      this.setState({username: account.username, userExist: true, duplicate: false});
+    }
   }
 
   updateUsername(username) {
     // check duplicate
     hasUsername(username, this.props.socket, (err, res) => this.setState({duplicate: res}));
     this.setState({
-      username: username.substr(0, 20)
+      username: username.substr(0, 20).replace(/[\W]+/g,"").toLowerCase()
     });
   }
 
@@ -143,14 +152,16 @@ export class LoginComponent extends React.Component {
             <div className="Login-address">
               Address: {this.state.address} <br/>
               <TextField
-                id="standard-name"
-                label="Playername"
+                id={this.state.duplicate ? `standard-error` : `standard-name`}
+                label={this.state.duplicate ? `Duplicate username` : `Player name`}
                 className="Login-field"
                 value={this.state.username}
                 margin="normal"
+                disabled={this.state.userExist}
+                pattern="[A-Za-z]{20}"
                 onChange={(input) => this.updateUsername(input.target.value)}
               /><br/>
-              <Button variant="contained" color="primary" onClick={this.login.bind(this)}>
+              <Button disabled={this.state.duplicate} variant="contained" color="primary" onClick={this.login.bind(this)}>
                 Login
               </Button>
             </div>

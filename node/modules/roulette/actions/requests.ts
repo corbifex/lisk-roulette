@@ -42,4 +42,9 @@ export default ({components}, socket) => {
         const account = await components.storage.entities.Account.get({username: username}, {limit: 1, extended: true});
         socket.emit(username, !!account[0]);
     });
+
+    socket.on('get_username', async (address) => {
+        const account = await components.storage.entities.Account.get({address: address}, {limit: 1, extended: true});
+        socket.emit(`user_${address}`, account[0].username);
+    });
 }

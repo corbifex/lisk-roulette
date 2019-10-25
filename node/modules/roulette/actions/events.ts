@@ -16,6 +16,7 @@ export default ({components, channel}, socket) => {
                     timestamp: lastActions[i].timestamp,
                     seed: event.data.blockSignature,
                 });
+                socket.emit(`bet_${lastActions[i].id}`, {tx: lastActions[i], seed: event.data.blockSignature});
             }
         }
     });
@@ -23,7 +24,14 @@ export default ({components, channel}, socket) => {
     channel.subscribe('chain:blocks:change', async event => {
         const lastBlock = await components.storage.entities.Block.get(
             {id: event.data.id}, {extended: true, limit: 1});
-        socket.emit('results', lastBlock[0]);
+        if (lastBlock[0].numberOfTransactions > 0) {
+            const transactions = lastBlock[0].transactions.map(tx => {
+                const user = await components.storage.entities.Account.get(
+                    {address: tx.senderId}, {extended: true});
+                return {...tx, username: user.username};
+            });
+            socket.emit('results', {...lastBlock[0], transactions: transactions});
+        }
     });
 
     channel.subscribe('roulette:update:balance', async event => {

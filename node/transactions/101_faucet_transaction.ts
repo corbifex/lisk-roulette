@@ -137,7 +137,7 @@ export class FaucetTransaction extends BaseTransaction {
                 ),
             );
         }
-        if (this.asset.username) {
+        if (this.asset.username && !sender.username) {
             const usernameExists = store.account.find(
                 (account: Account) => account.username === this.asset.username && account.address !== this.senderId,
             );
@@ -154,6 +154,7 @@ export class FaucetTransaction extends BaseTransaction {
             store.account.set(this.senderId, {
                 ...sender,
                 username: this.asset.username,
+                isDelegate: 1,
                 balance: new BigNum(10000000000).toString(),
             });
         } else {
