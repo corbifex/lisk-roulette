@@ -29,7 +29,7 @@ export default ({components, channel}, socket) => {
             for (let i = 0; i < lastBlock[0].numberOfTransactions; i++) {
                 const user = await components.storage.entities.Account.get(
                     {address: lastBlock[0].transactions[i].senderId}, {extended: true});
-                transactions = [...transactions, {...lastBlock[0].transactions[i], username: user.username}];
+                transactions = [...transactions, {...lastBlock[0].transactions[i], username: user[0].username}];
             }
             socket.emit('results', {...lastBlock[0], transactions: transactions});
         }
