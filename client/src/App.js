@@ -110,7 +110,10 @@ export class App extends React.Component {
   }
 
   getPayout(bet) {
-    return this.profit(JSON.parse(bet.tx.asset.data), this.getLuckyNumber(bet.seed));
+    if (bet && bet.tx && bet.seed) {
+      return this.profit(JSON.parse(bet.tx.asset.data), this.getLuckyNumber(bet.seed));
+    }
+    return 0;
   }
 
   checkAccount(account, name) {
