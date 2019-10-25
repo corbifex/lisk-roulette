@@ -5,14 +5,9 @@ import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { fields, multiplier, selectors } from '../../transactions/1001_bet_roulette';
 import { subscribeToResults } from '../../actions/subscribe';
-import { requestResult } from '../../actions/request';
+import { requestResult, requestMyBets } from '../../actions/request';
 import { Address } from "../address";
 import { EPOCH_TIME_MILLISECONDS } from '../../transactions/time';
-import win1 from '../../assets/audio/win1.wav';
-import win2 from '../../assets/audio/win2.mp3';
-import win3 from '../../assets/audio/win3.wav';
-import win4 from '../../assets/audio/win4.mp3';
-import lose4 from '../../assets/audio/lose4.wav';
 import './table.css';
 import { SocketContext } from "../../actions/socket-context";
 
@@ -25,16 +20,15 @@ export class TransactionTableComponent extends React.Component {
     this.state = {
       blocks: [],
       transactions: [],
-      win1: new Audio(win1),
-      win2: new Audio(win2),
-      win3: new Audio(win3),
-      win4: new Audio(win4),
-      lose1: new Audio(lose4),
       loaded: false,
       view: 0,
     };
     subscribeToResults(props.socket, (err, block) => this.updateBlock(block));
-    requestResult(props.socket);
+    if (props.private) {
+      requestMyBets(props.private, props.socket, (err, txs) => this.updateTxs(txs));
+    } else {
+      requestResult(props.socket);
+    }
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
@@ -65,31 +59,22 @@ export class TransactionTableComponent extends React.Component {
           if (block.transactions[i].type === 1001) {
             if ((!this.props.private && !this.props.login) || (this.props.private !== false && this.props.private === block.transactions[i].senderId)) {
               txs = [{...block.transactions[i], luckyNumber: this.getLuckyNumber(block.blockSignature)}, ...txs];
-              if (this.state.loaded && this.props.private !== false && this.props.private === block.transactions[i].senderId) {
-                // player result
-                let profit = this.profit(JSON.parse(block.transactions[i].asset.data), this.getLuckyNumber(block.blockSignature));
-                if (profit < 1) {
-                  this.playSound(this.state.lose1);
-                } else if (profit > 0 && profit < 50) {
-                  this.playSound(this.state.win4);
-                } else if (profit >= 50 && profit < 100) {
-                  this.playSound(this.state.win2);
-                } else if (profit >= 100) {
-                  this.playSound(this.state.win3);
-                }
-              }
             }
           }
         }
       }
-      this.setState({blocks: blocks, transactions: txs})
+      this.setState({blocks: blocks, transactions: txs});
     }
   }
 
-  playSound(sound) {
-    sound.pause();
-    sound.currentTime = 0;
-    sound.play();
+  updateTxs(txs) {
+    //
+    if (txs.length > 0) {
+      for (let i = 0; i < txs.length; i++) {
+        txs[i].luckyNumber = this.getLuckyNumber(txs[i].seed);
+      }
+      this.setState({blocks: [], transactions: txs});
+    }
   }
 
   getLuckyNumber(hash) {
@@ -139,7 +124,8 @@ export class TransactionTableComponent extends React.Component {
       case 'id':
         return (<div className="TT-column">{column}</div>);
       case 'address':
-        return (<div className="TT-column">{column.username ? column.username : <Address address={column.address} textOnly={true}/>}</div>);
+        return (<div className="TT-column">{column.username ? column.username :
+          <Address address={column.address} textOnly={true}/>}</div>);
       case 'amount':
         return (<div className="TT-column right">{column}</div>);
       case 'payout':
@@ -154,8 +140,9 @@ export class TransactionTableComponent extends React.Component {
         return (<div className="TT-column center"><label className={classColor}>{column}</label></div>);
       default:
         return (<div className="TT-column right">
-          <IconButton onClick={this.props.view.bind(this, column.id)} aria-label="view" className="View-icon" style={{color: 'white'}}>
-            <VisibilityIcon />
+          <IconButton onClick={this.props.view.bind(this, column.id)} aria-label="view" className="View-icon"
+                      style={{color: 'white'}}>
+            <VisibilityIcon/>
           </IconButton>
         </div>);
 
@@ -163,7 +150,6 @@ export class TransactionTableComponent extends React.Component {
   }
 
   getRow(row) {
-    console.log(row)
     return (<div className="TT-row" key={row.id}>
       {this.getColumn(row.timestamp, 'time')}
       {this.getColumn(row.id, 'id')}

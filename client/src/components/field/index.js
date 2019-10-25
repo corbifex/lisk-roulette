@@ -6,6 +6,9 @@ import './field.css';
 import { SocketContext } from "../../actions/socket-context";
 import { Zoom } from "../zoom";
 import { Tokens } from "../table/tokens";
+import ReplayIcon from '@material-ui/icons/Replay';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import IconButton from "@material-ui/core/IconButton";
 
 export class FieldComponent extends React.Component {
   constructor(props) {
@@ -440,7 +443,12 @@ export class FieldComponent extends React.Component {
           </tr>
           <tr>
             <td
-              className="empty"/>
+              className="empty">
+              <IconButton onClick={this.props.repeat.bind(this)} aria-label="view" className="View-icon"
+                          style={{color: 'white'}}>
+                <ReplayIcon/>
+              </IconButton>
+            </td>
             <td
               ref={this.selector[43]}
               onClick={this.props.clickField.bind(this, 'half1')}
@@ -475,14 +483,20 @@ export class FieldComponent extends React.Component {
                 className={this.getClass('half2', 'sector')}
                 onMouseOver={this.mouseOver.bind(this, 'half2')}>19 to 36
             </td>
-            <td className="empty"/>
+            <td className="empty">
+              <IconButton onClick={this.props.clear.bind(this)} aria-label="view" className="View-icon"
+                          style={{color: 'white'}}>
+                <DeleteForeverIcon/>
+              </IconButton>
+            </td>
           </tr>
           </tbody>
         </table>
         {this.props.loggedIn &&
         <Tokens setAmount={this.props.setAmount.bind(this)}
         />}
-        <Zoom zoom={this.props.zoom.bind(this)}/>
+        {this.props.loggedIn &&
+        <Zoom zoom={this.props.zoom.bind(this)}/>}
       </div>
     );
   }

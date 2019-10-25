@@ -17,6 +17,11 @@ export function requestAddress(address, socket, cb) {
   socket.emit('address', address);
 }
 
+export function requestMyBets(address, socket, cb) {
+  socket.on(`my_results_${address}`, account => cb(null, account));
+  socket.emit('my_results', address);
+}
+
 export function requestTx(id, socket, cb) {
   socket.on(id, tx => cb(null, tx));
   socket.emit('tx', id);

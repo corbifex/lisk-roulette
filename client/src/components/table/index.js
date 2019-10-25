@@ -37,15 +37,16 @@ export class TableComponent extends React.Component {
     };
     this.state.betChipSound.volume = 0.4;
     this.state.wheelSound.volume = 0.4;
-    subscribeToBlocks(props.socket, (err, blockSignature) => this.updateBlock(blockSignature));
+    // subscribeToBlocks(props.socket, (err, blockSignature) => this.updateBlock(blockSignature));
     subscribeToPeerBets(props.socket, (err, bet) => this.addPeerBets(bet));
   }
 
-  updateBlock(blockSignature) {
-    const rng = new Prando(blockSignature);
+  updateBlock(bet) {
+    const rng = new Prando(bet.seed);
     const draw = rng.nextInt(0, 36);
     if (this.state.rolledNumber === 'roll') {
-      this.setState({rolledNumber: draw});
+      this.props.socket.removeListener(`bet_${this.state.id}`);
+      this.setState({rolledNumber: draw, lastBet: bet});
     }
   }
 
@@ -107,6 +108,7 @@ export class TableComponent extends React.Component {
 
   betChip() {
     this.state.betChipSound.pause();
+    this.state.betChipSound.currentTime = 0;
     this.state.betChipSound.play();
   }
 
@@ -149,12 +151,13 @@ export class TableComponent extends React.Component {
       const bet = _.map(fields, (amount, field) => {
         return {field: field, amount: amount};
       });
-      this.props.doBet(doRouletteBetTransaction(
+      const tx = doRouletteBetTransaction(
         amount,
         bet,
         this.props.account.address,
         this.props.account.publicKey,
-        this.props.account.passphrase));
+        this.props.account.passphrase);
+      this.props.doBet(tx);
 
       this.props.lowerBalance(this.state.totalBet);
       this.setState({
@@ -167,7 +170,9 @@ export class TableComponent extends React.Component {
         confirmedBets: this.state.unconfirmedBets,
         unconfirmedBets: [],
         watch: true,
+        id: tx.id,
       });
+      this.props.socket.on(`bet_${tx.id}`, bet => this.updateBlock(bet));
 
       // reset animation
       setTimeout(() => {
@@ -190,7 +195,7 @@ export class TableComponent extends React.Component {
 
         // start real roll
         setTimeout(() => {
-          this.calculateLastWin();
+          this.props.lastBet(this.state.lastBet);
           this.setState({rest: true, state: 2});
           // show result
           setTimeout(() => {
@@ -245,12 +250,12 @@ export class TableComponent extends React.Component {
                    clear={this.clear.bind(this)} repeat={this.state.repeat}
                    confirm={this.confirm.bind(this)} state={this.state.state}
                    switchRepeat={this.switchRepeat.bind(this)} auto={this.state.auto}
-                   switchAuto={this.switchAuto.bind(this)} account={this.props.account} lastWin={this.props.lastWin}
+                   switchAuto={this.switchAuto.bind(this)} account={this.props.account}
                    showPeers={this.state.showPeers} switchPeers={this.switchPeers.bind(this)}/>}
 
           <Field zoom={this.zoom.bind(this)} rolledNumber={this.state.rolledNumber} state={this.state.state} watch={this.state.watch}
                  loggedIn={this.props.loggedIn} userBets={this.state.unconfirmedBets}
-                 confirmedBets={this.state.confirmedBets}
+                 confirmedBets={this.state.confirmedBets} clear={this.clear.bind(this)} repeat={this.repeat.bind(this)}
                  clickField={this.clickField.bind(this)} peerBets={this.state.peerBets}
                  showPeers={this.state.showPeers} setAmount={this.setAmount.bind(this)}/>
         </div>
