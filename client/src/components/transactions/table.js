@@ -139,7 +139,7 @@ export class TransactionTableComponent extends React.Component {
       case 'id':
         return (<div className="TT-column">{column}</div>);
       case 'address':
-        return (<div className="TT-column"><Address address={column} textOnly={true}/></div>);
+        return (<div className="TT-column">{column.username ? column.username : <Address address={column.address} textOnly={true}/>}</div>);
       case 'amount':
         return (<div className="TT-column right">{column}</div>);
       case 'payout':
@@ -163,10 +163,11 @@ export class TransactionTableComponent extends React.Component {
   }
 
   getRow(row) {
+    console.log(row)
     return (<div className="TT-row" key={row.id}>
       {this.getColumn(row.timestamp, 'time')}
       {this.getColumn(row.id, 'id')}
-      {this.getColumn(row.senderId, 'address')}
+      {this.getColumn(row, 'address')}
       {this.getColumn(row.luckyNumber, 'luckyNumber')}
       {this.getColumn(new BigNum(row.amount).div(10 ** 8).toString(), 'amount')}
       {this.getColumn(row, 'payout')}
