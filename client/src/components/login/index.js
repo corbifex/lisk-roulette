@@ -8,15 +8,18 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Address } from "../address";
 import countingChips from '../../assets/audio/countingchips.wav';
+import { hasUsername } from '../../actions/request';
+import { SocketContext } from "../../actions/socket-context";
 
-
-export class Login extends React.Component {
+export class LoginComponent extends React.Component {
   constructor(props) {
     super(props);
     const passphrase = Mnemonic.generateMnemonic();
     const address = getAddressAndPublicKeyFromPassphrase(passphrase);
     this.state = {
       login: false,
+      username: "",
+      duplicate: false,
       publicKey: address.publicKey,
       address: address.address,
       passphrase: passphrase,
@@ -34,10 +37,14 @@ export class Login extends React.Component {
     if (this.props.account.balance.gte(10)) {
       this.state.countingChips.pause();
     }
+
+    if (!prevProps.drawer && this.props.drawer) {
+      this.toggleDrawer('login', true);
+    }
   }
 
   login() {
-    this.props.login(this.state.passphrase);
+    this.props.login(this.state.passphrase, this.state.username);
     this.setState({login: false});
   }
 
@@ -51,7 +58,16 @@ export class Login extends React.Component {
     this.setState({
       passphrase: passphrase,
       publicKey: address.publicKey,
-      address: address.address
+      address: address.address,
+      username: new Address({ Readonly: true, address: address.address }).state.username.substr(0, 20),
+    });
+  }
+
+  updateUsername(username) {
+    // check duplicate
+    hasUsername(username, this.props.socket, (err, res) => this.setState({duplicate: res}));
+    this.setState({
+      username: username.substr(0, 20)
     });
   }
 
@@ -82,7 +98,7 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <div className="top-header">
+      <div className="top-header" >
         <div className="Login-container">
           {!this.props.loggedIn &&
           <Button variant="contained" color="primary" onClick={this.toggleDrawer.bind(this, 'login', true)}>
@@ -126,7 +142,14 @@ export class Login extends React.Component {
             </div>
             <div className="Login-address">
               Address: {this.state.address} <br/>
-              <Address address={this.state.address}/> <br/>
+              <TextField
+                id="standard-name"
+                label="Playername"
+                className="Login-field"
+                value={this.state.username}
+                margin="normal"
+                onChange={(input) => this.updateUsername(input.target.value)}
+              /><br/>
               <Button variant="contained" color="primary" onClick={this.login.bind(this)}>
                 Login
               </Button>
@@ -134,8 +157,12 @@ export class Login extends React.Component {
           </div>
         </SwipeableDrawer>
       </div>
-
-
     );
   }
 }
+
+export const Login = props => (
+  <SocketContext.Consumer>
+    {socket => <LoginComponent {...props} socket={socket} />}
+  </SocketContext.Consumer>
+);

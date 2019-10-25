@@ -11,7 +11,7 @@ export function doFaucetTransaction(address, publicKey, passphrase, name) {
     type: 101,
     timestamp: getTimestamp(),
     asset: {
-      data: name
+      username: name
     }
   };
 

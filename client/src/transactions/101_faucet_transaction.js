@@ -19,6 +19,12 @@ export class FaucetTransaction extends BaseTransaction {
     return [];
   }
 
+  assetToBytes() {
+    const { username } = this.asset;
+
+    return Buffer.from(username, 'utf8');
+  }
+
   validateAsset() {
     const errors = [];
     if (!this.senderId) {

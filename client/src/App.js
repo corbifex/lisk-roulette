@@ -23,6 +23,7 @@ export class App extends React.Component {
     this.state = {
       loaded: true,
       login: false,
+      loginOpen: false,
       account: {
         passphrase: "",
         publicKey: "",
@@ -35,12 +36,13 @@ export class App extends React.Component {
     };
   }
 
-  async login(passphrase) {
+  async login(passphrase, name) {
     // sub to address balance + request
     // doFaucetTransaction if no account found
     const address = getAddressAndPublicKeyFromPassphrase(passphrase);
     this.setState({
       account: {
+        username: name,
         passphrase: passphrase,
         publicKey: address.publicKey,
         address: address.address,
@@ -49,13 +51,13 @@ export class App extends React.Component {
       login: true,
       currentView: -1,
     });
-    requestAddress(address.address, socket, (err, account) => this.checkAccount(account));
+    requestAddress(address.address, socket, (err, account) => this.checkAccount(account, name));
   }
 
-  checkAccount(account) {
+  checkAccount(account, name) {
     if (account === null || new BigNum(account.balance).lt(1000000000)) {
       this.state.TransmitTransactions.send(
-        doFaucetTransaction(this.state.account.address, this.state.account.publicKey, this.state.account.passphrase))
+        doFaucetTransaction(this.state.account.address, this.state.account.publicKey, this.state.account.passphrase, name))
     }
     if (account !== null) {
       setTimeout(() => {
@@ -89,7 +91,7 @@ export class App extends React.Component {
   }
 
   toggleLogin() {
-    this.state.loginRef.current.toggleDrawer('login', true)
+    this.setState({loginOpen: !this.state.loginOpen})
   }
 
   view(id) {
@@ -101,7 +103,7 @@ export class App extends React.Component {
       <SocketContext.Provider value={socket}>
         <div className="App">
           <div className="Loaded-app">
-            <Login ref={this.state.loginRef} requestTokens={this.requestTokens.bind(this)} account={this.state.account}
+            <Login drawer={this.state.loginOpen} requestTokens={this.requestTokens.bind(this)} account={this.state.account}
                    login={this.login.bind(this)} loggedIn={this.state.login} logout={this.logout.bind(this)}/>
             <Table lowerBalance={this.lowerBalance.bind(this)} doBet={this.doBet.bind(this)} loggedIn={this.state.login}
                    account={this.state.account} login={this.toggleLogin.bind(this)}/>

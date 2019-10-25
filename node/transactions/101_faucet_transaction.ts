@@ -6,30 +6,84 @@ import {
     TransactionError,
     StateStore,
     utils,
-    TransactionJSON
+    TransactionJSON,
+    convertToAssetError,
 } from '@liskhq/lisk-transactions';
+import { Account } from '@liskhq/lisk-transactions/dist-node/transaction_types';
+
+export interface faucetAsset {
+    readonly username: string;
+}
+
+export const faucetAssetFormatSchema = {
+    type: 'object',
+    properties: {
+        username: {
+            type: 'string',
+            minLength: 1,
+            maxLength: 20,
+            format: 'username',
+        },
+    },
+};
 
 export class FaucetTransaction extends BaseTransaction {
-
+    public readonly asset: faucetAsset;
+    public readonly containsUniqueData: boolean;
     public static TYPE = 101;
     public static FEE = '0';
 
+    public constructor(rawTransaction: unknown) {
+        super(rawTransaction);
+        const tx = (typeof rawTransaction === 'object' && rawTransaction !== null
+            ? rawTransaction
+            : {}) as Partial<TransactionJSON>;
+        this.asset = (tx.asset || { delegate: {} }) as faucetAsset;
+        this.containsUniqueData = true;
+    }
+
     public async prepare(store: StateStorePrepare): Promise<void> {
-        await store.account.cache([{address: this.senderId}]);
+        await store.account.cache([
+            { address: this.senderId },
+            { username: this.asset.username },
+        ]);
+    }
+
+    protected assetToBytes(): Buffer {
+        const { username } = this.asset;
+
+        return Buffer.from(username, 'utf8');
     }
 
     protected verifyAgainstTransactions(
-        _: ReadonlyArray<TransactionJSON>,
+        transactions: ReadonlyArray<TransactionJSON>,
     ): ReadonlyArray<TransactionError> {
-        return [];
+        return transactions
+            .filter(
+                tx =>
+                    tx.type === this.type && tx.senderPublicKey === this.senderPublicKey,
+            )
+            .map(
+                tx =>
+                    new TransactionError(
+                        'Register username only allowed once per account.',
+                        tx.id,
+                        '.asset.username',
+                    ),
+            );
     }
 
     protected validateAsset(): ReadonlyArray<TransactionError> {
-        const errors: TransactionError[] = [];
+        utils.validator.validate(faucetAssetFormatSchema, this.asset);
+        const errors = convertToAssetError(
+            this.id,
+            utils.validator.errors,
+        ) as TransactionError[];
+
         if (!this.senderId) {
             errors.push(
                 new TransactionError(
-                    '`rsenderId` must be provided.',
+                    '`senderId` must be provided.',
                     this.id,
                     '.senderId',
                 ),
@@ -83,10 +137,31 @@ export class FaucetTransaction extends BaseTransaction {
                 ),
             );
         }
-        store.account.set(this.senderId, {
-            ...sender,
-            balance: new BigNum(10000000000).toString(),
-        });
+        if (this.asset.username) {
+            const usernameExists = store.account.find(
+                (account: Account) => account.username === this.asset.username && account.address !== this.senderId,
+            );
+
+            if (usernameExists) {
+                errors.push(
+                    new TransactionError(
+                        `Username is not unique.`,
+                        this.id,
+                        '.asset.username',
+                    ),
+                );
+            }
+            store.account.set(this.senderId, {
+                ...sender,
+                username: this.asset.username,
+                balance: new BigNum(10000000000).toString(),
+            });
+        } else {
+            store.account.set(this.senderId, {
+                ...sender,
+                balance: new BigNum(10000000000).toString(),
+            });
+        }
 
         return errors;
     }
@@ -114,11 +189,11 @@ export class FaucetTransaction extends BaseTransaction {
     }
 
     protected assetFromSync(raw: any): object | undefined {
-        if (raw.tf_data) {
+        if (raw.tf_username) {
             // This line will throw if there is an error
-            const data = raw.tf_data.toString('utf8');
+            const username = raw.tf_username.toString('utf8');
 
-            return { data };
+            return { username };
         }
 
         return undefined;

@@ -4,6 +4,13 @@ const names = require('./names');
 
 export class Address extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: this.getName(props.address),
+    }
+  }
+
   getName(address) {
     const rng = new Prando(address);
     const top = rng.nextInt(0, names.length - 1);

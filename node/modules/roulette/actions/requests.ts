@@ -36,5 +36,10 @@ export default ({components}, socket) => {
         const tx = await components.storage.entities.Transaction.get({id: id}, {limit: 1, extended: true});
         const block = await components.storage.entities.Block.get({id: tx[0].blockId}, {limit: 1});
         socket.emit(id, { ...tx[0], seed: block[0].blockSignature});
-    })
+    });
+
+    socket.on('username', async (username) => {
+        const account = await components.storage.entities.Account.get({username: username}, {limit: 1, extended: true});
+        socket.emit(username, !!account[0]);
+    });
 }
