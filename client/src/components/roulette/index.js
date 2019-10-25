@@ -22,7 +22,7 @@ export class RouletteComponent extends React.Component {
       case 1:
         return <div className="mask">No more bets</div>;
       case 2:
-        return <div className="mask">{`Nr. ${this.props.state.rolledNumber}`}</div>;
+        return <div className="mask">{`Nr. ${this.props.state.rolledNumber === 'roll' ? "Fool!" : this.props.state.rolledNumber}`}</div>;
       default:
         return (<Button onClick={this.spin.bind(this)} className="spinbttn" variant="contained" color="primary">
           <div className="mask">Spin</div>
