@@ -12,13 +12,13 @@ import {
 import { Account } from '@liskhq/lisk-transactions/dist-node/transaction_types';
 
 export interface faucetAsset {
-    readonly username: string;
+    readonly data: string;
 }
 
 export const faucetAssetFormatSchema = {
     type: 'object',
     properties: {
-        username: {
+        data: {
             type: 'string',
             minLength: 1,
             maxLength: 20,
@@ -38,39 +38,27 @@ export class FaucetTransaction extends BaseTransaction {
         const tx = (typeof rawTransaction === 'object' && rawTransaction !== null
             ? rawTransaction
             : {}) as Partial<TransactionJSON>;
-        this.asset = (tx.asset || { delegate: {} }) as faucetAsset;
+        this.asset = (tx.asset || { data: {} }) as faucetAsset;
         this.containsUniqueData = true;
     }
 
     public async prepare(store: StateStorePrepare): Promise<void> {
         await store.account.cache([
             { address: this.senderId },
-            { username: this.asset.username },
+            { username: this.asset.data },
         ]);
     }
 
     protected assetToBytes(): Buffer {
-        const { username } = this.asset;
+        const { data } = this.asset;
 
-        return Buffer.from(username, 'utf8');
+        return Buffer.from(data, 'utf8');
     }
 
     protected verifyAgainstTransactions(
-        transactions: ReadonlyArray<TransactionJSON>,
+        _: ReadonlyArray<TransactionJSON>,
     ): ReadonlyArray<TransactionError> {
-        return transactions
-            .filter(
-                tx =>
-                    tx.type === this.type && tx.senderPublicKey === this.senderPublicKey,
-            )
-            .map(
-                tx =>
-                    new TransactionError(
-                        'Register username only allowed once per account.',
-                        tx.id,
-                        '.asset.username',
-                    ),
-            );
+        return [];
     }
 
     protected validateAsset(): ReadonlyArray<TransactionError> {
@@ -137,9 +125,9 @@ export class FaucetTransaction extends BaseTransaction {
                 ),
             );
         }
-        if (this.asset.username && !sender.username) {
+        if (this.asset.data && !sender.username) {
             const usernameExists = store.account.find(
-                (account: Account) => account.username === this.asset.username && account.address !== this.senderId,
+                (account: Account) => account.username === this.asset.data && account.address !== this.senderId,
             );
 
             if (usernameExists) {
@@ -153,7 +141,7 @@ export class FaucetTransaction extends BaseTransaction {
             }
             store.account.set(this.senderId, {
                 ...sender,
-                username: this.asset.username,
+                username: this.asset.data,
                 isDelegate: 1,
                 balance: new BigNum(10000000000).toString(),
             });
@@ -190,11 +178,11 @@ export class FaucetTransaction extends BaseTransaction {
     }
 
     protected assetFromSync(raw: any): object | undefined {
-        if (raw.tf_username) {
+        if (raw.tf_data) {
             // This line will throw if there is an error
-            const username = raw.tf_username.toString('utf8');
+            const data = raw.tf_data.toString('utf8');
 
-            return { username };
+            return { data };
         }
 
         return undefined;
