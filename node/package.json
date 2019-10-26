@@ -1,10 +1,11 @@
 {
   "name": "moosty-roulette",
-  "version": "0.0.1",
-  "description": "Proof of Concept roulette game node made with the Lisk SDK",
+  "version": "0.1.0",
+  "description": "Proof of Concept Roulette Dapp created using Lisk SDK",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "ts-node index.ts"
   },
   "author": "Moosty",
   "license": "GPL-3.0",
@@ -14,5 +15,8 @@
     "lodash": "^4.17.15",
     "prando": "^5.1.1",
     "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.6.4"
   }
 }
