@@ -130,7 +130,7 @@ export class LoginComponent extends React.Component {
           <div className="Login-drawer">
             <div className="Login-flex">
               <Button variant="contained" color="primary" onClick={this.getNewPassphrase.bind(this)}>
-                New passpharse
+                New passphrase
               </Button>
               <TextField
                 id="standard-name"
