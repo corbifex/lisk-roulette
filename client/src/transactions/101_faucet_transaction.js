@@ -20,9 +20,9 @@ export class FaucetTransaction extends BaseTransaction {
   }
 
   assetToBytes() {
-    const { username } = this.asset;
+    const { data } = this.asset;
 
-    return Buffer.from(username, 'utf8');
+    return Buffer.from(data, 'utf8');
   }
 
   validateAsset() {
