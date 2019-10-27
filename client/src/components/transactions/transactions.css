@@ -10,3 +10,7 @@
   margin: 0;
   background: linear-gradient(to right, rgb(12, 4, 30), rgb(56, 25, 128));
 }
+
+.Tab-container::-webkit-scrollbar {
+    display: none;
+}

@@ -235,7 +235,7 @@ export class TableComponent extends React.Component {
 
   render() {
     return (
-      <div className="table-section">
+      <div className="Table-section">
       <div className="Table-container">
         <div className="Table-wheel">
           <Roulette repeat={this.repeat.bind(this)} lastBets={this.state.lastBets} loggedIn={this.props.loggedIn} login={this.props.login.bind(this)} spin={this.confirm.bind(this)} state={this.state}/>
