@@ -11,6 +11,11 @@ export class RouletteComponent extends React.Component {
         <div className="mask">LOGIN</div>
       </Button>);
     }
+    if (this.props.account.balance.eq(-1)) {
+      return (
+        <div className="mask">Wait for chips</div>
+      );
+    }
     switch (this.props.state.state) {
       case -2:
         return (

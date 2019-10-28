@@ -10,9 +10,13 @@ import './table.css';
 import Prando from "prando";
 import betChipSound from '../../assets/audio/betchips.wav';
 import wheelSound from '../../assets/audio/wheelroll.wav';
+
 const BigNum = require('bignumber.js');
 
 export class TableComponent extends React.Component {
+  betChipSound = new Audio(betChipSound);
+  wheelSound = new Audio(wheelSound);
+
   constructor(props) {
     super(props);
     this.state = {
@@ -36,9 +40,6 @@ export class TableComponent extends React.Component {
     };
     subscribeToPeerBets(props.socket, (err, bet) => this.addPeerBets(bet));
   }
-
-  betChipSound = new Audio(betChipSound);
-  wheelSound = new Audio(wheelSound);
 
   updateBlock(bet) {
     const rng = new Prando(bet.seed);
@@ -100,7 +101,9 @@ export class TableComponent extends React.Component {
         fieldState = {field: field, amount: this.state.amountSelected};
       }
 
-      const updatedBets = [..._.filter(this.state.unconfirmedBets, function(o) { return o.field !== field; }), fieldState];
+      const updatedBets = [..._.filter(this.state.unconfirmedBets, function (o) {
+        return o.field !== field;
+      }), fieldState];
 
       let totalBet = 0;
       updatedBets.map(bet => {
@@ -230,32 +233,35 @@ export class TableComponent extends React.Component {
 
   zoom(zoomIn) {
     let zoom = zoomIn ? 10 : -10;
-    this.setState({ zoom: this.state.zoom + zoom});
+    this.setState({zoom: this.state.zoom + zoom});
   }
 
   render() {
     return (
       <div className="Table-section">
-      <div className="Table-container">
-        <div className="Table-wheel">
-          <Roulette repeat={this.repeat.bind(this)} lastBets={this.state.lastBets} loggedIn={this.props.loggedIn} login={this.props.login.bind(this)} spin={this.confirm.bind(this)} state={this.state}/>
-        </div>
-        <div className="Table-fields" style={{zoom: `${this.state.zoom}%`}}>
-          {this.props.loggedIn &&
-          <Account confirmedBet={this.state.totalBetConfirmed} currentBet={this.state.totalBet}
-                   clear={this.clear.bind(this)} repeat={this.state.repeat}
-                   confirm={this.confirm.bind(this)} state={this.state.state}
-                   switchRepeat={this.switchRepeat.bind(this)} auto={this.state.auto}
-                   switchAuto={this.switchAuto.bind(this)} account={this.props.account}
-                   showPeers={this.state.showPeers} switchPeers={this.switchPeers.bind(this)}/>}
+        <div className="Table-container">
+          <div className="Table-wheel">
+            <Roulette repeat={this.repeat.bind(this)} lastBets={this.state.lastBets} loggedIn={this.props.loggedIn}
+                      login={this.props.login.bind(this)} spin={this.confirm.bind(this)} state={this.state} account={this.props.account}/>
+          </div>
+          <div className="Table-fields" style={{zoom: `${this.state.zoom}%`}}>
+            {this.props.loggedIn &&
+            <Account confirmedBet={this.state.totalBetConfirmed} currentBet={this.state.totalBet}
+                     clear={this.clear.bind(this)} repeat={this.state.repeat}
+                     confirm={this.confirm.bind(this)} state={this.state.state}
+                     switchRepeat={this.switchRepeat.bind(this)} auto={this.state.auto}
+                     switchAuto={this.switchAuto.bind(this)} account={this.props.account}
+                     showPeers={this.state.showPeers} switchPeers={this.switchPeers.bind(this)}/>}
 
-          <Field zoom={this.zoom.bind(this)} rolledNumber={this.state.rolledNumber} state={this.state.state} watch={this.state.watch}
-                 loggedIn={this.props.loggedIn} userBets={this.state.unconfirmedBets} account={this.props.account}
-                 confirmedBets={this.state.confirmedBets} clear={this.clear.bind(this)} repeat={this.repeat.bind(this)}
-                 clickField={this.clickField.bind(this)} peerBets={this.state.peerBets}
-                 showPeers={this.state.showPeers} setAmount={this.setAmount.bind(this)}/>
+            <Field zoom={this.zoom.bind(this)} rolledNumber={this.state.rolledNumber} state={this.state.state}
+                   watch={this.state.watch}
+                   loggedIn={this.props.loggedIn} userBets={this.state.unconfirmedBets} account={this.props.account}
+                   confirmedBets={this.state.confirmedBets} clear={this.clear.bind(this)}
+                   repeat={this.repeat.bind(this)}
+                   clickField={this.clickField.bind(this)} peerBets={this.state.peerBets}
+                   showPeers={this.state.showPeers} setAmount={this.setAmount.bind(this)}/>
+          </div>
         </div>
-      </div>
       </div>
     );
   }
