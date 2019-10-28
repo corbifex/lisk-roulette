@@ -46,11 +46,11 @@ tr {
 }
 
 .Field-container .sector .vt {
-  font-size: 15px;
+  font-size: 12px;
 }
 
 .Field-container .num {
-  font-size: 22px;
+  font-size: 18px;
   cursor: crosshair;
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer */
@@ -92,14 +92,14 @@ tr {
 /* cells hovers */
 .Field-container .sector.hover,
 .Field-container .num.hover {
-  font-size: 26px;
+  font-size: 20px;
   -moz-box-shadow: inset 0 0 5px #FFF, inset 0 0 5px #FFF;
   -webkit-box-shadow: inset 0 0 5px #FFF, inset 0 0 5px #FFF;
   box-shadow: inset 0 0 5px #FFF, inset 0 0 5px #FFF;
 }
 
 .Field-container .sector.hover .vt {
-  font-size: 17px;
+  font-size: 15px;
 }
 
 .Field-container .sector.hover {

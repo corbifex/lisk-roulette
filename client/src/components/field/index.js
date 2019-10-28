@@ -42,6 +42,7 @@ export class FieldComponent extends React.Component {
         1: token1,
         5: token5,
         25: token25,
+     
       },
       state: 0,
     };
