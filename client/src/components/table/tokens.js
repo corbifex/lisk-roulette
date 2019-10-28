@@ -36,7 +36,7 @@ export class Tokens extends React.Component {
       "Token-div"
     ];
 
-    classNames[this.state.selected] = "Token-div Selected";
+    classNames[this.state.selected] = "Token-div Selected noselect";
 
     return (
       <div className="Token-container">
