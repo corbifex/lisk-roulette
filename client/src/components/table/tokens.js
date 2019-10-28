@@ -12,7 +12,8 @@ export class Tokens extends React.Component {
         25,
         50,
         100,
-        500
+        500,
+        1000
       ]
     };
     this.props.setAmount(this.state.tokens[this.state.selected]);
@@ -31,6 +32,7 @@ export class Tokens extends React.Component {
       "Token-div",
       "Token-div",
       "Token-div",
+      "Token-div",
       "Token-div"
     ];
 
@@ -44,6 +46,7 @@ export class Tokens extends React.Component {
         <div className={classNames[3]} onClick={this.selectToken.bind(this, 3)}><span className="Token-number">50</span></div>
         <div className={classNames[4]} onClick={this.selectToken.bind(this, 4)}><span className="Token-number">100</span></div>
         <div className={classNames[5]} onClick={this.selectToken.bind(this, 5)}><span className="Token-number">500</span></div>
+        <div className={classNames[6]} onClick={this.selectToken.bind(this, 6)}><span className="Token-number">1000</span></div>
       </div>
     );
   }
