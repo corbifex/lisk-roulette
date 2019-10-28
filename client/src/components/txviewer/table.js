@@ -95,8 +95,8 @@ export class TxViewerTable extends React.Component {
     for (let i = 0; i < this.props.state.bet.length; i++) {
       const index = this.props.state.bet[i].field;
       const rect = this.selector[index].current.getBoundingClientRect();
-        const x = this.selector[index].current.offsetLeft + (rect.width / (rect.width > 110 ? 1.7 : 1.1));
-        const y = this.selector[index].current.offsetTop + (rect.height / (rect.height > 100 ? 1.5 : 1));
+        const x = this.selector[index].current.offsetLeft + (rect.width / (rect.width > 110 ? 1.7 : 1.05));
+        const y = this.selector[index].current.offsetTop + (rect.height / (rect.height > 100 ? 1.5 : 0.95));
         const key = `token-field-${i}-${index}`;
         bets.push(<div style={{
           position: 'absolute',
