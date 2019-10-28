@@ -1,12 +1,19 @@
 .Token {
-  max-height: 50px;
+  max-height: 40px;
   margin: 10px 20px 0 0;
+  opacity: 0.6;
+}
+
+.Token:hover {
+  cursor: pointer;
+  opacity: 1;
 }
 
 .Selected {
-  box-shadow: #0071df 0 0 20px 0px;
+  
   border-radius: 50%;
   transition: all 0.2s;
+  opacity: 1;
 }
 
 .Token-container {
