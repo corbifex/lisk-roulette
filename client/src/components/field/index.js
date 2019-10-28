@@ -2,9 +2,6 @@ import React from 'react';
 import ReplayIcon from '@material-ui/icons/Replay';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import IconButton from "@material-ui/core/IconButton";
-import token1 from '../../assets/images/1.png';
-import token5 from '../../assets/images/5.png';
-import token25 from '../../assets/images/25.png';
 import { SocketContext } from "../../actions/socket-context";
 import { Zoom } from "../zoom";
 import { Tokens } from "../table/tokens";
@@ -38,12 +35,14 @@ export class FieldComponent extends React.Component {
       confirmedCount: 0,
       userBets: [],
       confirmedBets: [],
-      tokens: {
-        1: token1,
-        5: token5,
-        25: token25,
-     
-      },
+      tokens: [
+        1,
+        5,
+        25,
+        50,
+        100,
+        500,
+      ],
       state: 0,
     };
     this.selector = new Array(50);
@@ -55,14 +54,14 @@ export class FieldComponent extends React.Component {
   updateStatus(status) {
     if (this.state.state !== status) {
       if (status === 0) {
-        this.setState({ state: 0, peerCount: 0, peerBets: [] });
+        this.setState({state: 0, peerCount: 0, peerBets: []});
       } else if (status === 1) {
-        this.setState({ state: 1 });
+        this.setState({state: 1});
 
       } else if (status === 2) {
-        this.setState({ state: 2 });
+        this.setState({state: 2});
       } else if (status === 3) {
-        this.setState( { state: 3 });
+        this.setState({state: 3});
       }
     }
   }
@@ -70,14 +69,14 @@ export class FieldComponent extends React.Component {
   componentWillReceiveProps(nextProps, nextContext) {
     let state = {betCount: this.state.betCount, userBets: this.state.userBets};
     let stateConfirmed = {confirmedCount: this.state.confirmedCount, confirmedBets: this.state.confirmedBets};
-    let statePeer = {peerCount: this.state.peerCount, peerBets: this.state.peerBets};
-    if (nextProps.userBets && nextProps.userBets.length > 0 && this.state.betCount < nextProps.userBets.length) {
-      let userBets = [...this.state.userBets];
-      for (let i = this.state.betCount; i < nextProps.userBets.length; i++) {
+    if (nextProps.userBets && nextProps.userBets.length > 0) {
+      let userBets = [];
+      for (let i = 0; i < nextProps.userBets.length; i++) {
         const index = this.state.fields.indexOf(nextProps.userBets[i].field);
+        console.log(index, nextProps.userBets)
         const rect = this.selector[index].current.getBoundingClientRect();
-        const x = this.selector[index].current.offsetLeft + 50 + rInt(-10, rect.width - 35 );
-        const y = this.selector[index].current.offsetTop + 50 + rInt(-10, rect.height - 35);
+        const x = this.selector[index].current.offsetLeft + (rect.width / (rect.width > 110 ? 1.7 : 1.2));
+        const y = this.selector[index].current.offsetTop + (rect.height / (rect.height > 100 ? 1.5 : 1));
         userBets = [...userBets, {
           field: nextProps.userBets[i].field,
           x: x,
@@ -90,13 +89,13 @@ export class FieldComponent extends React.Component {
     if (!nextProps.userBets || (nextProps.userBets && nextProps.userBets.length === 0)) {
       state = {betCount: 0, userBets: []};
     }
-    if (nextProps.confirmedBets && nextProps.confirmedBets.length > 0 && this.state.confirmedCount < nextProps.confirmedBets.length) {
-      let confirmedBets = [...this.state.confirmedBets];
-      for (let i = this.state.confirmedCount; i < nextProps.confirmedBets.length; i++) {
-        const index = this.state.fields.indexOf(nextProps.confirmedBets[i].field);
+    if (nextProps.confirmedBets && nextProps.confirmedBets.length > 0) {
+      let confirmedBets = [];
+      for (let i = 0; i < nextProps.confirmedBets.length; i++) {
+        const index = nextProps.confirmedBets[i].field;
         const rect = this.selector[index].current.getBoundingClientRect();
-        const x = this.selector[index].current.offsetLeft + 50 + rInt(-10, rect.width - 35 );
-        const y = this.selector[index].current.offsetTop + 50 + rInt(-10, rect.height - 35);
+        const x = this.selector[index].current.offsetLeft + (rect.width / (rect.width > 110 ? 1.7 : 1.3));
+        const y = this.selector[index].current.offsetTop + (rect.height / (rect.height > 100 ? 1.5 : 1));
         confirmedBets = [...confirmedBets, {
           field: nextProps.confirmedBets[i].field,
           x: x,
@@ -110,23 +109,7 @@ export class FieldComponent extends React.Component {
       stateConfirmed = {confirmedCount: 0, confirmedBets: []};
     }
 
-    if (nextProps.peerBets && nextProps.peerBets.length > 0 && this.state.peerCount < nextProps.peerBets.length) {
-      let peerBets = [...this.state.peerBets];
-      for (let i = this.state.peerCount; i < nextProps.peerBets.length; i++) {
-        const index = nextProps.peerBets[i].field;
-        const rect = this.selector[index].current.getBoundingClientRect();
-        const x = this.selector[index].current.offsetLeft + 50 + rInt(-10, rect.width - 35);
-        const y = this.selector[index].current.offsetTop + 50 + rInt(-10, rect.height - 35);
-        peerBets = [...peerBets, {
-          field: nextProps.peerBets[i].field,
-          x: x,
-          y: y,
-          amount: nextProps.peerBets[i].amount
-        }];
-      }
-      statePeer = {peerCount: nextProps.peerBets.length, peerBets: peerBets};
-    }
-    this.setState({...state, ...stateConfirmed, ...statePeer});
+    this.setState({...state, ...stateConfirmed});
   }
 
   mouseOver(field) {
@@ -183,15 +166,14 @@ export class FieldComponent extends React.Component {
     }
     for (let i = 0; i < this.state.betCount; i++) {
       const key = `token-field-${i}`;
-      bets = [...bets, (<img style={{
+      bets = [...bets, (<div style={{
         position: 'absolute',
         top: `${this.state.userBets[i].y}px`,
         left: `${this.state.userBets[i].x}px`,
         zIndex: 100,
-        height: "25px",
-        width: "25px",
         cursor: "crosshair",
-      }} src={this.state.tokens[this.state.userBets[i].amount]} alt="" key={key} onClick={this.props.clickField.bind(this, this.state.userBets[i].field)}/>)];
+      }} className="Token-field" key={key}
+                             onClick={this.props.clickField.bind(this, this.state.userBets[i].field)}>{this.state.userBets[i].amount}</div>)];
     }
     return bets;
   }
@@ -203,38 +185,15 @@ export class FieldComponent extends React.Component {
     }
     for (let i = 0; i < this.state.confirmedCount; i++) {
       const key = `token-field-confirmed-${i}`;
-      bets = [...bets, (<img style={{
+      bets = [...bets, (<div style={{
         position: 'absolute',
         top: `${this.state.confirmedBets[i].y}px`,
         left: `${this.state.confirmedBets[i].x}px`,
         zIndex: 100,
-        height: "20px",
-        width: "20px",
         cursor: "crosshair",
         filter: "brightness(1.5) saturate(1) blur(0) contrast(5)",
-              }} src={this.state.tokens[this.state.confirmedBets[i].amount]} alt="" key={key} onClick={this.props.clickField.bind(this, this.state.confirmedBets[i].field)}/>)];
-    }
-    return bets;
-  }
-
-  renderPeerBets() {
-    let bets = [];
-    if (this.state.peerCount === 0 || !this.props.showPeers) {
-      return "";
-    }
-    for (let i = 0; i < this.state.peerCount; i++) {
-      const key = `token-field-peer-${i}`;
-      bets = [...bets, (<img style={{
-        position: 'absolute',
-        top: `${this.state.peerBets[i].y}px`,
-        left: `${this.state.peerBets[i].x}px`,
-        zIndex: 100,
-        height: "15px",
-        width: "15px",
-        cursor: "crosshair",
-        alpha: 0.5,
-        filter: "grayscale(0.9)"
-      }} src={this.state.tokens[this.state.peerBets[i].amount]} alt="" key={key} onClick={this.props.clickField.bind(this, this.state.peerBets[i].field)}/>)];
+      }} className="Token-field" key={key}
+                             onClick={this.props.clickField.bind(this, this.state.confirmedBets[i].field)}>{this.state.confirmedBets[i].amount}</div>)];
     }
     return bets;
   }
@@ -244,7 +203,6 @@ export class FieldComponent extends React.Component {
       <div ref={this.selector[50]} className="Field-container">
         {this.renderUserBets()}
         {this.renderConfirmedBets()}
-        {this.renderPeerBets()}
         <table onMouseOut={this.mouseOver.bind(this, null)}>
           <tbody>
           <tr className="nums">
@@ -504,12 +462,8 @@ export class FieldComponent extends React.Component {
   }
 }
 
-function rInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 export const Field = props => (
   <SocketContext.Consumer>
-    {socket => <FieldComponent {...props} socket={socket} />}
+    {socket => <FieldComponent {...props} socket={socket}/>}
   </SocketContext.Consumer>
 );

@@ -95,22 +95,17 @@ export class TxViewerTable extends React.Component {
     for (let i = 0; i < this.props.state.bet.length; i++) {
       const index = this.props.state.bet[i].field;
       const rect = this.selector[index].current.getBoundingClientRect();
-      const bet = this.splitToTokens(parseInt(this.props.state.bet[i].amount), [25,5,1]);
-      bet.map(tk => {
-        const x = this.selector[index].current.offsetLeft + 50 + rInt(-10, rect.width - 35 );
-        const y = this.selector[index].current.offsetTop + 50 + rInt(-10, rect.height - 35);
-        const key = `token-field-${i}-${x}-${y}`;
-        bets.push(<img style={{
+        const x = this.selector[index].current.offsetLeft + (rect.width / (rect.width > 110 ? 1.7 : 1.1));
+        const y = this.selector[index].current.offsetTop + (rect.height / (rect.height > 100 ? 1.5 : 1));
+        const key = `token-field-${i}-${index}`;
+        bets.push(<div style={{
           position: 'absolute',
           top: `${y}px`,
           left: `${x}px`,
           zIndex: 100,
-          height: "25px",
-          width: "25px",
           cursor: "crosshair",
-        }} src={this.state.tokens[tk.toString()]} alt="" key={key}/>);
-        return true;
-      });
+        }} className="Token-field-tx" key={key}
+                       >{this.props.state.bet[i].amount.toString()}</div>);
     }
     return bets;
   }
@@ -286,8 +281,4 @@ export class TxViewerTable extends React.Component {
       </div>
     )
   }
-}
-
-function rInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 }

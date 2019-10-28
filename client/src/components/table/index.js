@@ -4,7 +4,7 @@ import { SocketContext } from '../../actions/socket-context';
 import { Roulette } from '../roulette';
 import { Field } from '../field';
 import { Account } from "./account";
-import { subscribeToBlocks, subscribeToPeerBets } from "../../actions/subscribe";
+import { subscribeToPeerBets } from "../../actions/subscribe";
 import { doRouletteBetTransaction } from '../../transactions/1001_bet_roulette';
 import './table.css';
 import Prando from "prando";
@@ -32,13 +32,13 @@ export class TableComponent extends React.Component {
       showPeers: false,
       watch: false,
       zoom: 100,
-      betChipSound: new Audio(betChipSound),
-      wheelSound: new Audio(wheelSound),
+
     };
-    this.state.betChipSound.volume = 0.4;
-    this.state.wheelSound.volume = 0.4;
     subscribeToPeerBets(props.socket, (err, bet) => this.addPeerBets(bet));
   }
+
+  betChipSound = new Audio(betChipSound);
+  wheelSound = new Audio(wheelSound);
 
   updateBlock(bet) {
     const rng = new Prando(bet.seed);
@@ -93,7 +93,14 @@ export class TableComponent extends React.Component {
   clickField(field) {
     if (!this.state.watch && this.props.loggedIn && this.props.account.balance.gte(this.state.totalBet + this.state.amountSelected) && this.state.totalBetConfirmed === 0) {
       this.betChip();
-      const updatedBets = [...this.state.unconfirmedBets, {field: field, amount: this.state.amountSelected}];
+      let fieldState = _.find(this.state.unconfirmedBets, {field: field});
+      if (fieldState) {
+        fieldState.amount = fieldState.amount + this.state.amountSelected;
+      } else {
+        fieldState = {field: field, amount: this.state.amountSelected};
+      }
+
+      const updatedBets = [..._.filter(this.state.unconfirmedBets, function(o) { return o.field !== field; }), fieldState];
 
       let totalBet = 0;
       updatedBets.map(bet => {
@@ -101,19 +108,20 @@ export class TableComponent extends React.Component {
         return true;
       });
       this.setState({unconfirmedBets: updatedBets, totalBet: totalBet, state: -1});
-
     }
   }
 
   betChip() {
-    this.state.betChipSound.pause();
-    this.state.betChipSound.currentTime = 0;
-    this.state.betChipSound.play();
+    this.betChipSound.volume = 0.4;
+    this.betChipSound.pause();
+    this.betChipSound.currentTime = 0;
+    this.betChipSound.play();
   }
 
   wheelRoll() {
-    this.state.wheelSound.pause();
-    this.state.wheelSound.play();
+    this.wheelSound.volume = 0.4;
+    this.wheelSound.pause();
+    this.wheelSound.play();
   }
 
   setAmount(amount) {
@@ -137,22 +145,14 @@ export class TableComponent extends React.Component {
       this.clear();
     } else {
       const bets = this.state.unconfirmedBets;
-      let fields = {};
       let amount = 0;
       for (let bet = 0; bet < bets.length; bet++) {
-        if (!fields[bets[bet].field]) {
-          fields[bets[bet].field] = bets[bet].amount;
-        } else {
-          fields[bets[bet].field] += bets[bet].amount;
-        }
         amount += bets[bet].amount;
       }
-      const bet = _.map(fields, (amount, field) => {
-        return {field: field, amount: amount};
-      });
+
       const tx = doRouletteBetTransaction(
         amount,
-        bet,
+        this.state.unconfirmedBets,
         this.props.account.address,
         this.props.account.publicKey,
         this.props.account.passphrase);
