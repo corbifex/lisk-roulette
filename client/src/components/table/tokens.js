@@ -24,8 +24,8 @@ export class Tokens extends React.Component {
     this.setState({selected: token});
   }
 
-  render() {
-
+  getTokens() {
+    let tokens = [];
     let classNames = [
       "Token-div",
       "Token-div",
@@ -37,16 +37,23 @@ export class Tokens extends React.Component {
     ];
 
     classNames[this.state.selected] = "Token-div Selected noselect";
+    let total = 0;
+    for (let i = 0; i < this.props.bet.length; i++) {
+      total = total + this.props.bet[i].amount;
+    }
+    for (let i = 0; i < this.state.tokens.length; i++ ) {
+      if (this.props.balance.minus(total).gte(this.state.tokens[i])) {
+        tokens.push(<div className={classNames[i]} onClick={this.selectToken.bind(this, i)}><span className="Token-number">{this.state.tokens[i]}</span></div>)
+      }
+    }
+    return tokens;
+  }
+
+  render() {
 
     return (
       <div className="Token-container">
-        <div className={classNames[0]} onClick={this.selectToken.bind(this, 0)}><span className="Token-number">1</span></div>
-        <div className={classNames[1]} onClick={this.selectToken.bind(this, 1)}><span className="Token-number">5</span></div>
-        <div className={classNames[2]} onClick={this.selectToken.bind(this, 2)}><span className="Token-number">25</span></div>
-        <div className={classNames[3]} onClick={this.selectToken.bind(this, 3)}><span className="Token-number">50</span></div>
-        <div className={classNames[4]} onClick={this.selectToken.bind(this, 4)}><span className="Token-number">100</span></div>
-        <div className={classNames[5]} onClick={this.selectToken.bind(this, 5)}><span className="Token-number">500</span></div>
-        <div className={classNames[6]} onClick={this.selectToken.bind(this, 6)}><span className="Token-number">1000</span></div>
+        {this.getTokens()}
       </div>
     );
   }

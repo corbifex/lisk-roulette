@@ -250,7 +250,7 @@ export class TableComponent extends React.Component {
                    showPeers={this.state.showPeers} switchPeers={this.switchPeers.bind(this)}/>}
 
           <Field zoom={this.zoom.bind(this)} rolledNumber={this.state.rolledNumber} state={this.state.state} watch={this.state.watch}
-                 loggedIn={this.props.loggedIn} userBets={this.state.unconfirmedBets}
+                 loggedIn={this.props.loggedIn} userBets={this.state.unconfirmedBets} account={this.props.account}
                  confirmedBets={this.state.confirmedBets} clear={this.clear.bind(this)} repeat={this.repeat.bind(this)}
                  clickField={this.clickField.bind(this)} peerBets={this.state.peerBets}
                  showPeers={this.state.showPeers} setAmount={this.setAmount.bind(this)}/>

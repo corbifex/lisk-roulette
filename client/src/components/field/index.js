@@ -73,7 +73,6 @@ export class FieldComponent extends React.Component {
       let userBets = [];
       for (let i = 0; i < nextProps.userBets.length; i++) {
         const index = this.state.fields.indexOf(nextProps.userBets[i].field);
-        console.log(index, nextProps.userBets)
         const rect = this.selector[index].current.getBoundingClientRect();
         const x = this.selector[index].current.offsetLeft + (rect.width / (rect.width > 110 ? 1.7 : 1.05));
         const y = this.selector[index].current.offsetTop + (rect.height / (rect.height > 100 ? 1.5 : 0.95));
@@ -156,7 +155,11 @@ export class FieldComponent extends React.Component {
       }
     }
 
-    return classname;
+    if (this.props.account.balance.eq(-1)) {
+      classname += " disabled";
+    }
+
+      return classname;
   }
 
   renderUserBets() {
@@ -200,8 +203,12 @@ export class FieldComponent extends React.Component {
   }
 
   render() {
+    let containerClass = "Field-container ";
+    if (this.props.account.balance.eq(-1)) {
+      containerClass += "Field-container-disabled";
+    }
     return (
-      <div ref={this.selector[50]} className="Field-container">
+      <div ref={this.selector[50]} className={containerClass}>
         {this.renderUserBets()}
         {this.renderConfirmedBets()}
         <table onMouseOut={this.mouseOver.bind(this, null)}>
@@ -454,7 +461,7 @@ export class FieldComponent extends React.Component {
           </tbody>
         </table>
         {this.props.loggedIn &&
-        <Tokens setAmount={this.props.setAmount.bind(this)}
+        <Tokens setAmount={this.props.setAmount.bind(this)} balance={this.props.account.balance} bet={this.state.userBets}
         />}
         {this.props.loggedIn &&
         <Zoom zoom={this.props.zoom.bind(this)}/>}

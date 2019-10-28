@@ -9,6 +9,14 @@
     box-shadow: #0000008f 0px 9px 20px 0px;
 }
 
+.Field-container-disabled {
+  cursor: not-allowed !important;
+}
+
+.disabled {
+  cursor: not-allowed !important;
+}
+
 .Token-field {
   background: url(../../assets/images/chip.png);
   vertical-align: top;
