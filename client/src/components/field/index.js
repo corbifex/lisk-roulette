@@ -75,8 +75,8 @@ export class FieldComponent extends React.Component {
         const index = this.state.fields.indexOf(nextProps.userBets[i].field);
         console.log(index, nextProps.userBets)
         const rect = this.selector[index].current.getBoundingClientRect();
-        const x = this.selector[index].current.offsetLeft + (rect.width / (rect.width > 110 ? 1.7 : 1.2));
-        const y = this.selector[index].current.offsetTop + (rect.height / (rect.height > 100 ? 1.5 : 1));
+        const x = this.selector[index].current.offsetLeft + (rect.width / (rect.width > 110 ? 1.7 : 1.05));
+        const y = this.selector[index].current.offsetTop + (rect.height / (rect.height > 100 ? 1.5 : 0.95));
         userBets = [...userBets, {
           field: nextProps.userBets[i].field,
           x: x,
@@ -94,8 +94,8 @@ export class FieldComponent extends React.Component {
       for (let i = 0; i < nextProps.confirmedBets.length; i++) {
         const index = nextProps.confirmedBets[i].field;
         const rect = this.selector[index].current.getBoundingClientRect();
-        const x = this.selector[index].current.offsetLeft + (rect.width / (rect.width > 110 ? 1.7 : 1.3));
-        const y = this.selector[index].current.offsetTop + (rect.height / (rect.height > 100 ? 1.5 : 1));
+        const x = this.selector[index].current.offsetLeft + (rect.width / (rect.width > 110 ? 1.7 : 1.05));
+        const y = this.selector[index].current.offsetTop + (rect.height / (rect.height > 100 ? 1.5 : 0.95));
         confirmedBets = [...confirmedBets, {
           field: nextProps.confirmedBets[i].field,
           x: x,
@@ -191,7 +191,8 @@ export class FieldComponent extends React.Component {
         left: `${this.state.confirmedBets[i].x}px`,
         zIndex: 100,
         cursor: "crosshair",
-        filter: "brightness(1.5) saturate(1) blur(0) contrast(5)",
+        filter: "greyscale(0.5) blur(0) contrast(5)",
+
       }} className="Token-field" key={key}
                              onClick={this.props.clickField.bind(this, this.state.confirmedBets[i].field)}>{this.state.confirmedBets[i].amount}</div>)];
     }

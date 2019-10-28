@@ -4,7 +4,7 @@
   background: #1C7022;
   display: table;
   position: relative;
-    border-radius: 25px;
+    border-radius: 10px;
     border: 4px solid #0d051f;
     box-shadow: #0000008f 0px 9px 20px 0px;
 }
@@ -35,7 +35,7 @@
   text-align: center;
   /* margin-left: -0.55rem; */
   display: inline-block;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: bold;
   /* margin-top: -1rem;*/
 }
