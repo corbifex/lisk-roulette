@@ -2,7 +2,9 @@
   
   width: 100%;
 }
-
+`.Account-view-container {
+	
+}
 .Tab-container {
   min-height: 50vh;
   overflow-y: scroll !important;

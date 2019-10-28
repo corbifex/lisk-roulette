@@ -186,6 +186,8 @@ export class TransactionTableComponent extends React.Component {
   }
 }
 
+
+
 export const TransactionTable = props => (
   <SocketContext.Consumer>
     {socket => <TransactionTableComponent {...props} socket={socket}/>}

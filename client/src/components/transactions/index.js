@@ -6,6 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { TransactionTable } from './table';
+import { TopListComponent } from './toplist';
 import './transactions.css';
 
 export class Transactions extends React.Component {
@@ -51,11 +52,15 @@ export class Transactions extends React.Component {
     if (this.props.login) {
       return [
         (<Tab key="tab1" label="All bets" {...Transactions.a11yProps(0)} />),
-        (<Tab key="tab2" label="My bets" {...Transactions.a11yProps(1)} />)
+        (<Tab key="tab2" label="My bets" {...Transactions.a11yProps(1)} />),
+        (<Tab key="tab3 " label="Top list" {...Transactions.a11yProps(2)} />)
+        
       ];
     }
-    return (<Tab label="All bets" {...Transactions.a11yProps(0)} />);
-  }
+    return [
+    (<Tab key="tab1" label="All bets" {...Transactions.a11yProps(0)} />),
+    (<Tab key="tab2 " label="Top list" {...Transactions.a11yProps(1)} />)
+  ];}
 
   getViews() {
     if (this.props.login) {
@@ -67,13 +72,22 @@ export class Transactions extends React.Component {
       (<this.TabPanel key="panel2" value={this.state.value} index={1}>
           <TransactionTable view={this.props.view.bind(this)} login={this.props.login}
                             private={this.props.account.address}/>
+        </this.TabPanel>),
+           (<this.TabPanel key="panel3" value={this.state.value} index={2}>
+          <TopListComponent view={this.props.view.bind(this)} login={this.props.login}
+                            private={this.props.account.address}/>
         </this.TabPanel>)
       ];
     }
-    return (<this.TabPanel key="panel1" value={this.state.value} index={0}>
+    return [
+    (<this.TabPanel key="panel1" value={this.state.value} index={0}>
       <TransactionTable view={this.props.view.bind(this)}/>
-    </this.TabPanel>);
-  }
+    </this.TabPanel>),
+      (<this.TabPanel key="panel3" value={this.state.value} index={1}>
+          <TopListComponent view={this.props.view.bind(this)} login={this.props.login}
+                            private={this.props.account.address}/>
+        </this.TabPanel>)
+  ];}
 
   render() {
     return (
