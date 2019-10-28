@@ -67,19 +67,12 @@ export class Transactions extends React.Component {
         (<this.TabPanel key="panel2" value={this.state.value} index={1}>
           <TransactionTable view={this.props.view.bind(this)} login={this.props.login}
                             private={this.props.account.address}/>
-        </this.TabPanel>),
-      (<this.TabPanel key="panel3" value={this.state.value} index={1}>
-          <TransactionTable view={this.props.view.bind(this)} login={this.props.login}
-                            private={this.props.account.address}/>
         </this.TabPanel>)
       ];
     }
     return [(<this.TabPanel key="panel1" value={this.state.value} index={0}>
       <TransactionTable view={this.props.view.bind(this)}/>
-    </this.TabPanel>),
-      (<this.TabPanel key="panel2" value={this.state.value} index={0}>
-        <TransactionTable view={this.props.view.bind(this)}/>
-      </this.TabPanel>)];
+    </this.TabPanel>)];
   }
 
   render() {
