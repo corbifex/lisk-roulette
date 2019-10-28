@@ -8,7 +8,7 @@
   height: 60vh;
   min-height: 360px;
   padding: 3rem;
-  border-radius: 10px;
+  border-radius: 10px!important;
   margin: auto;
   margin-top: 2vh;
 }

@@ -54,6 +54,34 @@ background-size: 1800% 1800%;
     100%{background-position:0% 82%}
 }
 
+.Token-field-tx {
+  background: url(../../assets/images/chip.png);
+  vertical-align: top;
+  background-repeat: no-repeat;
+  display: inline-block;
+  text-align: center;
+  /*margin: auto;*/
+  width: 30px;
+  height: 30px;
+  /* margin: 1px 1px 6px 1px; */
+  opacity: 1;
+  font-size: 8px !important;
+  line-height: 30px !important;
+  background-size: 30px 30px !important;
+  cursor: crosshair;
+}
+
+.Token-field-tx {
+  line-height: 30px;
+  position: relative;
+  color: black;
+  text-align: center;
+  /* margin-left: -0.55rem; */
+  display: inline-block;
+  font-size: 10px;
+  font-weight: bold;
+  /* margin-top: -1rem;*/
+}
 
 .Field-container-tx {
   margin: auto;
