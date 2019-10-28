@@ -1,12 +1,20 @@
 .Token {
-  max-height: 50px;
-  margin: 10px 20px 0 0;
+ max-height: 2rem;
+    margin: 0.3rem;
+}
+
+.Token:hover {
+  cursor: pointer;
+   box-shadow: #0e052459 0 0 8px 6px;
+    border-radius: 50%;
+    
 }
 
 .Selected {
-  box-shadow: #0071df 0 0 20px 0px;
+  box-shadow: #0e052459 0 0 8px 6px;
   border-radius: 50%;
-  transition: all 0.2s;
+  opacity: 1!important;
+
 }
 
 .Token-container {
@@ -15,4 +23,48 @@
   margin: auto;
   display: block;
   margin-left: 1em;
+      vertical-align: top;
+}
+
+.Token-div {
+      background: url(../../assets/images/chip1.png);
+          vertical-align: top;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 35px;
+    width: 35px;
+    display: inline-block;
+    text-align: center;
+    margin: auto;
+    width: 40px;
+    height: 40px;
+    /* margin: 1px 1px 6px 1px; */
+    opacity: 0.60;
+    font-size: 8px!important;
+    line-height: 40px!important;
+    background-size: 40px 40px!important;
+    margin-bottom: -1rem;
+
+}
+.Token-div:hover {
+  opacity: 1;
+    cursor: pointer;
+   box-shadow: #0e052459 0 0 8px 6px;
+    border-radius: 50%;
+    transition: all 0.2s;
+
+}
+.Token-number {
+  font-size: 8px;
+    line-height: 40px;
+    position: relative;
+    color: black;
+    font-weight: 400;
+    font-size: 12px;
+    text-align: center;
+    /* margin-left: -0.55rem; */
+    display: inline-block;
+    font-size: 10px;
+    font-weight: bold;
+    /* margin-top: -1rem;*/
 }
