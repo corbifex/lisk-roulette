@@ -22,5 +22,11 @@
     "rootDir": "./",
     "outDir": "./dist"
   },
-  "include": ["./**/*", "./config/**/*.ts", "./config/**/*.json"]
+  "include": [
+    "./**/*",
+    "./config/**/*.ts",
+    "./config/**/*.json",
+    "./modules/roulette/components/storage/sql/**/*.sql",
+    "./modules/roulette/migrations/sql/*.sql"
+  ]
 }
