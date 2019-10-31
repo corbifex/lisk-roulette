@@ -5,6 +5,9 @@
   "main": "index.ts",
   "scripts": {
     "build": "tsc",
+    "postbuild": "npm run movemigrations & npm run movecomponents",
+    "movemigrations": "./node_modules/cpx/bin/index.js './modules/roulette/migrations/**/*.sql' ./dist/modules/roulette/migrations",
+    "movecomponents": "./node_modules/cpx/bin/index.js './modules/roulette/components/storage/**/*.sql' ./dist/modules/roulette/components/storage",
     "start": "ts-node index.ts"
   },
   "author": "Moosty",
@@ -12,6 +15,7 @@
   "dependencies": {
     "@types/socket.io": "^2.1.4",
     "chi-squared-test": "^1.1.0",
+    "cpx": "^1.5.0",
     "lisk-sdk": "^2.3.6",
     "lodash": "^4.17.15",
     "prando": "^5.1.1",
