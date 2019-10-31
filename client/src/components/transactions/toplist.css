@@ -1,19 +1,31 @@
+h2 {
+  background-color: #ff6035;
+    padding: 1rem;
+    border-radius: 5px 5px 0px 0px;
+    font-weight: bold;
+    font-size: 18px;
+
+}
+
 .TopList-container {
   display: flex;
   justify-content: space-around;
   align-content: space-evenly;
+  margin-top: 2rem;
 }
 
 .TopAccounts {
-  width: 260px;
+  width: 22%;
 }
 
+
+
 .MostWon {
-  width: 450px;
+  width: 23%;
 }
 
 .MostBets {
-  width: 260px;
+  width: 23%;
 }
 
 .Stats {
@@ -23,6 +35,7 @@
 .TopList-table {
   display: table;
   margin: 0 auto;
+  width: 100%;
 }
 
 .View-button {
