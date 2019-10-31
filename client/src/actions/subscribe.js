@@ -14,3 +14,11 @@ export function subscribeToPeerBets(socket, cb) {
   socket.on('peerBets', bet => cb(null, bet));
 }
 
+export function subscribeToTopList(socket, cb) {
+  socket.on('topList', lists => cb(null, lists));
+}
+
+export function subscribeToStats(socket, cb) {
+  socket.on('stats_all', stats => cb(null, stats));
+}
+

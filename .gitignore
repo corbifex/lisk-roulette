@@ -53,3 +53,4 @@ helm/**/charts/*tgz
 
 # Build Directory
 dist
+config.json

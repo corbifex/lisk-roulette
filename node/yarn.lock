@@ -115,6 +115,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.11.2.tgz#873d2c3f3824212cc16130074699e1bcb38c0231"
   integrity sha512-iEaHiDNkHv4Jrm9O5T37OYEUwjJesiyt6ZlhLFK0sbo4CLD0jyCOB4Pc2F9iD3MbW2397SLNxZKdDGntGaBjQQ==
 
+"@types/node@^12.12.0":
+  version "12.12.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.0.tgz#ff3201972d6dc851a9275308a17b9b5094e68057"
+  integrity sha512-6N8Sa5AaENRtJnpKXZgvc119PKxT1Lk9VPy4kfT8JF23tIe1qDfaGkBR2DRKJFIA7NptMz+fps//C6aLi1Uoug==
+
 "@types/semver@5.5.0":
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/@types/semver/-/semver-5.5.0.tgz#146c2a29ee7d3bae4bf2fcb274636e264c813c45"
@@ -507,6 +512,20 @@ chance@~1.0.1:
   version "1.0.18"
   resolved "https://registry.yarnpkg.com/chance/-/chance-1.0.18.tgz#79788fe6fca4c338bf404321c347eecc80f969ee"
   integrity sha512-g9YLQVHVZS/3F+zIicfB58vjcxopvYQRp7xHzvyDFDhXH1aRZI/JhwSAO0X5qYiQluoGnaNAU6wByD2KTxJN1A==
+
+chi-squared-test@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/chi-squared-test/-/chi-squared-test-1.1.0.tgz#7c00240c6071a6178c42551670fedff3e7bbe442"
+  integrity sha1-fAAkDGBxpheMQlUWcP7f8+e75EI=
+  dependencies:
+    chi-squared "^1.1.0"
+
+chi-squared@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/chi-squared/-/chi-squared-1.1.0.tgz#892865cffa8e0a720f921bfc9c635c19ac2a346d"
+  integrity sha1-iShlz/qOCnIPkhv8nGNcGawqNG0=
+  dependencies:
+    gamma "^1.0.0"
 
 cli-color@1.3.0:
   version "1.3.0"
@@ -1256,6 +1275,11 @@ function-bind@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
   integrity sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==
+
+gamma@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/gamma/-/gamma-1.0.0.tgz#983c1c939fe23d932701585711e1d9a430cb74cb"
+  integrity sha1-mDwck5/iPZMnAVhXEeHZpDDLdMs=
 
 get-caller-file@^2.0.1:
   version "2.0.5"

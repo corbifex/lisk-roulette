@@ -92,25 +92,31 @@ export class TableComponent extends React.Component {
   }
 
   clickField(field) {
-    if (!this.state.watch && this.props.loggedIn && this.props.account.balance.gte(this.state.totalBet + this.state.amountSelected) && this.state.totalBetConfirmed === 0) {
-      this.betChip();
-      let fieldState = _.find(this.state.unconfirmedBets, {field: field});
-      if (fieldState) {
-        fieldState.amount = fieldState.amount + this.state.amountSelected;
-      } else {
-        fieldState = {field: field, amount: this.state.amountSelected};
+    let amountSelected = new BigNum(this.state.amountSelected);
+    if (this.props.account.balance.minus(this.state.totalBet).gt(0)) {
+      if (this.props.account.balance.minus(this.state.totalBet).lt(this.state.amountSelected)) {
+        amountSelected = this.props.account.balance.minus(this.state.totalBet);
       }
+      if (!this.state.watch && this.props.loggedIn && this.props.account.balance.gte(new BigNum(this.state.totalBet).plus(amountSelected)) && this.state.totalBetConfirmed === 0) {
+        this.betChip();
+        let fieldState = _.find(this.state.unconfirmedBets, {field: field});
+        if (fieldState) {
+          fieldState.amount = new BigNum(fieldState.amount).plus(amountSelected).toNumber();
+        } else {
+          fieldState = {field: field, amount: amountSelected.toNumber()};
+        }
 
-      const updatedBets = [..._.filter(this.state.unconfirmedBets, function (o) {
-        return o.field !== field;
-      }), fieldState];
+        const updatedBets = [..._.filter(this.state.unconfirmedBets, function (o) {
+          return o.field !== field;
+        }), fieldState];
 
-      let totalBet = 0;
-      updatedBets.map(bet => {
-        totalBet += bet.amount;
-        return true;
-      });
-      this.setState({unconfirmedBets: updatedBets, totalBet: totalBet, state: -1});
+        let totalBet = 0;
+        updatedBets.map(bet => {
+          totalBet += bet.amount;
+          return true;
+        });
+        this.setState({unconfirmedBets: updatedBets, totalBet: totalBet, state: -1});
+      }
     }
   }
 

@@ -58,6 +58,45 @@ export default ({components}, socket) => {
         socket.emit(address, account[0]);
     });
 
+    socket.on('stats_personal', async (address) => {
+        const stats = await components.storage.entities.UserStats.get({address: address}, {limit: 1});
+        socket.emit(`stats_${address}`, stats[0]);
+    });
+
+    socket.on('stats_all', async () => {
+        const stats = await components.storage.entities.GlobalStats.get({type: 'all'}, {limit: 1});
+        socket.emit('stats_all', stats[0]);
+    });
+
+    socket.on('topList', async () => {
+        const topBalance = await components.storage.entities.Account.get({}, {limit: 15, sort: "balance:desc"});
+        let topBalanceFull: Array<any> = [];
+        for (let i = 0; i < topBalance.length; i++) {
+            if (topBalance[i].username !== 'moosty' && topBalance[i].username.substr(0, 8) !== 'genesis_') {
+                topBalanceFull.push({
+                    ...topBalance[i],
+                });
+            }
+        }
+        const topWin = await components.storage.entities.UserStats.get({}, {limit: 15, sort: "wins:desc"});
+        let topWinFull: Array<any> = [];
+        for (let i = 0; i < topWin.length; i++) {
+            topWinFull.push({
+                ...topWin[i],
+                username: (await components.storage.entities.Account.get({address: topWin[i].accountId}, {limit: 1}))[0].username
+            });
+        }
+        const topBets = await components.storage.entities.UserStats.get({}, {limit: 15, sort: "bets:desc"});
+        let topBetsFull: Array<any> = [];
+        for (let i = 0; i < topBets.length; i++) {
+            topBetsFull.push({
+                ...topBets[i],
+                username: (await components.storage.entities.Account.get({address: topBets[i].accountId}, {limit: 1}))[0].username
+            });
+        }
+        socket.emit('topList', {balance: topBalanceFull, win: topWinFull, bets: topBetsFull});
+    });
+
     socket.on('tx', async (id) => {
         const tx = await components.storage.entities.Transaction.get({id: id}, {limit: 1, extended: true});
         const block = await components.storage.entities.Block.get({id: tx[0].blockId}, {limit: 1});

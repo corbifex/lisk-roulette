@@ -11,12 +11,14 @@
   "license": "GPL-3.0",
   "dependencies": {
     "@types/socket.io": "^2.1.4",
+    "chi-squared-test": "^1.1.0",
     "lisk-sdk": "^2.3.6",
     "lodash": "^4.17.15",
     "prando": "^5.1.1",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
+    "@types/node": "^12.12.0",
     "typescript": "^3.6.4"
   }
 }

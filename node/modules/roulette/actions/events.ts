@@ -38,4 +38,38 @@ export default ({components, channel}, socket) => {
     channel.subscribe('roulette:update:balance', async event => {
         socket.emit(event.data.address, {balance: event.data.balance});
     });
+
+    channel.subscribe('roulette:update:stats_all', async () => {
+        const stats = await components.storage.entities.GlobalStats.get({type: 'all'}, {limit: 1});
+        socket.emit('stats_all', stats[0]);
+    });
+
+    channel.subscribe('roulette:update:topList', async () => {
+        const topBalance = await components.storage.entities.Account.get({}, {limit: 22, sort: "balance:desc"});
+        let topBalanceFull: Array<any> = [];
+        for (let i = 0; i < topBalance.length; i++) {
+            if (topBalance[i].username !== 'moosty' && topBalance[i].username.substr(0, 8) !== 'genesis_') {
+                topBalanceFull.push({
+                    ...topBalance[i],
+                });
+            }
+        }
+        const topWin = await components.storage.entities.UserStats.get({}, {limit: 15, sort: "wins:desc"});
+        let topWinFull: Array<any> = [];
+        for (let i = 0; i < topWin.length; i++) {
+            topWinFull.push({
+                ...topWin[i],
+                username: (await components.storage.entities.Account.get({address: topWin[i].accountId}, {limit: 1}))[0].username
+            });
+        }
+        const topBets = await components.storage.entities.UserStats.get({}, {limit: 15, sort: "bets:desc"});
+        let topBetsFull: Array<any> = [];
+        for (let i = 0; i < topBets.length; i++) {
+            topBetsFull.push({
+                ...topBets[i],
+                username: (await components.storage.entities.Account.get({address: topBets[i].accountId}, {limit: 1}))[0].username
+            });
+        }
+        socket.emit('topList', {balance: topBalanceFull, win: topWinFull, bets: topBetsFull});
+    });
 };

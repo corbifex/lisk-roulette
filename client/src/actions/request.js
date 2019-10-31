@@ -27,6 +27,14 @@ export function requestTx(id, socket, cb) {
   socket.emit('tx', id);
 }
 
+export function requestTopList(socket) {
+  socket.emit('topList');
+}
+
+export function requestStats(socket) {
+  socket.emit('stats_all');
+}
+
 export function hasUsername(username, socket, cb) {
   socket.on(username, tx => cb(null, tx));
   socket.emit('username', username);

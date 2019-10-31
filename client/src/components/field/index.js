@@ -72,7 +72,7 @@ export class FieldComponent extends React.Component {
     if (nextProps.userBets && nextProps.userBets.length > 0) {
       let userBets = [];
       for (let i = 0; i < nextProps.userBets.length; i++) {
-        const index = this.state.fields.indexOf(nextProps.userBets[i].field);
+        const index = nextProps.userBets[i].field;
         const rect = this.selector[index].current.getBoundingClientRect();
         const x = this.selector[index].current.offsetLeft + (rect.width / (rect.width > 110 ? 1.7 : 1.05));
         const y = this.selector[index].current.offsetTop + (rect.height / (rect.height > 100 ? 1.5 : 0.95));
@@ -159,7 +159,7 @@ export class FieldComponent extends React.Component {
       classname += " disabled";
     }
 
-      return classname;
+    return classname;
   }
 
   renderUserBets() {
@@ -196,8 +196,7 @@ export class FieldComponent extends React.Component {
         cursor: "crosshair",
         filter: "greyscale(0.5) blur(0) contrast(5)",
 
-      }} className="Token-field" key={key}
-                             onClick={this.props.clickField.bind(this, this.state.confirmedBets[i].field)}>{this.state.confirmedBets[i].amount}</div>)];
+      }} className="Token-field" key={key}>{this.state.confirmedBets[i].amount}</div>)];
     }
     return bets;
   }
@@ -284,7 +283,7 @@ export class FieldComponent extends React.Component {
               onMouseOver={this.mouseOver.bind(this, 36)}><span> 36 </span></td>
             <td
               ref={this.selector[37]}
-              onClick={this.props.clickField.bind(this, 'row1')}
+              onClick={this.props.clickField.bind(this, this.state.fields.indexOf('row1'))}
               className={this.getClass('row1', 'sector')}
               onMouseOver={this.mouseOver.bind(this, 'row1')}>
               <span className="vt"> 2 to 1 </span>
@@ -316,7 +315,7 @@ export class FieldComponent extends React.Component {
                 onMouseOver={this.mouseOver.bind(this, 32)}><span>32</span></td>
             <td ref={this.selector[35]} onClick={this.props.clickField.bind(this, 35)} className={this.getClass(35)}
                 onMouseOver={this.mouseOver.bind(this, 35)}><span>35</span></td>
-            <td ref={this.selector[38]} onClick={this.props.clickField.bind(this, 'row2')}
+            <td ref={this.selector[38]} onClick={this.props.clickField.bind(this, this.state.fields.indexOf('row2'))}
                 className={this.getClass('row2', 'sector')}
                 onMouseOver={this.mouseOver.bind(this, 'row2')}><span
               className="vt">2 to 1</span></td>
@@ -389,21 +388,24 @@ export class FieldComponent extends React.Component {
               onMouseOver={this.mouseOver.bind(this, 34)}><span> 34 </span></td>
             <td
               ref={this.selector[39]}
-              onClick={this.props.clickField.bind(this, 'row3')}
+              onClick={this.props.clickField.bind(this, this.state.fields.indexOf('row3'))}
               className={this.getClass('row3', 'sector')}
               onMouseOver={this.mouseOver.bind(this, 'row3')}><span className="vt">2 to 1</span></td>
           </tr>
           <tr>
             <td className="empty"/>
-            <td ref={this.selector[40]} onClick={this.props.clickField.bind(this, 'first')} colSpan="4"
+            <td ref={this.selector[40]} onClick={this.props.clickField.bind(this, this.state.fields.indexOf('first'))}
+                colSpan="4"
                 className={this.getClass('first', 'sector')}
                 onMouseOver={this.mouseOver.bind(this, 'first')}>1st 12
             </td>
-            <td ref={this.selector[41]} onClick={this.props.clickField.bind(this, 'second')} colSpan="4"
+            <td ref={this.selector[41]} onClick={this.props.clickField.bind(this, this.state.fields.indexOf('second'))}
+                colSpan="4"
                 className={this.getClass('second', 'sector')}
                 onMouseOver={this.mouseOver.bind(this, 'second')}>2nd 12
             </td>
-            <td ref={this.selector[42]} onClick={this.props.clickField.bind(this, 'third')} colSpan="4"
+            <td ref={this.selector[42]} onClick={this.props.clickField.bind(this, this.state.fields.indexOf('third'))}
+                colSpan="4"
                 className={this.getClass('third', 'sector')}
                 onMouseOver={this.mouseOver.bind(this, 'third')}>3rd 12
             </td>
@@ -419,34 +421,36 @@ export class FieldComponent extends React.Component {
             </td>
             <td
               ref={this.selector[43]}
-              onClick={this.props.clickField.bind(this, 'half1')}
+              onClick={this.props.clickField.bind(this, this.state.fields.indexOf('half1'))}
               colSpan="2"
               className={this.getClass('half1', 'sector')}
               onMouseOver={this.mouseOver.bind(this, 'half1')}> 1 to 18
             </td>
-            <td ref={this.selector[44]} onClick={this.props.clickField.bind(this, 'even')} colSpan="2"
+            <td ref={this.selector[44]} onClick={this.props.clickField.bind(this, this.state.fields.indexOf('even'))}
+                colSpan="2"
                 className={this.getClass('even', 'sector')}
                 onMouseOver={this.mouseOver.bind(this, 'even')}>EVEN
             </td>
             <td
               ref={this.selector[45]}
-              onClick={this.props.clickField.bind(this, 'red')}
+              onClick={this.props.clickField.bind(this, this.state.fields.indexOf('red'))}
               colSpan="2"
               className={this.getClass('red', 'sector')}
               onMouseOver={this.mouseOver.bind(this, 'red')}> RED
             </td>
-            <td ref={this.selector[46]} onClick={this.props.clickField.bind(this, 'black')} colSpan="2"
+            <td ref={this.selector[46]} onClick={this.props.clickField.bind(this, this.state.fields.indexOf('black'))}
+                colSpan="2"
                 className={this.getClass('black', 'sector')}
                 onMouseOver={this.mouseOver.bind(this, 'black')}>BLACK
             </td>
             <td
               ref={this.selector[47]}
-              onClick={this.props.clickField.bind(this, 'odd')}
+              onClick={this.props.clickField.bind(this, this.state.fields.indexOf('odd'))}
               colSpan="2"
               className={this.getClass('odd', 'sector')}
               onMouseOver={this.mouseOver.bind(this, 'odd')}> ODD
             </td>
-            <td ref={this.selector[48]} onClick={this.props.clickField.bind(this, 'half2')}
+            <td ref={this.selector[48]} onClick={this.props.clickField.bind(this, this.state.fields.indexOf('half2'))}
                 colSpan="2"
                 className={this.getClass('half2', 'sector')}
                 onMouseOver={this.mouseOver.bind(this, 'half2')}>19 to 36
@@ -461,7 +465,8 @@ export class FieldComponent extends React.Component {
           </tbody>
         </table>
         {this.props.loggedIn &&
-        <Tokens setAmount={this.props.setAmount.bind(this)} balance={this.props.account.balance} bet={this.state.userBets}
+        <Tokens setAmount={this.props.setAmount.bind(this)} balance={this.props.account.balance}
+                bet={this.state.userBets}
         />}
         {this.props.loggedIn &&
         <Zoom zoom={this.props.zoom.bind(this)}/>}

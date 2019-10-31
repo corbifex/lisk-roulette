@@ -1,0 +1,119 @@
+.TopList-container {
+  display: flex;
+  justify-content: space-around;
+  align-content: space-evenly;
+}
+
+.TopAccounts {
+  width: 260px;
+}
+
+.MostWon {
+  width: 450px;
+}
+
+.MostBets {
+  width: 260px;
+}
+
+.Stats {
+  width: 350px;
+}
+
+.TopList-table {
+  display: table;
+  margin: 0 auto;
+}
+
+.View-button {
+  cursor: zoom-in;
+}
+
+.View-icon {
+  cursor: zoom-in;
+  color: white;
+}
+
+.TTL-row {
+  display: table-row;
+  line-height: 1.5em;
+}
+
+.TTL-head {
+  display: table-header-group;
+  font-size: 18px;
+  font-weight: bolder;
+  line-height: 2.5em;
+}
+
+.TTLH-column, .TTL-column {
+  display: table-cell;
+  text-align: left;
+  width: 230px;
+  padding: 10px 10px;
+  border-bottom: #000000 solid 1px;
+}
+
+.TTL-body {
+  display: table-row-group;
+}
+
+.red-label {
+  padding: 0.6rem;
+  border-radius: 5px;
+  background-color: red;
+  /* width: 1000rem!important; */
+  height: 1rem;
+  width: 1rem;
+  line-height: 1rem;
+  display: block;
+  margin: auto;
+}
+.black-label {
+  padding: 0.6rem;
+  border-radius: 5px;
+
+  /* width: 1000rem!important; */
+  height: 1rem;
+  width: 1rem;
+  line-height: 1rem;
+  display: block;
+  margin: auto;
+  background-color: black;
+}
+.green-label {
+  padding: 0.6rem;
+  border-radius: 5px;
+
+  /* width: 1000rem!important; */
+  height: 1rem;
+  width: 1rem;
+  line-height: 1rem;
+  display: block;
+  margin: auto;
+  background-color: green;
+}
+
+.TTLH-column:first-child, .TTLH-column:last-child, .TTL-column:first-child, .TTL-column:last-child {
+  padding: 10px 25px;
+}
+
+.TTL-body .TTL-row:nth-child(even) {
+  background-color: rgba(0,0,0,.5);
+}
+
+.TTL-row:nth-child(odd) {
+  background-color: rgba(100,100,100,.5);
+}
+
+.head {
+  background-color: rgba(0,0,0,.5) !important;
+}
+
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
+}

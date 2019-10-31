@@ -23,19 +23,19 @@ export class LoginComponent extends React.Component {
       publicKey: address.publicKey,
       address: address.address,
       passphrase: passphrase,
-      tokenText: "Get Tokens",
-      countingChips: new Audio(countingChips),
+      tokenText: "Get Chips",
     };
-    this.state.countingChips.volume = 0.4;
   }
+
+  countingChips = new Audio(countingChips);
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.loggedIn && this.props.account.balance.eq(-1)) {
-      this.countingChips();
+      this.countingChipsPlay();
     }
 
     if (this.props.account.balance.gte(10)) {
-      this.state.countingChips.pause();
+      this.countingChips.pause();
     }
 
     if (!prevProps.drawer && this.props.drawer) {
@@ -89,20 +89,22 @@ export class LoginComponent extends React.Component {
 
   getTokens() {
     this.props.requestTokens();
-    this.countingChips();
-    if (this.state.tokenText === "Get Tokens") {
+    this.countingChipsPlay();
+    if (this.state.tokenText === "Get Chips") {
       this.setState({tokenText: "Counting your bucks!"});
     } else {
       this.setState({tokenText: "I'm counting chill!!"});
     }
     setTimeout(() => {
-      this.setState({tokenText: "Get Tokens"});
-    }, 10000);
+      this.setState({tokenText: "Get Chips"});
+    }, 17000);
   }
 
-  countingChips() {
-    this.state.countingChips.pause();
-    this.state.countingChips.play();
+  countingChipsPlay() {
+    this.countingChips.volume = 0.4;
+    this.countingChips.pause();
+    this.countingChips.currentTime = 0;
+    this.countingChips.play();
   }
 
   render() {
@@ -158,7 +160,7 @@ export class LoginComponent extends React.Component {
                 pattern="[A-Za-z]{20}"
                 onChange={(input) => this.updateUsername(input.target.value)}
               /><br/>
-              <Button disabled={this.state.duplicate} variant="contained" color="primary" onClick={this.login.bind(this)}>
+              <Button disabled={this.state.duplicate || !this.state.username} variant="contained" color="primary" onClick={this.login.bind(this)}>
                 Login
               </Button>
             </div>

@@ -1,6 +1,8 @@
 import { createLoggerComponent } from 'lisk-framework/src/components/logger';
 import { createStorageComponent } from 'lisk-framework/src/components/storage';
 import { Account } from 'lisk-framework/src/modules/chain/components/storage/entities';
+import { BetsEntity, GlobalStatsEntity, UserBetsEntity } from './components/storage/entities';
+import { StatsController } from "./controllers/stats";
 import runRoulette from './actions/run_roulette';
 import subscribeRequests from './actions/requests';
 import subscribeEvents from './actions/events';
@@ -50,10 +52,18 @@ export class Roulette {
         storage.registerEntity('Account', Account, {
             replaceExisting: true,
         });
+        storage.registerEntity('Bets', BetsEntity);
+        storage.registerEntity('GlobalStats', GlobalStatsEntity);
+        storage.registerEntity('UserStats', UserBetsEntity);
         const status = await storage.bootstrap();
         if (!status) {
             throw new Error('Cannot bootstrap the storage component');
         }
+
+        const statsController = new StatsController(storage, this.channel);
+        // StatController.chiSquareTest();
+        statsController.syncStats();
+
         const applicationState = await this.channel.invoke(
             'app:getApplicationState',
         );
@@ -63,6 +73,9 @@ export class Roulette {
             components: {
                 logger: this.logger,
                 storage,
+            },
+            controllers: {
+              stats: statsController
             },
             channel: this.channel,
             applicationState,
