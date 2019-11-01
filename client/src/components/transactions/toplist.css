@@ -1,4 +1,4 @@
-h2 {
+.TopAccounts h2, .MostWon h2, .MostBets h2, .Stats h2 {
   background-color: #ff6035;
     padding: 1rem;
     border-radius: 5px 5px 0px 0px;
