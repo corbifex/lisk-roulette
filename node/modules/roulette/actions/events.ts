@@ -24,7 +24,7 @@ export default ({components, channel}, socket) => {
     channel.subscribe('chain:blocks:change', async event => {
         const lastBlock = await components.storage.entities.Block.get(
             {id: event.data.id}, {extended: true, limit: 1});
-        if (lastBlock[0].numberOfTransactions > 0) {
+        if (lastBlock && lastBlock.length > 0 && lastBlock[0].numberOfTransactions > 0) {
             let transactions: any = [];
             for (let i = 0; i < lastBlock[0].numberOfTransactions; i++) {
                 const user = await components.storage.entities.Account.get(
