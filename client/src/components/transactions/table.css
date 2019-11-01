@@ -94,3 +94,10 @@
 .center {
   text-align: center;
 }
+.MuiTab-textColorPrimary.Mui-selected {
+    color: #ff6035!important;
+}
+
+.MuiTab-textColorPrimary {
+    color: rgb(39, 17, 90);
+}
