@@ -34,18 +34,20 @@ export class StatsController {
                         sort: 'timestamp:asc',
                         limit: 1
                     });
-                    await this.storage.entities.UserStats.create(users[nUser].address, firstTx[0].timestamp);
-                    currentStats = [
-                        {
-                            accountId: users[nUser].address,
-                            bets: 0,
-                            wins: 0,
-                            payout: 0,
-                            wagered: 0,
-                            lastTx: 0,
-                            registered: firstTx[0].timestamp,
-                        }
-                    ]
+                    if (firstTx && firstTx.length > 0 && firstTx[0].timestamp) {
+                        await this.storage.entities.UserStats.create(users[nUser].address, firstTx[0].timestamp);
+                        currentStats = [
+                            {
+                                accountId: users[nUser].address,
+                                bets: 0,
+                                wins: 0,
+                                payout: 0,
+                                wagered: 0,
+                                lastTx: 0,
+                                registered: firstTx[0].timestamp,
+                            }
+                        ];
+                    }
                 }
                 if (currentStats[0] && currentStats[0].lastTx) {
                     lastTx = currentStats[0].lastTx;
