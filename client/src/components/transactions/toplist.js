@@ -144,8 +144,16 @@ export class TopListComponent extends React.Component {
                 <div className="TTL-column">Payout</div>
                 <div className="TTL-column">{this.state.stats.payout}</div>
               </div>
+             
+          
+              
             </div>
+
           </div>
+           <div  className="socialBtn discord">Join Moosty discord</div>
+            <div  className="socialBtn discord">Join Lisk discord</div>
+           <div  className="socialBtn twitter">Follow Moosty on Twitter</div>
+            <div  className="socialBtn github">Checkout Github</div>
         </div>
       </div>
     );

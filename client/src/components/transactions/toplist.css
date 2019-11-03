@@ -130,3 +130,25 @@
 .center {
   text-align: center;
 }
+
+.socialBtn {
+  margin-top: 1rem;
+    padding: 0.5rem;
+    font-weight:bold;
+}
+
+.socialBtn:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 1s;
+}
+
+.twitter {
+  background-color: rgb(29, 161, 242);
+}
+.github {
+  background-color: #24292e;
+}
+.discord {
+  background-color: #9c9cdd;
+}
