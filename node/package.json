@@ -17,7 +17,7 @@
     "chi-squared-test": "^1.1.0",
     "cpx": "^1.5.0",
     "lisk-sdk": "^2.3.6",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "prando": "^5.1.1",
     "socket.io": "^2.3.0"
   },
