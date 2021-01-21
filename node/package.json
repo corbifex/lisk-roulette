@@ -19,7 +19,7 @@
     "lisk-sdk": "^2.3.6",
     "lodash": "^4.17.15",
     "prando": "^5.1.1",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.4.0"
   },
   "devDependencies": {
     "@types/node": "^12.12.0",
